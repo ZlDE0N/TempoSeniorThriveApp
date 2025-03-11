@@ -4,7 +4,16 @@
 
   @layer base {
     :root {
-      --background: 0 0% 100%;
+      /* Colors from document */
+      --background: #F4EDE4;
+      --body: #333333;
+      --heading: #1D3D5D;
+      --secondary: #7D7D7D;
+      --link: #2d5F7A;
+      --visited: #5D7747;
+      --hover: #1A4D6E;
+      /* */
+
       --foreground: 222.2 84% 4.9%;
 
       --card: 0 0% 100%;
@@ -16,7 +25,6 @@
       --primary: 222.2 47.4% 11.2%;
       --primary-foreground: 210 40% 98%;
 
-      --secondary: 210 40% 96.1%;
       --secondary-foreground: 222.2 47.4% 11.2%;
 
       --muted: 210 40% 96.1%;
