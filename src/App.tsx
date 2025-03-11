@@ -2,8 +2,12 @@ import { Suspense } from "react";
 import { useRoutes, Routes, Route } from "react-router-dom";
 import Home from "./components/home";
 import routes from "tempo-routes";
+import OnboardingRoutes from "./components/onboarding/OnboardingRoutes";
 
 function App() {
+  const tempoRoutes =
+    import.meta.env.VITE_TEMPO === "true" ? useRoutes(routes) : null;
+
   return (
     <Suspense
       fallback={
@@ -17,11 +21,12 @@ function App() {
       <>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/onboarding/*" element={<OnboardingRoutes />} />
           {import.meta.env.VITE_TEMPO === "true" && (
             <Route path="/tempobook/*" />
           )}
         </Routes>
-        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
+        {tempoRoutes}
       </>
     </Suspense>
   );

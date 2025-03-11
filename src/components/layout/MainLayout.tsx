@@ -1,11 +1,12 @@
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
+  const navigate = useNavigate();
   return (
     <div className="flex min-h-screen bg-slate-50">
       {/* Sidebar */}
@@ -141,7 +142,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 <p className="text-base font-medium text-slate-700">
                   Margaret Wilson
                 </p>
-                <button className="text-sm font-medium text-blue-600 hover:text-blue-500">
+                <button
+                  onClick={() => navigate("/onboarding")}
+                  className="text-sm font-medium text-blue-600 hover:text-blue-500"
+                >
                   View profile
                 </button>
               </div>
