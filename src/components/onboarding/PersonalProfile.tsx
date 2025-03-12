@@ -1,20 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import OnboardingLayout from "./OnboardingLayout";
 
 export default function PersonalProfile() {
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   return (
     <OnboardingLayout showBackButton={true} backPath="/onboarding/process">
       <div className="container mx-auto px-4 py-12 max-w-2xl">
         {/* Progress Bar */}
         <div className="w-full bg-slate-100 rounded-full h-2 mb-8">
           <div
-            className="bg-blue-500 h-2 rounded-full"
-            style={{ width: "5%" }}
+            className="bg-st_light_blue h-2 rounded-full"
+            style={{ width: `${0}%` }}
           ></div>
         </div>
 

@@ -1,9 +1,14 @@
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import OnboardingLayout from "./OnboardingLayout";
 
 export default function ExpectationScreen() {
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []); // Empty dependency array ensures it runs only on mount
   return (
     <OnboardingLayout showBackButton={true} backPath="/onboarding">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
@@ -20,7 +25,9 @@ export default function ExpectationScreen() {
           <div className="relative z-10 flex items-center mb-16">
             <div className="w-1/2 pr-8 text-right">
               <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                Quick Profile (2 min)
+                Quick Profile 
+                <br/>
+                (2 min)
               </h3>
               <p className="text-slate-600 mb-2">
                 Simple questions to understand your unique needs
@@ -31,7 +38,7 @@ export default function ExpectationScreen() {
                 <li>• Vision & health considerations</li>
               </ul>
             </div>
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center border-4 border-white shadow-md">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-st_light_blue flex items-center justify-center border-4 border-white shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -53,7 +60,7 @@ export default function ExpectationScreen() {
           {/* Step 2 */}
           <div className="relative z-10 flex items-center mb-16">
             <div className="w-1/2 pr-8"></div>
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center border-4 border-white shadow-md">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-st_light_blue flex items-center justify-center border-4 border-white shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -78,7 +85,9 @@ export default function ExpectationScreen() {
             </div>
             <div className="w-1/2 pl-8">
               <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                Daily Living (3 min)
+                Daily Living 
+                <br/>
+                (3 min)
               </h3>
               <p className="text-slate-600 mb-2">
                 Understanding your natural rhythms
@@ -96,7 +105,9 @@ export default function ExpectationScreen() {
           <div className="relative z-10 flex items-center mb-16">
             <div className="w-1/2 pr-8 text-right">
               <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                Room Review (2 min)
+                Room Review 
+                <br/>
+                (2 min)
               </h3>
               <p className="text-slate-600 mb-2">A fresh look at your space</p>
               <ul className="text-sm text-slate-500 space-y-1">
@@ -105,7 +116,7 @@ export default function ExpectationScreen() {
                 <li>• Spot simple opportunities</li>
               </ul>
             </div>
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center border-4 border-white shadow-md">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-st_light_blue flex items-center justify-center border-4 border-white shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -145,7 +156,9 @@ export default function ExpectationScreen() {
             </div>
             <div className="w-1/2 pl-8">
               <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                Your Result: Personal ThriveScore™
+                Your Result: 
+                <br/>
+                Personal <span className="text-st_light_orange">ThriveScore™</span>
               </h3>
               <ul className="text-sm text-slate-500 space-y-1">
                 <li>• Safety enhancement opportunities</li>
@@ -159,32 +172,32 @@ export default function ExpectationScreen() {
         </div>
 
         {/* Progress Preview */}
-        <div className="bg-white rounded-xl shadow-md p-6 mb-10">
+        <div className="bg-white rounded-xl surrounding-shadow p-6 mb-10">
           <h3 className="font-semibold text-slate-700 mb-4 text-center">
             Your Journey
           </h3>
           <div className="flex items-center justify-between max-w-md mx-auto">
             <div className="flex flex-col items-center">
-              <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">
+              <div className="w-8 h-8 rounded-full bg-st_light_blue flex items-center justify-center text-white font-medium">
                 1
               </div>
               <span className="text-sm mt-2">Profile</span>
             </div>
-            <div className="flex-1 h-1 bg-blue-100"></div>
+            <div className="flex-1 h-1 -translate-y-3 bg-blue-100"></div>
             <div className="flex flex-col items-center">
               <div className="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center text-blue-800 font-medium">
                 2
               </div>
               <span className="text-sm mt-2">Living</span>
             </div>
-            <div className="flex-1 h-1 bg-blue-100"></div>
+            <div className="flex-1 h-1 -translate-y-3 bg-blue-100"></div>
             <div className="flex flex-col items-center">
               <div className="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center text-blue-800 font-medium">
                 3
               </div>
               <span className="text-sm mt-2">Room</span>
             </div>
-            <div className="flex-1 h-1 bg-blue-100"></div>
+            <div className="flex-1 h-1 -translate-y-3 bg-blue-100"></div>
             <div className="flex flex-col items-center">
               <div className="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center text-blue-800 font-medium">
                 4
@@ -195,7 +208,7 @@ export default function ExpectationScreen() {
         </div>
 
         {/* Action Trigger */}
-        <div className="bg-white rounded-xl shadow-md p-8 mb-6 text-center">
+        <div className="bg-white rounded-xl surrounding-shadow p-8 mb-6 text-center">
           <h3 className="text-xl font-semibold text-slate-800 mb-4">
             Thousands have discovered new insights through their ThriveScore™.
             <br />
@@ -206,7 +219,7 @@ export default function ExpectationScreen() {
             <br />
             No medical terms. No judgments. Just real insights.
           </p>
-          <Button size="lg" className="text-lg px-8 py-6 h-auto mb-4" asChild>
+          <Button size="md" className="shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto" asChild>
             <Link to="/onboarding/process">Let's Begin Your Journey</Link>
           </Button>
           <p className="text-sm text-slate-500">

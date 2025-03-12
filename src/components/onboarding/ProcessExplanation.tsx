@@ -7,7 +7,7 @@ export default function ProcessExplanation() {
   return (
     <OnboardingLayout showBackButton={true} backPath="/onboarding/expectations">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="text-3xl font-bold text-slate-800 text-center mb-6">
+        <h1 className="text-3xl font-bold text-st_black text-center mb-6">
           Your Journey to Confidence Starts Here
         </h1>
 
@@ -18,9 +18,9 @@ export default function ProcessExplanation() {
         </p>
 
         {/* Process Explanation */}
-        <div className="bg-white rounded-xl shadow-md p-8 mb-12">
-          <h2 className="text-xl font-semibold text-slate-800 mb-6">
-            Here's how our friendly checkin works:
+        <div className="bg-white rounded-xl surrounding-shadow p-8 mb-12">
+          <h2 className="text-xl font-semibold text-st_black mb-6">
+            Here's how our friendly check-in works:
           </h2>
 
           <div className="space-y-6 mb-8">
@@ -29,7 +29,7 @@ export default function ProcessExplanation() {
                 1
               </div>
               <div>
-                <h3 className="font-medium text-slate-800">
+                <h3 className="font-medium text-st_black">
                   Quick Profile (2 min)
                 </h3>
                 <p className="text-slate-600">
@@ -43,7 +43,7 @@ export default function ProcessExplanation() {
                 2
               </div>
               <div>
-                <h3 className="font-medium text-slate-800">
+                <h3 className="font-medium text-st_black">
                   Daily Living (3 min)
                 </h3>
                 <ul className="text-slate-600 space-y-1">
@@ -60,7 +60,7 @@ export default function ProcessExplanation() {
                 3
               </div>
               <div>
-                <h3 className="font-medium text-slate-800">
+                <h3 className="font-medium text-st_black">
                   Room Review (2 min)
                 </h3>
                 <p className="text-slate-600">
@@ -74,24 +74,18 @@ export default function ProcessExplanation() {
                 ✓
               </div>
               <div>
-                <h3 className="font-medium text-slate-800">
+                <h3 className="font-medium text-st_black">
                   Your result: A personalized ThriveScore™ with practical
                   recommendations
                 </h3>
               </div>
             </div>
           </div>
-
-          <div className="flex justify-center">
-            <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
-              <Link to="/onboarding/profile">Let's Begin</Link>
-            </Button>
-          </div>
         </div>
 
         {/* Experience Description */}
         <div className="bg-blue-50 rounded-xl p-8 mb-12">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4 text-center">
+          <h2 className="text-xl font-semibold text-st_black mb-4 text-center">
             You'll Love How Easy This Is:
           </h2>
 
@@ -117,7 +111,7 @@ export default function ProcessExplanation() {
 
         {/* Privacy Promise */}
         <div className="text-center mb-12">
-          <h3 className="font-semibold text-slate-800 mb-2">
+          <h3 className="font-semibold text-st_black mb-2">
             Your Story, Your Privacy:
           </h3>
           <p className="text-slate-600 max-w-md mx-auto">
@@ -129,16 +123,16 @@ export default function ProcessExplanation() {
 
         {/* Ready to Begin */}
         <div className="text-center">
-          <h3 className="text-xl font-semibold text-slate-800 mb-6">
+          <h3 className="text-xl font-semibold text-st_black mb-6">
             Ready for a friendly chat about thriving at home?
           </h3>
           <Button
             size="lg"
-            className="text-lg px-8 py-6 h-auto bg-green-600 hover:bg-green-700"
+            className="text-lg px-8 py-6 h-auto bg-green-600 hover:shadow-md border-2 border-green-600 hover:border-white hover:bg-green-700"
             asChild
           >
             <Link to="/onboarding/profile">
-              Start Step 1: Create Personal Profile
+              Let's begin
             </Link>
           </Button>
         </div>

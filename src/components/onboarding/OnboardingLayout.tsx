@@ -15,10 +15,10 @@ export default function OnboardingLayout({
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <header className="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div className="min-h-screen bg-gradient-to-b from-whit to-blue-50">
+      <header className="fixed z-20 shadow-md w-dvw mx-auto px-10 md:px-20 bg-white py-4 flex justify-between items-center">
         <Link to="/" className="text-xl font-bold text-blue-600">
-          SeniorThrive
+          <span className="text-st_light_orange">Senior</span><span className="text-st_light_blue">Thrive™</span>
         </Link>
 
         <div className="flex items-center gap-4">
@@ -30,16 +30,12 @@ export default function OnboardingLayout({
               ← Back
             </button>
           )}
-          <Link
-            to="/"
-            className="text-sm font-medium text-slate-600 hover:text-slate-800"
-          >
-            Skip to Dashboard
-          </Link>
         </div>
       </header>
 
-      {children}
+      <div className="pt-16">
+        {children}
+      </div>
     </div>
   );
 }

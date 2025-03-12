@@ -1,9 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import OnboardingLayout from "./OnboardingLayout";
 
 export default function TransitionScreen() {
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <OnboardingLayout>
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
@@ -11,7 +16,7 @@ export default function TransitionScreen() {
         <div className="w-full bg-slate-100 rounded-full h-2 mb-12">
           <div
             className="bg-blue-500 h-2 rounded-full"
-            style={{ width: "15%" }}
+            style={{ width: "100%" }}
           ></div>
         </div>
 
