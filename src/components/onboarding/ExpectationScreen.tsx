@@ -208,7 +208,7 @@ export default function ExpectationScreen() {
         </div>
 
         {/* Action Trigger */}
-        <div className="bg-white rounded-xl surrounding-shadow p-8 mb-6 text-center">
+        <div className="bg-white rounded-xl p-8 mb-6 text-center">
           <h3 className="text-xl font-semibold text-slate-800 mb-4">
             Thousands have discovered new insights through their ThriveScore™.
             <br />

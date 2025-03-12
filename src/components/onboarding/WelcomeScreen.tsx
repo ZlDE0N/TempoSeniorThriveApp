@@ -62,7 +62,7 @@ export default function WelcomeScreen() {
         </div>
 
         {/* ThriveScore Introduction */}
-        <div className="bg-white rounded-xl shadow-md p-8 mb-10">
+        <div className="bg-white rounded-xl surrounding-shadow p-8 mb-10">
           <h2 className="text-2xl font-semibold text-slate-800 mb-6 text-center">
             Introducing Your <span className="text-st_light_orange">Thrive</span><span className="text-st_light_blue">Score™</span>
           </h2>

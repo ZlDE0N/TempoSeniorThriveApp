@@ -9,7 +9,7 @@ import OnboardingLayout from "./OnboardingLayout";
 export default function HealthContext() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0, smooth: true });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <OnboardingLayout showBackButton={true} backPath="/onboarding/vision">
@@ -17,13 +17,13 @@ export default function HealthContext() {
         {/* Progress Bar */}
         <div className="w-full bg-slate-100 rounded-full h-2 mb-8">
           <div
-            className="bg-blue-500 h-2 rounded-full"
+            className="bg-st_light_blue h-2 rounded-full"
             style={{ width: "75%" }}
           ></div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md p-8">
-          <h1 className="text-2xl font-bold text-slate-800 text-center mb-4">
+        <div className="bg-white rounded-xl surrounding-shadow p-8">
+          <h1 className="text-2xl font-bold text-st_black text-center mb-4">
             This helps us suggest appropriate activities
           </h1>
           <p className="text-center text-slate-600 mb-8">

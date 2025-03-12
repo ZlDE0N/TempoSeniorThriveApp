@@ -9,7 +9,7 @@ import OnboardingLayout from "./OnboardingLayout";
 export default function MovementProfile() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0, smooth: true });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <OnboardingLayout showBackButton={true} backPath="/onboarding/profile">
@@ -22,8 +22,8 @@ export default function MovementProfile() {
           ></div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md p-8">
-          <h1 className="text-2xl font-bold text-slate-800 text-center mb-4">
+        <div className="bg-white rounded-xl surrounding-shadow p-8">
+          <h1 className="text-2xl font-bold text-st_black text-center mb-4">
             Understanding how you move through your day
           </h1>
           <p className="text-center text-slate-600 mb-8">

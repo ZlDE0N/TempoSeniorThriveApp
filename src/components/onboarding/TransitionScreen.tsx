@@ -15,12 +15,12 @@ export default function TransitionScreen() {
         {/* Progress Bar */}
         <div className="w-full bg-slate-100 rounded-full h-2 mb-12">
           <div
-            className="bg-blue-500 h-2 rounded-full"
+            className="bg-st_light_blue h-2 rounded-full"
             style={{ width: "100%" }}
           ></div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md p-12">
+        <div className="bg-white rounded-xl surrounding-shadow p-12">
           <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -32,14 +32,14 @@ export default function TransitionScreen() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-blue-600"
+              className="text-st_light_blue"
             >
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
               <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
           </div>
 
-          <h1 className="text-3xl font-bold text-slate-800 mb-6">
+          <h1 className="text-3xl font-bold text-st_black mb-6">
             Thank you, Margaret!
           </h1>
 

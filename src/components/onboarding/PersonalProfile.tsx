@@ -10,7 +10,7 @@ import OnboardingLayout from "./OnboardingLayout";
 export default function PersonalProfile() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <OnboardingLayout showBackButton={true} backPath="/onboarding/process">
@@ -23,8 +23,8 @@ export default function PersonalProfile() {
           ></div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md p-8">
-          <h1 className="text-2xl font-bold text-slate-800 text-center mb-8">
+        <div className="bg-white rounded-xl surrounding-shadow p-8">
+          <h1 className="text-2xl font-bold text-st_black text-center mb-8">
             Let's personalize your assessment
           </h1>
 

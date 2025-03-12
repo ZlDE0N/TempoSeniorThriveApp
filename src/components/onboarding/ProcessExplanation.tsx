@@ -1,9 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import OnboardingLayout from "./OnboardingLayout";
 
 export default function ProcessExplanation() {
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   return (
     <OnboardingLayout showBackButton={true} backPath="/onboarding/expectations">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
