@@ -136,7 +136,7 @@ export default function ProcessExplanation() {
             className="text-lg px-8 py-6 h-auto bg-green-600 hover:shadow-md border-2 border-green-600 hover:border-white hover:bg-green-700"
             asChild
           >
-            <Link to="/onboarding/profile">
+            <Link to="/onboarding/name">
               Let's begin
             </Link>
           </Button>

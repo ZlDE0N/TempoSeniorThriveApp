@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import QuestionsCard from "./QuestionsCard";
+import QuestionsCard from "../QuestionsCard";
 
-export default function PersonalProfile() {
+export default function Name() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
@@ -23,7 +23,7 @@ export default function PersonalProfile() {
           key: "name",
         },
       ]}
-      nextSection="/onboarding/health-context"
+      nextSection="/onboarding/age"
       progress={0}
     />
   );
