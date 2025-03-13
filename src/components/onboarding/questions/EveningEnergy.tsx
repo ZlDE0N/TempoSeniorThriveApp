@@ -7,24 +7,30 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function EveningEnergy() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Evening Energy"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "In the evenings, you tipically:",
+          type: "radio",
+          key: "eveningEnergy",
+          options: [
+            "Enjoy activities and socializing",
+            "Have energy for quiet activities",
+            "Prefer to take it very easy",
+            "Ready to wind down early",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/support-and-connections"
+      allowSkip={true}
+      progress={80}
     />
   );
 }

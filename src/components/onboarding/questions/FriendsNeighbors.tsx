@@ -7,24 +7,30 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function FriendsNeighbors() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Friends/Neighbors Interactions"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "What about friends and neighbors?",
+          type: "radio",
+          key: "friendsNeighbors",
+          options: [
+            "See or talk to them often",
+            "Regular casual interactions",
+            "Occasional connections",
+            "Rarely get together",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/support-access"
+      allowSkip={true}
+      progress={90}
     />
   );
 }

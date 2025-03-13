@@ -7,24 +7,27 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
-  }, []);
+export default function Age() {
   return (
     <QuestionsCard
       title="Personal Profile"
       subtitle="Let's personalize your assessment"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "Which age range describes you?",
+          type: "radio",
+          key: "age",
+          options: [
+            "60-69 years young",
+            "70-79 years young",
+            "80-89 years young",
+            "90+ years young",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/mobility-aids"
+      allowSkip={true}
+      progress={5}
     />
   );
 }

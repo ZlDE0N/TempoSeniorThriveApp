@@ -7,24 +7,30 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function BalanceFollowup() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Balance Followup"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "Where did your last balance concern happen?",
+          type: "radio",
+          key: "balanceFollowup",
+          options: [
+            "Inside while moving around",
+            "Getting up or sitting down",
+            "Outside on my property",
+            "In the community",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/energy-and-engagement"
+      allowSkip={true}
+      progress={65}
     />
   );
 }

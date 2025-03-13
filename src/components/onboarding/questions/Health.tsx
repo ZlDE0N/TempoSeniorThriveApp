@@ -7,24 +7,33 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function Health() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Health Context"
+      subtitle="This helps us suggest appropriate activities"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "Any health considerations?",
+          type: "checkbox",
+          key: "Vision",
+          options: [
+            "Arthritis",
+            "Heart condition",
+            "Diabetes",
+            "Breathing challenges",
+            "Memory considerations",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/daily-living"
+      buttonLabel="Continue to Daily Living"
+      allowSkip={true}
+      progress={30}
     />
   );
 }

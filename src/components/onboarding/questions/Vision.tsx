@@ -7,24 +7,32 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function Vision() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Vision & Safety"
+      subtitle="Let's ensure our recommendations match your needs"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "Any vision considerations?",
+          type: "checkbox",
+          key: "vision",
+          options: [
+            "General vision is good",
+            "Need good lighting",
+            "Depth perception challenges",
+            "Limited peripheral vision",
+            "Other vision considerations",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/stability"
+      allowSkip={true}
+      progress={20}
     />
   );
 }

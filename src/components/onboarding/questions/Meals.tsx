@@ -7,24 +7,30 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function Meals() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Your Meals"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "When it comes to meals, what's your style?",
+          type: "radio",
+          key: "meals",
+          options: [
+            "I love putting my own meals together",
+            "I can whip up te basics no problem",
+            "I keep it simple but get by okay",
+            "It's not my favorite part of the day",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/activities"
+      allowSkip={true}
+      progress={40}
     />
   );
 }

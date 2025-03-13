@@ -7,24 +7,30 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function HomeMovement() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Home Movement"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "How do you feel moving around your home?",
+          type: "radio",
+          key: "homeMovement",
+          options: [
+            "Like a fish in water -  totally at ease",
+            "Pretty comfortable in my space",
+            "Take it slow and steady",
+            "Need to be extra careful",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/chair-transfer"
+      allowSkip={true}
+      progress={50}
     />
   );
 }

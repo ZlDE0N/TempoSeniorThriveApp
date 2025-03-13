@@ -7,24 +7,30 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function ChairTransfer() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Chair Transfer"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "What about getting up from your favorite chair?",
+          type: "radio",
+          key: "chairTransfer",
+          options: [
+            "Pop right up when I need to",
+            "Take my time but manage fine",
+            "Sometimes it takes extra effort",
+            "Could use something to push up with",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/balance-history"
+      allowSkip={true}
+      progress={55}
     />
   );
 }

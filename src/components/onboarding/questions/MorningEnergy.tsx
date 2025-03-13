@@ -7,24 +7,30 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function MorningEnergy() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Morning Energy"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "What's your typical energy like in the morning?",
+          type: "radio",
+          key: "morningEnergy",
+          options: [
+            "Ready to tackle the day!",
+            "Takes a bit to get going, then I'm good",
+            "Depends on how well I slept",
+            "Mornings can be tough",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/afternoon-energy"
+      allowSkip={true}
+      progress={70}
     />
   );
 }

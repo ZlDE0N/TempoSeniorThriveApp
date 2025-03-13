@@ -7,24 +7,30 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 
-export default function Name() {
+export default function Activities() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
-      title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      title="Daily Activities"
       items={[
         {
-          question: "What name should we use?",
-          type: "input",
-          key: "name",
+          question: "How do you usually spend your afternoons?",
+          type: "radio",
+          key: "activities",
+          options: [
+            "Always finding things to do",
+            "Mix of activities and rest",
+            "Take it pretty easy",
+            "Prefer to stay settled",
+          ],
         },
       ]}
-      nextSection="/onboarding/age"
-      progress={0}
+      nextSection="/onboarding/movement-and-stability"
+      allowSkip={true}
+      progress={45}
     />
   );
 }
