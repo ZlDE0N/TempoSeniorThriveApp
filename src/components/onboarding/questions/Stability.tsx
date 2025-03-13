@@ -1,0 +1,37 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
+import QuestionsCard from "../QuestionsCard";
+
+export default function Stability() {
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0 , behavior: "smooth" });
+  }, []);
+  return (
+    <QuestionsCard
+      title="Vision & Safety"
+      subtitle="Let's ensure our recommendations match your needs"
+      items={[
+        {
+          question: "Regarding stability in the past year:",
+          type: "radio",
+          key: "stability",
+          options: [
+            "No falls or concerns",
+            "Some close calls",
+            "One fall",
+            "Multiple falls",
+          ],
+        },
+      ]}
+      nextSection="/onboarding/health"
+      allowSkip={true}
+      progress={25}
+    />
+  );
+}

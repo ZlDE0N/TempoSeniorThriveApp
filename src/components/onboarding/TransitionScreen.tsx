@@ -1,10 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import OnboardingLayout from "./OnboardingLayout";
 
 export default function TransitionScreen() {
+  const allLocalStorageData = {};
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key) {
+      allLocalStorageData[key] = localStorage.getItem(key);
+    }
+  }
+
+  console.log(allLocalStorageData);
+  const userName = localStorage.getItem("st_onboarding_name")
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -40,16 +53,22 @@ export default function TransitionScreen() {
           </div>
 
           <h1 className="text-3xl font-bold text-st_black mb-6">
-            Thank you, Margaret!
+            Thank you, {userName}!
           </h1>
 
           <p className="text-xl text-slate-600 mb-8">
-            Now let's look at your daily patterns.
+            You just completed the first step to thrive at home.
           </p>
 
           <div className="flex justify-center">
-            <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
-              <Link to="/">Continue to Dashboard</Link>
+            <Button size="lg" className="text-lg bg-gray-50 surrounding-shadow hover:bg-gray-200 text-st_black px-8 py-6 h-auto" asChild>
+              <Link to="/">
+                See my&nbsp;<span className="text-st_light_orange">Thrive</span><span className="text-st_light_blue">Score™&nbsp;&nbsp;</span> 
+                            <FontAwesomeIcon
+                              icon={faRightFromBracket}
+                              className="text-xl"
+                            />
+              </Link>
             </Button>
           </div>
         </div>

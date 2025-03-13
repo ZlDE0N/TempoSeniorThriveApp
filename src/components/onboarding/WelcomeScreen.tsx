@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import  Gauge from "../ui/gauge";
 import { Link } from "react-router-dom";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -54,7 +55,7 @@ export default function WelcomeScreen() {
                   <span className="text-st_light_orange">Thrive</span><span className="text-st_light_blue">Score™</span>
                 </div>
                 <div className="px-4 flex rounded-md border-b-0 border-white items-center justify-center">
-                  <span className="text-2xl md:text-4xl font-bold text-white">78</span>
+                  <Gauge label="" value={78}/>
                 </div>
               </div>
             </div>
@@ -106,7 +107,8 @@ export default function WelcomeScreen() {
           </p>
 
           <div className="flex justify-center">
-            <Button size="md" className="shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto" asChild>
+            <Button size="md" 
+              className="shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto" asChild>
               <Link to="/onboarding/expectations">
                 Start Your 7-Minute Discovery
               </Link>
