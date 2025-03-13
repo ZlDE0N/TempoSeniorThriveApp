@@ -20,11 +20,9 @@ function App() {
     >
       <>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/onboarding/*" element={<OnboardingRoutes />} />
-          {import.meta.env.VITE_TEMPO === "true" && (
-            <Route path="/tempobook/*" />
-          )}
+          <Route path="/dashboard" element={<Home />} />
         </Routes>
         {tempoRoutes}
       </>
