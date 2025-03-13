@@ -48,7 +48,6 @@ export default function QuestionsCard( props: {
 
   useEffect(() => {
     if (!props.condition || !props.conditionalNextSection) {return}
-    console.log(answers);
     if (props.condition(answers)){
       setNextSection(props.conditionalNextSection);
     }
@@ -194,8 +193,6 @@ export default function QuestionsCard( props: {
                   size="lg"
                   onClick={() => {
                   props.items.forEach(item => {
-                    console.log(answers);
-                    console.log(nextSection);
                     localStorage.setItem(`st_onboarding_${item.key}`, answers[item.key] ?? '');
                   });
                   }}

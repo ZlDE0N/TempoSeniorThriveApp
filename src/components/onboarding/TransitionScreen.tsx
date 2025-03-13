@@ -7,6 +7,16 @@ import { useEffect, useState } from "react";
 import OnboardingLayout from "./OnboardingLayout";
 
 export default function TransitionScreen() {
+  const allLocalStorageData = {};
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key) {
+      allLocalStorageData[key] = localStorage.getItem(key);
+    }
+  }
+
+  console.log(allLocalStorageData);
   const userName = localStorage.getItem("st_onboarding_name")
   // Scroll to top on mount
   useEffect(() => {

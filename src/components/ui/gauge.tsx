@@ -20,10 +20,10 @@ export default function Gauge({
   useEffect(() => {
     const interval = setInterval(() => {
       setAnimatedValue((prev) => {
-        const step = (value - prev) * 0.2;
+        const step = (value - prev) * 0.1;
         return Math.abs(step) < 0.5 ? value : prev + step;
       });
-    }, 16);
+    }, 32);
 
     return () => clearInterval(interval);
   }, [value]);
@@ -48,14 +48,14 @@ export default function Gauge({
         cy="70"
         r={radius}
         stroke={`url(#gradient)`}
-        strokeWidth="12"
+        strokeWidth="14"
         fill="none"
         strokeDasharray={circumference}
         strokeDashoffset={circumference - progress}
         strokeLinecap="round"
         transform="rotate(-90 70 70)"
         style={{
-          filter: `drop-shadow(0 0 10px ${color})`,
+          filter: `drop-shadow(0 0 10px #7aa7ff)`,
           transition: "stroke-dashoffset 0.3s ease-out",
         }}
       />
@@ -64,7 +64,7 @@ export default function Gauge({
       <defs>
         <linearGradient id="gradient" x1="1" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={color} />
-          <stop offset="100%" stopColor="#a5f3fc" />
+          <stop offset="100%" stopColor="#7aa7ff" />
         </linearGradient>
       </defs>
 
