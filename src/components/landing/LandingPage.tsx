@@ -67,11 +67,11 @@ export default function LandingPage() {
                 Monitor senior well-being with safety assessments, health
                 metrics, and personalized recommendations.
               </p>
-              <Button
-                size="lg"
-                className="text-lg px-8 py-6 h-auto bg-st_light_blue hover:bg-st_dark_blue"
-              >
-                Start Your Care Journey
+              <Button size="md" 
+                className="shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto" asChild>
+                <Link to="/onboarding/expectations">
+                  Start Your Care Journey
+                </Link>
               </Button>
             </motion.div>
             <motion.div

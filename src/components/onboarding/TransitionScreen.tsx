@@ -62,7 +62,7 @@ export default function TransitionScreen() {
 
           <div className="flex justify-center">
             <Button size="lg" className="text-lg bg-gray-50 surrounding-shadow hover:bg-gray-200 text-st_black px-8 py-6 h-auto" asChild>
-              <Link to="/">
+              <Link to="/dashboard">
                 See my&nbsp;<span className="text-st_light_orange">Thrive</span><span className="text-st_light_blue">Score™&nbsp;&nbsp;</span> 
                             <FontAwesomeIcon
                               icon={faRightFromBracket}
