@@ -17,7 +17,7 @@ export default function TransitionScreen() {
         <div className="w-full bg-slate-100 rounded-full h-2 mb-12">
           <div
             className="bg-st_light_blue h-2 rounded-full"
-            style={{ width: "80%" }}
+            style={{ width: "48%" }}
           ></div>
         </div>
 

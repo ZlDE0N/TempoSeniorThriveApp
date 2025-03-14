@@ -1,12 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBath,
+  faBed,
+  faCouch,
+  faCamera,
+  faUpload,
+  faClock,
+} from "@fortawesome/free-solid-svg-icons";
 import OnboardingLayout from "./OnboardingLayout";
 
 export default function RoomAssessment() {
   const { roomId } = useParams<{ roomId: string }>();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -46,6 +57,19 @@ export default function RoomAssessment() {
     }
   };
 
+  const getRoomIcon = () => {
+    switch (roomId) {
+      case "bathroom":
+        return faBath;
+      case "bedroom":
+        return faBed;
+      case "livingroom":
+        return faCouch;
+      default:
+        return faCouch;
+    }
+  };
+
   const getRoomImage = () => {
     switch (roomId) {
       case "bathroom":
@@ -67,22 +91,49 @@ export default function RoomAssessment() {
       <div className="container mx-auto px-4 py-12 max-w-2xl">
         {/* Progress Bar */}
         <div className="w-full bg-slate-100 rounded-full h-2 mb-8">
-          <div
+          <motion.div
             className="bg-st_light_blue h-2 rounded-full"
-            style={{ width: "95%" }}
-          ></div>
+            initial={{ width: "70%" }}
+            animate={{ width: "80%" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          />
         </div>
 
-        <div className="bg-white rounded-xl surrounding-shadow p-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-xl surrounding-shadow p-8"
+        >
+          <div className="flex justify-center mb-6">
+            <FontAwesomeIcon
+              icon={getRoomIcon()}
+              className="text-4xl text-st_light_blue"
+            />
+          </div>
+
           <h1 className="text-3xl font-bold text-st_black text-center mb-6">
             {getRoomTitle()}
           </h1>
 
-          <div className="rounded-lg overflow-hidden mb-6">
-            <img
+          <div className="rounded-lg overflow-hidden mb-6 relative">
+            {isLoading && (
+              <div className="absolute inset-0 bg-slate-200 flex items-center justify-center">
+                <FontAwesomeIcon
+                  icon={faClock}
+                  spin
+                  className="text-2xl text-st_light_blue"
+                />
+              </div>
+            )}
+            <motion.img
               src={getRoomImage()}
               alt={`${roomId} visualization`}
               className="w-full h-64 object-cover"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              onLoad={() => setIsLoading(false)}
             />
           </div>
 
@@ -90,7 +141,12 @@ export default function RoomAssessment() {
             {getRoomMessage()}
           </p>
 
-          <div className="bg-blue-50 border border-blue-100 rounded-lg p-6 mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-blue-50 border border-blue-100 rounded-lg p-6 mb-8"
+          >
             <h3 className="font-medium text-slate-800 mb-3">
               What happens next:
             </h3>
@@ -113,50 +169,33 @@ export default function RoomAssessment() {
                 </span>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <Button className="bg-st_light_blue hover:bg-st_dark_blue text-white px-6 py-2 rounded-md flex items-center justify-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-                <circle cx="12" cy="13" r="3" />
-              </svg>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-col md:flex-row gap-4 justify-center"
+          >
+            <Button className="shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white px-6 py-4 rounded-md flex items-center justify-center gap-2">
+              <FontAwesomeIcon icon={faCamera} className="text-lg" />
               Take Photo
             </Button>
             <Button
               variant="outline"
-              className="border-st_light_blue text-st_light_blue hover:bg-blue-50 px-6 py-2 rounded-md flex items-center justify-center gap-2"
+              className="shadow-md hover:shadow-lg border-2 border-st_light_blue text-st_light_blue hover:bg-blue-50 px-6 py-4 rounded-md flex items-center justify-center gap-2"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="17 8 12 3 7 8" />
-                <line x1="12" y1="3" x2="12" y2="15" />
-              </svg>
+              <FontAwesomeIcon icon={faUpload} className="text-lg" />
               Upload Image
             </Button>
-          </div>
+          </motion.div>
 
-          <div className="mt-8 text-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="mt-8 text-center"
+          >
             <Button
               variant="link"
               className="text-slate-500 hover:text-slate-700"
@@ -164,8 +203,8 @@ export default function RoomAssessment() {
             >
               <Link to="/onboarding/transition">I'll do this later</Link>
             </Button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </OnboardingLayout>
   );

@@ -11,7 +11,7 @@ import { faPersonFalling } from "@fortawesome/free-solid-svg-icons";
 export default function Stability() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -34,7 +34,7 @@ export default function Stability() {
       nextSection="/onboarding/health"
       backPath="/onboarding/health"
       allowSkip={true}
-      progress={25}
+      progress={15}
     />
   );
 }

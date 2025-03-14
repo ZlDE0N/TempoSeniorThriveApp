@@ -11,14 +11,15 @@ import { faPersonFalling } from "@fortawesome/free-solid-svg-icons";
 export default function BalanceHistory() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
       title="Balance History"
       items={[
         {
-          question: "In the past few months, have you had any slips or stumbles?",
+          question:
+            "In the past few months, have you had any slips or stumbles?",
           type: "radio",
           key: "balanceHistory",
           icon: faPersonFalling,
@@ -33,9 +34,11 @@ export default function BalanceHistory() {
       nextSection="/onboarding/energy-and-engagement"
       backPath="/onboarding/chair-transfer"
       conditionalNextSection="/onboarding/balance-followup"
-      condition={(answer) => {return answer["balanceHistory"] !== "Steady as a rock"}}
+      condition={(answer) => {
+        return answer["balanceHistory"] !== "Steady as a rock";
+      }}
       allowSkip={true}
-      progress={60}
+      progress={36}
     />
   );
 }

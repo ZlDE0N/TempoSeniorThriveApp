@@ -34,7 +34,7 @@ export default function SupportAccess() {
       backPath="/onboarding/friends-and-neighbors"
       buttonLabel="Done"
       allowSkip={true}
-      progress={95}
+      progress={57}
     />
   );
 }
