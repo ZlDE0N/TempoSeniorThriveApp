@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface GaugeProps {
   value: number; // Value between 0-100
   label?: string;
   color?: string;
+  className?: string;
 }
 
 export default function Gauge({
   value,
   label = "Progress",
   color = "#3761D5",
+  className,
 }: GaugeProps) {
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
@@ -31,69 +34,64 @@ export default function Gauge({
   const progress = (animatedValue / 100) * circumference;
 
   return (
-    <svg width="80" height="80" viewBox="0 0 140 140">
-      {/* Background Circle */}
-      <circle
-        cx="70"
-        cy="70"
-        r={radius}
-        stroke="#e0e0e0"
-        strokeWidth="12"
-        fill="#888888"
-      />
+    <div className={cn("flex flex-col items-center", className)}>
+      <svg width="80" height="80" viewBox="0 0 140 140">
+        {/* Background Circle */}
+        <circle
+          cx="70"
+          cy="70"
+          r={radius}
+          stroke="#e0e0e0"
+          strokeWidth="12"
+          fill="#888888"
+        />
 
-      {/* Progress Circle with Glow */}
-      <circle
-        cx="70"
-        cy="70"
-        r={radius}
-        stroke={`url(#gradient)`}
-        strokeWidth="14"
-        fill="none"
-        strokeDasharray={circumference}
-        strokeDashoffset={circumference - progress}
-        strokeLinecap="round"
-        transform="rotate(-90 70 70)"
-        style={{
-          filter: `drop-shadow(0 0 10px #7aa7ff)`,
-          transition: "stroke-dashoffset 0.3s ease-out",
-        }}
-      />
+        {/* Progress Circle with Glow */}
+        <circle
+          cx="70"
+          cy="70"
+          r={radius}
+          stroke={`url(#gradient)`}
+          strokeWidth="14"
+          fill="none"
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference - progress}
+          strokeLinecap="round"
+          transform="rotate(-90 70 70)"
+          style={{
+            filter: `drop-shadow(0 0 10px #7aa7ff)`,
+            transition: "stroke-dashoffset 0.3s ease-out",
+          }}
+        />
 
-      {/* Gradient Definition */}
-      <defs>
-        <linearGradient id="gradient" x1="1" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={color} />
-          <stop offset="100%" stopColor="#7aa7ff" />
-        </linearGradient>
-      </defs>
+        {/* Gradient Definition */}
+        <defs>
+          <linearGradient id="gradient" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={color} />
+            <stop offset="100%" stopColor="#7aa7ff" />
+          </linearGradient>
+        </defs>
 
-      {/* Main Value */}
-      <text
-        x="70"
-        y="73"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fontSize="35"
-        fontWeight="bold"
-        fill="#ffffff"
-      >
-        {Math.round(animatedValue)}
-      </text>
-
-      {/* Label */}
-      {label && (
+        {/* Main Value */}
         <text
           x="70"
-          y="100"
+          y="73"
           textAnchor="middle"
-          fontSize="12"
-          fill="#777"
+          dominantBaseline="middle"
+          fontSize="35"
+          fontWeight="bold"
+          fill="#ffffff"
         >
-          {label}
+          {Math.round(animatedValue)}
         </text>
-      )}
-    </svg>
+
+        {/* Label */}
+        {label && (
+          <text x="70" y="100" textAnchor="middle" fontSize="12" fill="#777">
+            {label}
+          </text>
+        )}
+      </svg>
+    </div>
   );
 }
-

@@ -1,53 +1,214 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState } from "react";
+
+interface NavItem {
+  label: string;
+  href: string;
+}
 
 export default function LandingPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // Simulate authentication state
+  const [isPremium, setIsPremium] = useState(false); // This would come from your auth context or state management
+  const [userName, setUserName] = useState("John"); // This would come from your auth context or state management
+
+  // Handle logout action
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
+
+  const navItems: NavItem[] = [
+    ...(isAuthenticated
+      ? [{ label: "Safety Scan", href: "/safety-scan" }]
+      : []),
+    ...(isPremium && isAuthenticated
+      ? [
+          { label: "Fitness", href: "/fitness" },
+          { label: "Community", href: "/community" },
+        ]
+      : []),
+    { label: "Pricing", href: "/pricing" },
+    ...(!isAuthenticated
+      ? [
+          { label: "Sign In", href: "/signin" },
+          { label: "Register", href: "/register" },
+        ]
+      : []),
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header/Navbar */}
-      <header className="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <header className="fixed top-0 left-0 right-0 bg-white z-50 shadow-md">
+        <motion.div
+          initial={{ y: -10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="container mx-auto px-6 py-5 flex justify-between items-center"
+        >
           <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold">
+            <Link
+              to="/"
+              className="text-2xl font-bold tracking-tight transition-transform hover:scale-105"
+            >
               <span className="text-st_light_orange">Senior</span>
               <span className="text-st_light_blue">Thrive™</span>
             </Link>
           </div>
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/demo/family">Family Demo</Link>
-            </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/demo/caregiver">Caregiver Demo</Link>
-            </Button>
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/signin">Sign In</Link>
-            </Button>
-            <Button size="sm" asChild>
-              <Link to="/register">Register</Link>
-            </Button>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <nav className="flex items-center space-x-6">
+              {navItems.map((item) => (
+                <motion.div
+                  key={item.label}
+                  whileHover={{ y: -2 }}
+                  transition={{ type: "spring", stiffness: 500 }}
+                >
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    className="text-base font-medium text-slate-700 hover:text-st_light_blue hover:bg-blue-50 focus:ring-2 focus:ring-blue-200 focus:ring-offset-2 transition-all"
+                    asChild
+                  >
+                    <Link to={item.href}>{item.label}</Link>
+                  </Button>
+                </motion.div>
+              ))}
+            </nav>
+
+            {isAuthenticated && (
+              <>
+                <div className="h-8 w-px bg-slate-200 mx-2"></div>
+
+                <div className="flex items-center space-x-5">
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    className={`px-4 py-1.5 text-sm font-medium rounded-full shadow-sm ${isPremium ? "bg-blue-100 text-blue-800 border border-blue-200" : "bg-slate-100 text-slate-800 border border-slate-200"}`}
+                  >
+                    {isPremium ? "Premium Active" : "Free Plan"}
+                  </motion.span>
+
+                  <span className="text-base font-medium text-slate-700">
+                    Welcome, {userName}
+                  </span>
+
+                  <motion.div whileHover={{ scale: 1.05 }}>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="font-medium border-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </Button>
+                  </motion.div>
+                </div>
+              </>
+            )}
           </div>
+
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
-            <Button variant="ghost" size="icon">
-              <svg
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-12 w-12 rounded-md hover:bg-blue-50"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                animate={isMenuOpen ? { rotate: 90 } : { rotate: 0 }}
+                transition={{ duration: 0.2 }}
               >
-                <line x1="4" x2="20" y1="12" y2="12" />
-                <line x1="4" x2="20" y1="6" y2="6" />
-                <line x1="4" x2="20" y1="18" y2="18" />
-              </svg>
+                {isMenuOpen ? (
+                  <>
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </>
+                ) : (
+                  <>
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                  </>
+                )}
+              </motion.svg>
             </Button>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden bg-white border-t border-slate-200 px-6 py-4 shadow-lg"
+          >
+            <div className="flex flex-col space-y-3 py-3">
+              {navItems.map((item) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ x: -10, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Link
+                    to={item.href}
+                    className="px-4 py-3 text-base font-medium text-slate-700 hover:text-st_light_blue hover:bg-blue-50 rounded-lg flex items-center transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
+              ))}
+
+              {isAuthenticated && (
+                <>
+                  <div className="h-px bg-slate-200 my-3"></div>
+
+                  <div className="px-4 py-3 flex items-center justify-between bg-slate-50 rounded-lg">
+                    <div className="flex flex-col">
+                      <span
+                        className={`px-3 py-1.5 text-sm font-medium rounded-full w-fit shadow-sm ${isPremium ? "bg-blue-100 text-blue-800 border border-blue-200" : "bg-slate-100 text-slate-800 border border-slate-200"}`}
+                      >
+                        {isPremium ? "Premium Active" : "Free Plan"}
+                      </span>
+                      <span className="text-base font-medium text-slate-700 mt-2">
+                        Welcome, {userName}
+                      </span>
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="font-medium border-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors"
+                      onClick={() => {
+                        handleLogout();
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </div>
+                </>
+              )}
+            </div>
+          </motion.div>
+        )}
       </header>
 
       {/* Hero Section */}
@@ -67,8 +228,11 @@ export default function LandingPage() {
                 Monitor senior well-being with safety assessments, health
                 metrics, and personalized recommendations.
               </p>
-              <Button size="md" 
-                className="shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto" asChild>
+              <Button
+                size="lg"
+                className="shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto"
+                asChild
+              >
                 <Link to="/onboarding/expectations">
                   Start Your Care Journey
                 </Link>
@@ -313,161 +477,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-st_black mb-4">
-            What Our Users Say
-          </h2>
-          <p className="text-xl text-center text-slate-600 mb-12 max-w-3xl mx-auto">
-            Hear from families who have transformed their caregiving experience
-            with SeniorThrive.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Testimonial 1 */}
-            <motion.div
-              whileHover={{
-                y: -5,
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-              }}
-              className="bg-white rounded-xl p-8 border border-slate-200 transition-all duration-300"
-            >
-              <div className="flex items-center mb-4">
-                <div className="text-yellow-400 flex">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-slate-600 mb-6 italic">
-                "SeniorThrive has given our family peace of mind. The safety
-                assessments identified issues we hadn't noticed, and the
-                recommendations were practical and easy to implement."
-              </p>
-              <div className="flex items-center">
-                <img
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
-                  alt="Sarah J."
-                  className="w-12 h-12 rounded-full mr-4"
-                />
-                <div>
-                  <h4 className="font-semibold text-st_black">Sarah J.</h4>
-                  <p className="text-sm text-slate-500">Daughter & Caregiver</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Testimonial 2 */}
-            <motion.div
-              whileHover={{
-                y: -5,
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-              }}
-              className="bg-white rounded-xl p-8 border border-slate-200 transition-all duration-300"
-            >
-              <div className="flex items-center mb-4">
-                <div className="text-yellow-400 flex">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-slate-600 mb-6 italic">
-                "As a professional caregiver, SeniorThrive has made coordination
-                with family members seamless. The scheduling tools and
-                communication features save me hours each week."
-              </p>
-              <div className="flex items-center">
-                <img
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Michael"
-                  alt="Michael T."
-                  className="w-12 h-12 rounded-full mr-4"
-                />
-                <div>
-                  <h4 className="font-semibold text-st_black">Michael T.</h4>
-                  <p className="text-sm text-slate-500">
-                    Professional Caregiver
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Testimonial 3 */}
-            <motion.div
-              whileHover={{
-                y: -5,
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-              }}
-              className="bg-white rounded-xl p-8 border border-slate-200 transition-all duration-300"
-            >
-              <div className="flex items-center mb-4">
-                <div className="text-yellow-400 flex">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-slate-600 mb-6 italic">
-                "I love that I can maintain my independence while giving my
-                children peace of mind. The ThriveScore helps me see my progress
-                and motivates me to keep improving."
-              </p>
-              <div className="flex items-center">
-                <img
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Eleanor"
-                  alt="Eleanor R."
-                  className="w-12 h-12 rounded-full mr-4"
-                />
-                <div>
-                  <h4 className="font-semibold text-st_black">Eleanor R.</h4>
-                  <p className="text-sm text-slate-500">Senior User</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-st_light_blue to-st_dark_blue text-white">
         <div className="container mx-auto px-4 text-center">
@@ -482,15 +491,17 @@ export default function LandingPage() {
             <Button
               size="lg"
               className="bg-white text-st_dark_blue hover:bg-slate-100 text-lg px-8"
+              asChild
             >
-              Get Started Now
+              <Link to="/onboarding/expectations">Get Started Now</Link>
             </Button>
             <Button
               variant="outline"
               size="lg"
               className="border-white text-white hover:bg-white/10 text-lg px-8"
+              asChild
             >
-              Contact Us
+              <Link to="/contact">Contact Us</Link>
             </Button>
           </div>
         </div>
@@ -503,7 +514,8 @@ export default function LandingPage() {
             {/* Company Info */}
             <div>
               <h3 className="text-white font-bold text-lg mb-4">
-                SeniorThrive
+                <span className="text-st_light_orange">Senior</span>
+                <span className="text-st_light_blue">Thrive™</span>
               </h3>
               <p className="mb-4 text-sm">
                 Empowering independence and peace of mind through innovative
@@ -513,6 +525,7 @@ export default function LandingPage() {
                 <a
                   href="#"
                   className="text-slate-300 hover:text-white transition-colors"
+                  aria-label="Facebook"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -531,6 +544,7 @@ export default function LandingPage() {
                 <a
                   href="#"
                   className="text-slate-300 hover:text-white transition-colors"
+                  aria-label="Twitter"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -549,6 +563,7 @@ export default function LandingPage() {
                 <a
                   href="#"
                   className="text-slate-300 hover:text-white transition-colors"
+                  aria-label="Instagram"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -569,6 +584,7 @@ export default function LandingPage() {
                 <a
                   href="#"
                   className="text-slate-300 hover:text-white transition-colors"
+                  aria-label="LinkedIn"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -731,6 +747,7 @@ export default function LandingPage() {
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className="fixed bottom-6 right-6 bg-st_light_blue hover:bg-st_dark_blue text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-50"
+        aria-label="Scroll to top"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
