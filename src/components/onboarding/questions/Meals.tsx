@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 export default function Meals() {
   // Scroll to top on mount
@@ -20,6 +21,7 @@ export default function Meals() {
           question: "When it comes to meals, what's your style?",
           type: "radio",
           key: "meals",
+          icon: faUtensils,
           options: [
             "I love putting my own meals together",
             "I can whip up te basics no problem",
@@ -29,6 +31,7 @@ export default function Meals() {
         },
       ]}
       nextSection="/onboarding/activities"
+      backPath="/onboarding/morning-routine"
       allowSkip={true}
       progress={40}
     />

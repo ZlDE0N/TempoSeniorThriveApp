@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 export default function Vision() {
   // Scroll to top on mount
@@ -21,6 +22,7 @@ export default function Vision() {
           question: "Any vision considerations?",
           type: "checkbox",
           key: "vision",
+          icon: faEye,
           options: [
             "General vision is good",
             "Need good lighting",
@@ -31,6 +33,7 @@ export default function Vision() {
         },
       ]}
       nextSection="/onboarding/stability"
+      backPath="/onboarding/movement-considerations"
       allowSkip={true}
       progress={20}
     />

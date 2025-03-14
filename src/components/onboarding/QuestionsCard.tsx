@@ -4,7 +4,7 @@ import { useMemo, useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCircleDot } from "@fortawesome/free-regular-svg-icons";
@@ -25,6 +25,7 @@ export default function QuestionsCard( props: {
     key: string,
   }
   nextSection: string,
+  backPath: string,
   conditionalNextSection?: string,
   condition?: (answer: string) => boolean,  
   progress: number,
@@ -57,6 +58,7 @@ export default function QuestionsCard( props: {
   }, [answers])
 
   const [nextSection, setNextSection] = useState(props.nextSection)
+  const [isExiting, setIsExiting] = useState(false)
 
 
   const allAnswersFilled = Object.values(answers).every(
@@ -73,38 +75,58 @@ export default function QuestionsCard( props: {
   const allowSkip = props.allowSkip || false;
   const buttonLabel = props.buttonLabel || "Next Step";
   const conditionalNextSection = props.conditionalNextSection || false;
+  const navigate = useNavigate();
 
   return (
-    <OnboardingLayout showBackButton={true} backPath="/onboarding/process">
-      <motion.div
-      >
-        <div className="container mx-auto px-4 py-12 max-w-2xl">
-          {/* Progress Bar */}
-          <div className="w-full bg-slate-100 rounded-full h-2 mb-8">
-            <div
-              className="bg-st_light_blue h-2 rounded-full"
-              style={{ width: `${props.progress}%` }}
-            ></div>
-          </div>
+    <OnboardingLayout showBackButton={true} backPath={props.backPath}>
+      <div className="container mx-auto px-4 py-12 max-w-2xl">
+        {/* Progress Bar */}
+        <div className="w-full bg-slate-100 rounded-full h-2 mb-8">
+          <motion.div
+            className="bg-st_light_blue h-2 rounded-full"
+            initial={{ width: `${Math.max(0,props.progress-5)}%` }}
+            animate={{ width: `${props.progress}%` }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          />
+        </div>
 
-          <div className="bg-white rounded-xl surrounding-shadow p-8">
+        <div className="bg-white rounded-xl surrounding-shadow p-8">
             <h1 className="text-3xl font-bold text-st_black text-center mb-4">
               {props.title}
             </h1>
             {props.subtitle && (
               <p className="text-center text-lg text-slate-600 mb-8">
-                This helps us provide relevant insights for your comfort and
-                confidence
+                {props.subtitle}
               </p>
             )}
-
             <form 
               onSubmit={(e) => e.preventDefault()}
               className="space-y-4">
+          <motion.div
+            initial={
+            isExiting?
+            { opacity: 1, x: 0 }
+            :
+            { opacity: 0, x: 50 }
+            }
+            animate={
+            isExiting?
+            { opacity: 0, x: -50 }
+            :
+            { opacity: 1, x: 0 }
+            }
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
               {/* Questions */}
               {props.items.map((item) => (
                 <div key={item.key} className="p-4 flex flex-col gap-2 rounded-md">
                   <div className="text-st_black text-xl">
+                    {item.icon && (
+                      <FontAwesomeIcon
+                        icon={item.icon}
+                        className="text-xl pr-2 text-st_black"
+                      />
+                    )}
                     {item.question}
                   </div>
                   { item.subtitle && (
@@ -112,14 +134,14 @@ export default function QuestionsCard( props: {
                   )}
                 { item.type === "input" && (
                   <input
-                    className="text-lg border-2 p-3 rounded-md outline-none aria-selected:border-st_light_orange focus:border-st_light_orange border-st_black"
+                    className="text-lg border-2 p-3 mt-4 rounded-md outline-none aria-selected:border-st_light_orange focus:border-st_light_orange border-st_black"
                     placeholder={"Enter your preferred " + item.key}
                     onChange={(e) =>
                       handleChange(item.key, e.target.value)
                     }
                   />)
                   || item.type === "checkbox" && (
-                    <div>
+                    <div className="pt-4">
                       <p className="text-slate-600 text-base">
                         (Select none, one or many that apply)
                       </p>
@@ -127,7 +149,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className="text-lg p-4 bg-gray-50 rounded-md flex items-center gap-2 cursor-pointer"
+                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="checkbox"
@@ -151,7 +173,7 @@ export default function QuestionsCard( props: {
                       </div>
                     </div>
                   ) || item.type === "radio" && (
-                    <div>
+                    <div className="pt-4">
                       <p className="text-slate-600 text-base">
                         (Select one)
                       </p>
@@ -159,7 +181,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className="text-lg p-4 bg-gray-50 rounded-md flex items-center gap-2 cursor-pointer"
+                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="radio"
@@ -187,14 +209,23 @@ export default function QuestionsCard( props: {
                 </div>
               ))}
 
+          </motion.div>
               <div className="pt-4 flex justify-center">
                 <Button
                   type="button"
+                  className="cursor-pointer w-1/2"
                   size="lg"
                   onClick={() => {
-                  props.items.forEach(item => {
-                    localStorage.setItem(`st_onboarding_${item.key}`, answers[item.key] ?? '');
-                  });
+                    props.items.forEach(item => {
+                      localStorage.setItem(`st_onboarding_${item.key}`, answers[item.key] ?? '');
+                      setIsExiting(true);
+                      setTimeout(
+                        () => {
+                      navigate(nextSection)                        
+                        }, 500
+                      );
+                    });
+
                   }}
                   className={
                     (allAnswersFilled)?
@@ -204,26 +235,25 @@ export default function QuestionsCard( props: {
                   }
                   asChild
                 >
-                  <Link to={nextSection}>{buttonLabel}</Link>
+                  <div className="cursor-pointer w-1/2 h-full">{buttonLabel}</div>
                 </Button>
               </div>
             </form>
-          </div>
-
-          {/* Skip option */}
-          {allowSkip 
-          && (
-          <div className="mt-4 text-center">
-            <Link
-              to={nextSection}
-              className="text-sm text-slate-500 hover:text-slate-700"
-            >
-              I'd prefer to skip this step
-            </Link>
-          </div>
-          )}
         </div>
-      </motion.div>
+
+        {/* Skip option */}
+        {allowSkip && false 
+        && (
+        <div className="mt-4 text-center">
+          <Link
+            to={nextSection}
+            className="text-sm text-slate-500 hover:text-slate-700"
+          >
+            I'd prefer to skip this step
+          </Link>
+        </div>
+        )}
+      </div>
     </OnboardingLayout>
   );
 }

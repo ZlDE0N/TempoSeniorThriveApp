@@ -6,12 +6,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 
 export default function FriendsNeighbors() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Friends/Neighbors Interactions"
@@ -20,6 +17,7 @@ export default function FriendsNeighbors() {
           question: "What about friends and neighbors?",
           type: "radio",
           key: "friendsNeighbors",
+          icon: faPeopleGroup,
           options: [
             "See or talk to them often",
             "Regular casual interactions",
@@ -29,6 +27,7 @@ export default function FriendsNeighbors() {
         },
       ]}
       nextSection="/onboarding/support-access"
+      backPath="/onboarding/family-connections"
       allowSkip={true}
       progress={90}
     />

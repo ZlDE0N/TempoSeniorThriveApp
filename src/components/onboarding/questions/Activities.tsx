@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 
 export default function Activities() {
   // Scroll to top on mount
@@ -20,6 +21,7 @@ export default function Activities() {
           question: "How do you usually spend your afternoons?",
           type: "radio",
           key: "activities",
+          icon: faCloudSun,
           options: [
             "Always finding things to do",
             "Mix of activities and rest",
@@ -29,6 +31,7 @@ export default function Activities() {
         },
       ]}
       nextSection="/onboarding/movement-and-stability"
+      backPath="/onboarding/meals"
       allowSkip={true}
       progress={45}
     />

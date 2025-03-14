@@ -6,12 +6,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faPeopleRoof } from "@fortawesome/free-solid-svg-icons";
 
 export default function FamilyConnections() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Family Connections"
@@ -20,6 +17,7 @@ export default function FamilyConnections() {
           question: "How often do you connect with your family?",
           type: "radio",
           key: "familyConnections",
+          icon: faPeopleRoof,
           options: [
             "We're in touch almost daily",
             "Regular weekly contact",
@@ -29,6 +27,7 @@ export default function FamilyConnections() {
         },
       ]}
       nextSection="/onboarding/friends-and-neighbors"
+      backPath="/onboarding/evening-energy"
       allowSkip={true}
       progress={85}
     />

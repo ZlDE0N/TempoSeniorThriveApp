@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Name() {
   // Scroll to top on mount
@@ -21,9 +22,11 @@ export default function Name() {
           question: "What name should we use?",
           type: "input",
           key: "name",
+          icon: faUser,
         },
       ]}
       nextSection="/onboarding/age"
+      backPath="/onboarding/process"
       progress={0}
     />
   );

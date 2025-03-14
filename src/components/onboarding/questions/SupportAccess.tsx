@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faPeopleCarryBox } from "@fortawesome/free-solid-svg-icons";
 
 export default function SupportAccess() {
   // Scroll to top on mount
@@ -20,6 +21,7 @@ export default function SupportAccess() {
           question: "If you needed help with something, you would:",
           type: "radio",
           key: "SupportAccess",
+          icon: faPeopleCarryBox,
           options: [
             "Have several people to call",
             "Know at least one person to ask",
@@ -29,6 +31,7 @@ export default function SupportAccess() {
         },
       ]}
       nextSection="/onboarding/transition"
+      backPath="/onboarding/friends-and-neighbors"
       buttonLabel="Done"
       allowSkip={true}
       progress={95}

@@ -6,12 +6,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 
 export default function MorningEnergy() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Afternoon Energy"
@@ -20,6 +17,7 @@ export default function MorningEnergy() {
           question: "By mid-day, you usually:",
           type: "radio",
           key: "afternoonEnergy",
+          icon: faCloudSun,
           options: [
             "Still going strong with activities",
             "Manage what needs to be done",
@@ -29,6 +27,7 @@ export default function MorningEnergy() {
         },
       ]}
       nextSection="/onboarding/evening-energy"
+      backPath="/onboarding/morning-energy"
       allowSkip={true}
       progress={75}
     />

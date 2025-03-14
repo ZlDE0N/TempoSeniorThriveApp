@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faPersonFalling } from "@fortawesome/free-solid-svg-icons";
 
 export default function BalanceHistory() {
   // Scroll to top on mount
@@ -20,6 +21,7 @@ export default function BalanceHistory() {
           question: "In the past few months, have you had any slips or stumbles?",
           type: "radio",
           key: "balanceHistory",
+          icon: faPersonFalling,
           options: [
             "Steady as a rock",
             "Maybe a close call or two",
@@ -29,6 +31,7 @@ export default function BalanceHistory() {
         },
       ]}
       nextSection="/onboarding/energy-and-engagement"
+      backPath="/onboarding/chair-transfer"
       conditionalNextSection="/onboarding/balance-followup"
       condition={(answer) => {return answer["balanceHistory"] !== "Steady as a rock"}}
       allowSkip={true}
