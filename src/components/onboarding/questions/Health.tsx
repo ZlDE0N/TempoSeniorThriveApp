@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faHeartPulse } from "@fortawesome/free-solid-svg-icons";
 
 export default function Health() {
   // Scroll to top on mount
@@ -21,6 +22,7 @@ export default function Health() {
           question: "Any health considerations?",
           type: "checkbox",
           key: "Vision",
+          icon: faHeartPulse,
           options: [
             "Arthritis",
             "Heart condition",
@@ -31,6 +33,7 @@ export default function Health() {
         },
       ]}
       nextSection="/onboarding/daily-living"
+      backPath="/onboarding/health"
       buttonLabel="Continue to Daily Living"
       allowSkip={true}
       progress={30}

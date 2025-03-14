@@ -6,12 +6,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faHouseUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function HomeMovement() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Home Movement"
@@ -20,6 +17,7 @@ export default function HomeMovement() {
           question: "How do you feel moving around your home?",
           type: "radio",
           key: "homeMovement",
+          icon: faHouseUser,
           options: [
             "Like a fish in water -  totally at ease",
             "Pretty comfortable in my space",
@@ -29,6 +27,7 @@ export default function HomeMovement() {
         },
       ]}
       nextSection="/onboarding/chair-transfer"
+      backPath="/onboarding/activities"
       allowSkip={true}
       progress={50}
     />

@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faPerson } from "@fortawesome/free-solid-svg-icons";
 
 export default function Age() {
   return (
@@ -17,6 +18,7 @@ export default function Age() {
           question: "Which age range describes you?",
           type: "radio",
           key: "age",
+          icon: faPerson,
           options: [
             "60-69 years young",
             "70-79 years young",
@@ -26,6 +28,7 @@ export default function Age() {
         },
       ]}
       nextSection="/onboarding/mobility-aids"
+      backPath="/onboarding/name"
       allowSkip={true}
       progress={5}
     />

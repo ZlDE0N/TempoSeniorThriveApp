@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faPersonWalking } from "@fortawesome/free-solid-svg-icons";
 
 export default function MovementConsiderations() {
   // Scroll to top on mount
@@ -21,6 +22,7 @@ export default function MovementConsiderations() {
           question: "Any movement considerations?",
           type: "checkbox",
           key: "movement",
+          icon: faPersonWalking,
           options: [
             "Balance awareness",
             "Joint stiffness",
@@ -30,6 +32,7 @@ export default function MovementConsiderations() {
         },
       ]}
       nextSection="/onboarding/vision"
+      backPath="/onboarding/mobility-aids"
       allowSkip={true}
       progress={15}
     />

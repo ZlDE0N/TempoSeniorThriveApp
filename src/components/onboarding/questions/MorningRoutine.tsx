@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faSun } from "@fortawesome/free-solid-svg-icons";
 
 export default function MorningRoutine() {
   // Scroll to top on mount
@@ -20,6 +21,7 @@ export default function MorningRoutine() {
           question: "Tell us about your morning routine:",
           type: "radio",
           key: "routine",
+          icon: faSun,
           options: [
             "I've got my own rhythm down pat",
             "Most days, I handle things just fine",
@@ -29,6 +31,7 @@ export default function MorningRoutine() {
         },
       ]}
       nextSection="/onboarding/meals"
+      backPath="/onboarding/daily-living"
       allowSkip={true}
       progress={35}
     />

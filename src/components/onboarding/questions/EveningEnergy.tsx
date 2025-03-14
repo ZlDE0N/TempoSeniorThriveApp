@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
+import { faCloudMoon } from "@fortawesome/free-solid-svg-icons";
 
 export default function EveningEnergy() {
   // Scroll to top on mount
@@ -20,6 +21,7 @@ export default function EveningEnergy() {
           question: "In the evenings, you tipically:",
           type: "radio",
           key: "eveningEnergy",
+          icon: faCloudMoon,
           options: [
             "Enjoy activities and socializing",
             "Have energy for quiet activities",
@@ -29,6 +31,7 @@ export default function EveningEnergy() {
         },
       ]}
       nextSection="/onboarding/support-and-connections"
+      backPath="/onboarding/afternoon-energy"
       allowSkip={true}
       progress={80}
     />
