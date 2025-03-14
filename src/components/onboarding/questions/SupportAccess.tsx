@@ -10,7 +10,7 @@ import QuestionsCard from "../QuestionsCard";
 export default function SupportAccess() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -28,7 +28,7 @@ export default function SupportAccess() {
           ],
         },
       ]}
-      nextSection="/onboarding/transition"
+      nextSection="/onboarding/room-assessment"
       buttonLabel="Done"
       allowSkip={true}
       progress={95}
