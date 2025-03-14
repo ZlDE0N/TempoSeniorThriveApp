@@ -11,7 +11,7 @@ import { faHeartPulse } from "@fortawesome/free-solid-svg-icons";
 export default function Health() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -36,7 +36,7 @@ export default function Health() {
       backPath="/onboarding/health"
       buttonLabel="Continue to Daily Living"
       allowSkip={true}
-      progress={30}
+      progress={18}
     />
   );
 }

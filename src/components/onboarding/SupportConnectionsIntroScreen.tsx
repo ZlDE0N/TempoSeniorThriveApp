@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import OnboardingLayout from "./OnboardingLayout";
 
 export default function TransitionScreen() {
-  const userName = localStorage.getItem("st_onboarding_name")
+  const userName = localStorage.getItem("st_onboarding_name");
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -17,16 +17,17 @@ export default function TransitionScreen() {
         <div className="w-full bg-slate-100 rounded-full h-2 mb-12">
           <div
             className="bg-st_light_blue h-2 rounded-full"
-            style={{ width: "80%" }}
+            style={{ width: "48%" }}
           ></div>
         </div>
 
         <div className="bg-white rounded-xl surrounding-shadow p-12">
           <h1 className="text-3xl font-bold text-st_black mb-6">
-            Good to understand your patterns! 
+            Good to understand your patterns!
           </h1>
           <p className="text-xl text-slate-600 mb-8">
-            Let's talk about the people in your life who help make each day better
+            Let's talk about the people in your life who help make each day
+            better
           </p>
 
           <div className="flex justify-center">

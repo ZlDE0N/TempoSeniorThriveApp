@@ -11,7 +11,7 @@ import { faSun } from "@fortawesome/free-solid-svg-icons";
 export default function MorningEnergy() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -33,7 +33,7 @@ export default function MorningEnergy() {
       nextSection="/onboarding/afternoon-energy"
       backPath="/onboarding/balance-history"
       allowSkip={true}
-      progress={70}
+      progress={42}
     />
   );
 }

@@ -7,6 +7,9 @@ import DailyLivingIntroScreen from "./DailyLivingIntroScreen";
 import MovementStabilityIntroScreen from "./MovementStabilityIntroScreen";
 import EnergyEngagementIntroScreen from "./EnergyEngagementIntroScreen";
 import SupportConnectionsIntroScreen from "./SupportConnectionsIntroScreen";
+import RoomAssessmentIntroScreen from "./RoomAssessmentIntroScreen";
+import RoomSelection from "./RoomSelection";
+import RoomAssessment from "./RoomAssessment";
 
 import Name from "./questions/Name";
 import Age from "./questions/Age";
@@ -38,7 +41,10 @@ export default function OnboardingRoutes() {
       <Route path="/name" element={<Name />} />
       <Route path="/age" element={<Age />} />
       <Route path="/mobility-aids" element={<MobilityAids />} />
-      <Route path="/movement-considerations" element={<MovementConsiderations />} />
+      <Route
+        path="/movement-considerations"
+        element={<MovementConsiderations />}
+      />
       <Route path="/vision" element={<Vision />} />
       <Route path="/stability" element={<Stability />} />
       <Route path="/health" element={<Health />} />
@@ -47,19 +53,31 @@ export default function OnboardingRoutes() {
       <Route path="/morning-routine" element={<MorningRoutine />} />
       <Route path="/meals" element={<Meals />} />
       <Route path="/activities" element={<Activities />} />
-      <Route path="/movement-and-stability" element={<MovementStabilityIntroScreen />} />
+      <Route
+        path="/movement-and-stability"
+        element={<MovementStabilityIntroScreen />}
+      />
       <Route path="/home-movement" element={<HomeMovement />} />
       <Route path="/chair-transfer" element={<ChairTransfer />} />
       <Route path="/balance-history" element={<BalanceHistory />} />
       <Route path="/balance-followup" element={<BalanceFollowup />} />
-      <Route path="/energy-and-engagement" element={<EnergyEngagementIntroScreen />} />
+      <Route
+        path="/energy-and-engagement"
+        element={<EnergyEngagementIntroScreen />}
+      />
       <Route path="/morning-energy" element={<MorningEnergy />} />
       <Route path="/afternoon-energy" element={<AfternoonEnergy />} />
       <Route path="/evening-energy" element={<EveningEnergy />} />
-      <Route path="/support-and-connections" element={<SupportConnectionsIntroScreen />} />
+      <Route
+        path="/support-and-connections"
+        element={<SupportConnectionsIntroScreen />}
+      />
       <Route path="/family-connections" element={<FamilyConnections />} />
       <Route path="/friends-and-neighbors" element={<FriendsNeighbors />} />
       <Route path="/support-access" element={<SupportAccess />} />
+      <Route path="/room-assessment" element={<RoomAssessmentIntroScreen />} />
+      <Route path="/room-selection" element={<RoomSelection />} />
+      <Route path="/room-assessment/:roomId" element={<RoomAssessment />} />
     </Routes>
   );
 }

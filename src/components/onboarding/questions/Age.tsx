@@ -30,7 +30,7 @@ export default function Age() {
       nextSection="/onboarding/mobility-aids"
       backPath="/onboarding/name"
       allowSkip={true}
-      progress={5}
+      progress={3}
     />
   );
 }

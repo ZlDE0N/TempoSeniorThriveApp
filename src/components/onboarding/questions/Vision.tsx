@@ -11,7 +11,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 export default function Vision() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -35,7 +35,7 @@ export default function Vision() {
       nextSection="/onboarding/stability"
       backPath="/onboarding/movement-considerations"
       allowSkip={true}
-      progress={20}
+      progress={12}
     />
   );
 }
