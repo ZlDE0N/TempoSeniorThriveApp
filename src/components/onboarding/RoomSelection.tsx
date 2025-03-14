@@ -88,15 +88,15 @@ export default function RoomSelection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isExiting ? { opacity: 0, y: -20 } : { opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: 20 }}
+          animate={isExiting ? { opacity: 0, x: -20 } : { opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           className="bg-white rounded-xl surrounding-shadow p-8"
         >
           <div className="flex justify-center mb-6">
             <FontAwesomeIcon
               icon={faHouse}
-              className="text-4xl text-st_light_blue"
+              className="text-4xl text-st_black"
             />
           </div>
 
@@ -133,7 +133,7 @@ export default function RoomSelection() {
                   "p-4 border-2 rounded-lg flex items-center gap-4 cursor-pointer transition-colors",
                   selectedRoom === room.id
                     ? "border-st_light_blue bg-blue-50"
-                    : "border-slate-200 hover:bg-slate-50",
+                    : "border-slate-100 bg-gray-50",
                 )}
                 onClick={() => setSelectedRoom(room.id)}
               >
@@ -141,10 +141,7 @@ export default function RoomSelection() {
                   <FontAwesomeIcon
                     icon={selectedRoom === room.id ? faCircleDot : faCircle}
                     className={cn(
-                      "text-2xl",
-                      selectedRoom === room.id
-                        ? "text-st_light_blue"
-                        : "text-slate-400",
+                      "text-2xl text-st_black",
                     )}
                   />
                 </div>
@@ -153,10 +150,7 @@ export default function RoomSelection() {
                     <FontAwesomeIcon
                       icon={room.icon}
                       className={cn(
-                        "text-lg",
-                        selectedRoom === room.id
-                          ? "text-st_light_blue"
-                          : "text-slate-500",
+                        "text-lg text-st_black"
                       )}
                     />
                     <h3 className="font-medium text-slate-800">{room.name}</h3>

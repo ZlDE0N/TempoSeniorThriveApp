@@ -27,15 +27,8 @@ export default function RoomAssessmentIntroScreen() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
           className="bg-white rounded-xl surrounding-shadow p-12"
         >
-          <FontAwesomeIcon
-            icon={faHome}
-            className="text-4xl text-st_light_blue mb-6"
-          />
           <h1 className="text-3xl font-bold text-st_black mb-6">
             Let's add one more layer to your story!
           </h1>
@@ -47,11 +40,7 @@ export default function RoomAssessmentIntroScreen() {
           </p>
 
           <div className="flex justify-center">
-            <Button
-              size="lg"
-              className="shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto"
-              asChild
-            >
+            <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
               <Link to="/onboarding/room-selection">Continue</Link>
             </Button>
           </div>

@@ -108,7 +108,7 @@ export default function RoomAssessment() {
           <div className="flex justify-center mb-6">
             <FontAwesomeIcon
               icon={getRoomIcon()}
-              className="text-4xl text-st_light_blue"
+              className="text-4xl text-st_black"
             />
           </div>
 
