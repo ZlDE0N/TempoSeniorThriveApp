@@ -33,7 +33,7 @@ export default function BalanceFollowup() {
       nextSection="/onboarding/energy-and-engagement"
       backPath="/onboarding/balance-history"
       allowSkip={true}
-      progress={39}
+      sectionIndex={13}
     />
   );
 }

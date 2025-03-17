@@ -73,7 +73,7 @@ export default function RoomAssessment() {
   const getRoomImage = () => {
     switch (roomId) {
       case "bathroom":
-        return "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=800&q=80";
+        return "https://images.unsplash.com/photo-1629079447777-1e605162dc8d?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
       case "bedroom":
         return "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80";
       case "livingroom":
@@ -89,16 +89,6 @@ export default function RoomAssessment() {
       backPath="/onboarding/room-selection"
     >
       <div className="container mx-auto px-4 py-12 max-w-2xl">
-        {/* Progress Bar */}
-        <div className="w-full bg-slate-100 rounded-full h-2 mb-8">
-          <motion.div
-            className="bg-st_light_blue h-2 rounded-full"
-            initial={{ width: "70%" }}
-            animate={{ width: "80%" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          />
-        </div>
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

@@ -36,7 +36,7 @@ export default function MobilityAids() {
       nextSection="/onboarding/movement-considerations"
       backPath="/onboarding/age"
       allowSkip={true}
-      progress={6}
+      sectionIndex={2}
     />
   );
 }

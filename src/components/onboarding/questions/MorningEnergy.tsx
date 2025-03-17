@@ -33,7 +33,7 @@ export default function MorningEnergy() {
       nextSection="/onboarding/afternoon-energy"
       backPath="/onboarding/balance-history"
       allowSkip={true}
-      progress={42}
+      sectionIndex={14}
     />
   );
 }

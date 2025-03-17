@@ -6,8 +6,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCircleDot } from "@fortawesome/free-regular-svg-icons";
 import {
-  faCircleDot,
   faBath,
   faBed,
   faCouch,
@@ -40,7 +40,7 @@ export default function RoomSelection() {
       name: "Bathroom",
       description: "Starting and ending each day with confidence",
       imageUrl:
-        "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=400&q=80",
+        "https://images.unsplash.com/photo-1629079447777-1e605162dc8d?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       icon: faBath,
     },
     {
@@ -77,16 +77,6 @@ export default function RoomSelection() {
       backPath="/onboarding/support-access"
     >
       <div className="container mx-auto px-4 py-12 max-w-2xl">
-        {/* Progress Bar */}
-        <div className="w-full bg-slate-100 rounded-full h-2 mb-8">
-          <motion.div
-            className="bg-st_light_blue h-2 rounded-full"
-            initial={{ width: "60%" }}
-            animate={{ width: "70%" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          />
-        </div>
-
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={isExiting ? { opacity: 0, x: -20 } : { opacity: 1, x: 0 }}

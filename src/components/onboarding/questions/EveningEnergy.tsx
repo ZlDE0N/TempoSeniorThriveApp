@@ -33,7 +33,7 @@ export default function EveningEnergy() {
       nextSection="/onboarding/support-and-connections"
       backPath="/onboarding/afternoon-energy"
       allowSkip={true}
-      progress={48}
+      sectionIndex={16}
     />
   );
 }

@@ -38,7 +38,7 @@ export default function BalanceHistory() {
         return answer["balanceHistory"] !== "Steady as a rock";
       }}
       allowSkip={true}
-      progress={36}
+      sectionIndex={12}
     />
   );
 }

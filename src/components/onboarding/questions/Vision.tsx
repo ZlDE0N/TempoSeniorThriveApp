@@ -35,7 +35,7 @@ export default function Vision() {
       nextSection="/onboarding/stability"
       backPath="/onboarding/movement-considerations"
       allowSkip={true}
-      progress={12}
+      sectionIndex={4}
     />
   );
 }
