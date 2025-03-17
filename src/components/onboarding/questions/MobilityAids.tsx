@@ -11,7 +11,7 @@ import { faWheelchair } from "@fortawesome/free-solid-svg-icons";
 export default function MobilityAids() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -36,7 +36,7 @@ export default function MobilityAids() {
       nextSection="/onboarding/movement-considerations"
       backPath="/onboarding/age"
       allowSkip={true}
-      progress={10}
+      sectionIndex={2}
     />
   );
 }

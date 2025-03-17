@@ -29,7 +29,7 @@ export default function FriendsNeighbors() {
       nextSection="/onboarding/support-access"
       backPath="/onboarding/family-connections"
       allowSkip={true}
-      progress={90}
+      sectionIndex={18}
     />
   );
 }

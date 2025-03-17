@@ -11,7 +11,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 export default function Name() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -27,7 +27,7 @@ export default function Name() {
       ]}
       nextSection="/onboarding/age"
       backPath="/onboarding/process"
-      progress={0}
+      sectionIndex={0}
     />
   );
 }

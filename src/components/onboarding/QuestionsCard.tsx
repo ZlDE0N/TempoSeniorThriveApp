@@ -28,7 +28,8 @@ export default function QuestionsCard( props: {
   backPath: string,
   conditionalNextSection?: string,
   condition?: (answer: string) => boolean,  
-  progress: number,
+  sectionIndex: number,
+  sectionTotal: number,
   buttonLabel?: string,
 }){
   // Scroll to top on mount
@@ -76,18 +77,43 @@ export default function QuestionsCard( props: {
   const buttonLabel = props.buttonLabel || "Next Step";
   const conditionalNextSection = props.conditionalNextSection || false;
   const navigate = useNavigate();
-
+  const segments = [
+    { label: "Personal Information", width: 25, sectionTotal: 7 },
+    { label: "Daily Rhythms", width: 25, sectionTotal: 3 },
+    { label: "Movement & Stability", width: 25, sectionTotal: 4 },
+    { label: "Energy & Engagement", width: 25, sectionTotal: 3 },
+    { label: "Support & Connections", width: 25, sectionTotal: 3 },
+  ];
+  const segmentCount = segments.length;
+  const getSumUpToNth = (arr, n) => 
+    arr.slice(0, n).reduce((sum, item) => sum + item.sectionTotal, 0);
   return (
     <OnboardingLayout showBackButton={true} backPath={props.backPath}>
       <div className="container mx-auto px-4 py-12 max-w-2xl">
         {/* Progress Bar */}
-        <div className="w-full bg-slate-100 rounded-full h-2 mb-8">
-          <motion.div
-            className="bg-st_light_blue h-2 rounded-full"
-            initial={{ width: `${Math.max(0,props.progress-5)}%` }}
-            animate={{ width: `${props.progress}%` }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          />
+        <div className="w-full h-auto flex flex-wrap flex-row items-center justify-center">
+          {segments.map((segment,index) => ( 
+            <div 
+              key={index}
+              className="w-20 md:w-32 px-1 grid grid-row grid-rows-2"
+            > 
+              <div className="w-full text-center pb-2 flex items-center justify-center font-bold md:text-lg text-xs">
+                {segment.label}
+              </div>
+              <div className="w-full bg-slate-100 rounded-full overflow-hidden h-2">
+                {props.sectionIndex >= getSumUpToNth(segments, index + 1) ? (
+                  <div className="w-full h-full bg-green-400" />
+                ) : props.sectionIndex >= getSumUpToNth(segments, index) && (
+                  <motion.div
+                    className={`bg-st_light_blue h-full rounded-full`}
+                    initial={{ width: `${Math.max(0, (props.sectionIndex - getSumUpToNth(segments, index))) * (100 / segment.sectionTotal)}%` }}
+                    animate={{ width: `${(props.sectionIndex + 1 - getSumUpToNth(segments, index)) * (100 / segment.sectionTotal)}%` }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
+                )}
+              </div>
+            </div>
+           ))}
         </div>
 
         <div className="bg-white rounded-xl surrounding-shadow p-8">
@@ -149,7 +175,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} hover:scale-[1.02] border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="checkbox"
@@ -181,7 +207,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} hover:scale-[1.02] border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="radio"

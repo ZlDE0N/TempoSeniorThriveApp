@@ -11,7 +11,7 @@ import { faPersonFalling } from "@fortawesome/free-solid-svg-icons";
 export default function BalanceFollowup() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -33,7 +33,7 @@ export default function BalanceFollowup() {
       nextSection="/onboarding/energy-and-engagement"
       backPath="/onboarding/balance-history"
       allowSkip={true}
-      progress={65}
+      sectionIndex={13}
     />
   );
 }

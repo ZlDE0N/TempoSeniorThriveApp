@@ -29,7 +29,7 @@ export default function MorningEnergy() {
       nextSection="/onboarding/evening-energy"
       backPath="/onboarding/morning-energy"
       allowSkip={true}
-      progress={75}
+      sectionIndex={15}
     />
   );
 }

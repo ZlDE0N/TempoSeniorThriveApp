@@ -11,7 +11,7 @@ import { faSun } from "@fortawesome/free-solid-svg-icons";
 export default function MorningRoutine() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -33,7 +33,7 @@ export default function MorningRoutine() {
       nextSection="/onboarding/meals"
       backPath="/onboarding/daily-living"
       allowSkip={true}
-      progress={35}
+      sectionIndex={7}
     />
   );
 }

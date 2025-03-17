@@ -1,23 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import OnboardingLayout from "./OnboardingLayout";
+import { useEffect } from "react";
+import { motion } from "framer-motion";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import OnboardingLayout from "./OnboardingLayout";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import { motion } from 'framer-motion';
 
-export default function TransitionScreen() {
-  const userName = localStorage.getItem("st_onboarding_name");
+export default function RoomAssessmentIntroScreen() {
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
   return (
     <OnboardingLayout>
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
         <p className="text-2xl p-4 font-bold">
-          Energy & Engagement
+          Support & Connections
           <FontAwesomeIcon className="pl-2" icon={faCircleCheck}/>
         </p>
         {/* Progress Bar */}
@@ -29,21 +30,25 @@ export default function TransitionScreen() {
           />
         </div>
 
-        <div className="bg-white rounded-xl surrounding-shadow p-12">
+        <motion.div
+          className="bg-white rounded-xl surrounding-shadow p-12"
+        >
           <h1 className="text-3xl font-bold text-st_black mb-6">
-            Good to understand your patterns!
+            Let's add one more layer to your story!
           </h1>
           <p className="text-xl text-slate-600 mb-8">
-            Let's talk about the people in your life who help make each day
-            better
+            A quick peek at your space can reveal simple ways to enhance your
+            daily confidence. Just like a friend offering a fresh perspective,
+            we'll look at the room where you spend time and spot opportunities
+            for even more ease and independence.
           </p>
 
           <div className="flex justify-center">
             <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
-              <Link to="/onboarding/family-connections">Continue</Link>
+              <Link to="/onboarding/room-selection">Continue to Room Assessment</Link>
             </Button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </OnboardingLayout>
   );

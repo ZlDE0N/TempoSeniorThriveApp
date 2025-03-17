@@ -29,7 +29,7 @@ export default function FamilyConnections() {
       nextSection="/onboarding/friends-and-neighbors"
       backPath="/onboarding/evening-energy"
       allowSkip={true}
-      progress={85}
+      sectionIndex={17}
     />
   );
 }

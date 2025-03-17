@@ -11,7 +11,7 @@ import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 export default function Activities() {
   // Scroll to top on mount
   useEffect(() => {
-    window.scrollTo({ top: 0 , behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <QuestionsCard
@@ -33,7 +33,7 @@ export default function Activities() {
       nextSection="/onboarding/movement-and-stability"
       backPath="/onboarding/meals"
       allowSkip={true}
-      progress={45}
+      sectionIndex={9}
     />
   );
 }

@@ -29,7 +29,7 @@ export default function HomeMovement() {
       nextSection="/onboarding/chair-transfer"
       backPath="/onboarding/activities"
       allowSkip={true}
-      progress={50}
+      sectionIndex={10}
     />
   );
 }
