@@ -78,11 +78,11 @@ export default function QuestionsCard( props: {
   const conditionalNextSection = props.conditionalNextSection || false;
   const navigate = useNavigate();
   const segments = [
-    { label: "Personal Information", width: 25, sectionTotal: 7 },
-    { label: "Daily Rhythms", width: 25, sectionTotal: 3 },
-    { label: "Movement & Stability", width: 25, sectionTotal: 4 },
-    { label: "Energy & Engagement", width: 25, sectionTotal: 3 },
-    { label: "Support & Connections", width: 25, sectionTotal: 3 },
+    { label: "Personal Information", sectionTotal: 7 },
+    { label: "Daily Rhythms", sectionTotal: 3 },
+    { label: "Movement & Stability", sectionTotal: 4 },
+    { label: "Energy & Engagement", sectionTotal: 3 },
+    { label: "Support & Connections", sectionTotal: 3 },
   ];
   const segmentCount = segments.length;
   const getSumUpToNth = (arr, n) => 
