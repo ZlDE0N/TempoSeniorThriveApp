@@ -4,7 +4,6 @@ import Home from "./components/home";
 import routes from "tempo-routes";
 import LandingPage from "./components/landing/LandingPage";
 import OnboardingRoutes from "./components/onboarding/OnboardingRoutes";
-import { LandingPage } from "./components/landing";
 
 function App() {
   const tempoRoutes =
