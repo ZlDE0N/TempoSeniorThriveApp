@@ -4,7 +4,7 @@ import { useMemo, useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import { Link, useNavigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCircleDot } from "@fortawesome/free-regular-svg-icons";
@@ -25,7 +25,6 @@ export default function QuestionsCard( props: {
     key: string,
   }
   nextSection: string,
-  backPath: string,
   backPath: string,
   conditionalNextSection?: string,
   condition?: (answer: string) => boolean,  
@@ -85,7 +84,7 @@ export default function QuestionsCard( props: {
         <div className="w-full bg-slate-100 rounded-full h-2 mb-8">
           <motion.div
             className="bg-st_light_blue h-2 rounded-full"
-            initial={{ width: `${Math.max(0,props.progress-3)}%` }}
+            initial={{ width: `${Math.max(0,props.progress-5)}%` }}
             animate={{ width: `${props.progress}%` }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           />
@@ -142,7 +141,7 @@ export default function QuestionsCard( props: {
                     }
                   />)
                   || item.type === "checkbox" && (
-                    <div className="pt-4" className="pt-4">
+                    <div className="pt-4">
                       <p className="text-slate-600 text-base">
                         (Select none, one or many that apply)
                       </p>
@@ -150,7 +149,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} hover:scale-[1.02] border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="checkbox"
@@ -174,7 +173,7 @@ export default function QuestionsCard( props: {
                       </div>
                     </div>
                   ) || item.type === "radio" && (
-                    <div className="pt-4" className="pt-4">
+                    <div className="pt-4">
                       <p className="text-slate-600 text-base">
                         (Select one)
                       </p>
@@ -182,7 +181,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} hover:scale-[1.02] border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="radio"
