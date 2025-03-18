@@ -24,7 +24,8 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [userRole, setUserRole] = useState<UserRole>("senior");
+  // User role is now determined by the system or during onboarding
+  const [userRole] = useState<UserRole>("senior");
   const [darkMode, setDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
@@ -126,37 +127,6 @@ export default function RegisterPage() {
           </CardHeader>
 
           <CardContent>
-            <motion.div variants={itemVariants} className="mb-6">
-              <Tabs
-                defaultValue="senior"
-                onValueChange={(value) => setUserRole(value as UserRole)}
-                className="w-full"
-              >
-                <TabsList
-                  className={`grid w-full grid-cols-3 ${darkMode ? "bg-slate-700" : ""}`}
-                >
-                  <TabsTrigger
-                    value="senior"
-                    className={`text-base py-3 ${darkMode ? "data-[state=active]:bg-slate-600" : ""}`}
-                  >
-                    Senior
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="family"
-                    className={`text-base py-3 ${darkMode ? "data-[state=active]:bg-slate-600" : ""}`}
-                  >
-                    Family
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="caregiver"
-                    className={`text-base py-3 ${darkMode ? "data-[state=active]:bg-slate-600" : ""}`}
-                  >
-                    Caregiver
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
-            </motion.div>
-
             <form onSubmit={handleRegister}>
               <motion.div variants={itemVariants} className="space-y-4">
                 <div className="space-y-2">
