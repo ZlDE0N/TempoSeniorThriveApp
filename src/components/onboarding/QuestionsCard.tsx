@@ -175,7 +175,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} hover:scale-[1.02] border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="checkbox"
@@ -207,7 +207,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} hover:scale-[1.02] border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="radio"
