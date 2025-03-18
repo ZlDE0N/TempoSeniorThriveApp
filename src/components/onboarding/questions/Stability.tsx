@@ -34,7 +34,7 @@ export default function Stability() {
       nextSection="/onboarding/health"
       backPath="/onboarding/health"
       allowSkip={true}
-      progress={15}
+      sectionIndex={5}
     />
   );
 }

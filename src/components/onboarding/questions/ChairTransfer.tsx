@@ -33,7 +33,7 @@ export default function ChairTransfer() {
       nextSection="/onboarding/balance-history"
       backPath="/onboarding/home-movement"
       allowSkip={true}
-      progress={33}
+      sectionIndex={11}
     />
   );
 }

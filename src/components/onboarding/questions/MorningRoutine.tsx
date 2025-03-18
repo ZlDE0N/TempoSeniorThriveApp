@@ -33,7 +33,7 @@ export default function MorningRoutine() {
       nextSection="/onboarding/meals"
       backPath="/onboarding/daily-living"
       allowSkip={true}
-      progress={21}
+      sectionIndex={7}
     />
   );
 }

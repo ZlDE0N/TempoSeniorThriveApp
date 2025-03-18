@@ -33,7 +33,7 @@ export default function Activities() {
       nextSection="/onboarding/movement-and-stability"
       backPath="/onboarding/meals"
       allowSkip={true}
-      progress={27}
+      sectionIndex={9}
     />
   );
 }

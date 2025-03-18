@@ -27,7 +27,7 @@ export default function Name() {
       ]}
       nextSection="/onboarding/age"
       backPath="/onboarding/process"
-      progress={0}
+      sectionIndex={0}
     />
   );
 }

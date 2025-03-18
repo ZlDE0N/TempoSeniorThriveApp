@@ -34,7 +34,7 @@ export default function MovementConsiderations() {
       nextSection="/onboarding/vision"
       backPath="/onboarding/mobility-aids"
       allowSkip={true}
-      progress={9}
+      sectionIndex={3}
     />
   );
 }

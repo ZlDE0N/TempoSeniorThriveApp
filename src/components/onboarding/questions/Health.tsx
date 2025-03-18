@@ -36,7 +36,7 @@ export default function Health() {
       backPath="/onboarding/health"
       buttonLabel="Continue to Daily Living"
       allowSkip={true}
-      progress={18}
+      sectionIndex={6}
     />
   );
 }

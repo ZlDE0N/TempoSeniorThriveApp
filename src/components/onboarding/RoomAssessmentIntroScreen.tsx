@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import OnboardingLayout from "./OnboardingLayout";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 export default function RoomAssessmentIntroScreen() {
   // Scroll to top on mount
@@ -16,12 +17,15 @@ export default function RoomAssessmentIntroScreen() {
   return (
     <OnboardingLayout>
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
+        <p className="text-2xl p-4 font-bold">
+          Support & Connections
+          <FontAwesomeIcon className="pl-2" icon={faCircleCheck}/>
+        </p>
         {/* Progress Bar */}
-        <div className="w-full bg-slate-100 rounded-full h-2 mb-12">
-          <motion.div
-            className="bg-st_light_blue h-2 rounded-full"
-            initial={{ width: "57%" }}
-            animate={{ width: "60%" }}
+        <div className="w-full bg-green-100 rounded-full h-4 mb-12">
+          <motion.div className="bg-green-400 h-4 rounded-full"
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           />
         </div>
@@ -41,7 +45,7 @@ export default function RoomAssessmentIntroScreen() {
 
           <div className="flex justify-center">
             <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
-              <Link to="/onboarding/room-selection">Continue</Link>
+              <Link to="/onboarding/room-selection">Continue to Room Assessment</Link>
             </Button>
           </div>
         </motion.div>
