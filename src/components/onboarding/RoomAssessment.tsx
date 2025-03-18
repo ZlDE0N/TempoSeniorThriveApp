@@ -244,7 +244,7 @@ export default function RoomAssessment() {
                 </button>
                 <div className="w-full flex justify-center">
                   <Button size="lg" className="w-full text-lg px-8 py-6 h-auto" asChild>
-                    <Link to="/onboarding/">
+                    <Link to="/onboarding/image-analysis">
                       Yes, analyze with AI 
                     <FontAwesomeIcon icon={faWandMagicSparkles} className="pl-2 text-lg" />
                     </Link>

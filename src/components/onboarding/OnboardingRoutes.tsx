@@ -31,6 +31,7 @@ import EveningEnergy from "./questions/EveningEnergy";
 import FamilyConnections from "./questions/FamilyConnections";
 import FriendsNeighbors from "./questions/FriendsNeighbors";
 import SupportAccess from "./questions/SupportAccess";
+import ImageAnalysis from "./ImageAnalysis";
 
 export default function OnboardingRoutes() {
   return (
@@ -78,6 +79,8 @@ export default function OnboardingRoutes() {
       <Route path="/room-assessment" element={<RoomAssessmentIntroScreen />} />
       <Route path="/room-selection" element={<RoomSelection />} />
       <Route path="/room-assessment/:roomId" element={<RoomAssessment />} />
+
+      <Route path="/image-analysis/:roomId" element={<ImageAnalysis />} />
     </Routes>
   );
 }
