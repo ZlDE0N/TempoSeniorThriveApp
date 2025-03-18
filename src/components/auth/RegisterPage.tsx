@@ -18,7 +18,15 @@ import { Eye, EyeOff, Moon, Sun } from "lucide-react";
 
 type UserRole = "senior" | "family" | "caregiver";
 
-export default function RegisterPage() {
+interface RegisterPageProps {
+  showBackButton?: boolean;
+  backPath?: string;
+}
+
+export default function RegisterPage({
+  showBackButton = false,
+  backPath = "/",
+}: RegisterPageProps = {}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -73,6 +81,24 @@ export default function RegisterPage() {
     <div
       className={`min-h-screen flex items-center justify-center p-4 ${darkMode ? "bg-slate-900 text-white" : "bg-blue-50"}`}
     >
+      {showBackButton && (
+        <motion.div
+          className="absolute top-4 left-4"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate(backPath)}
+            className={
+              darkMode ? "border-slate-700 bg-slate-800 hover:bg-slate-700" : ""
+            }
+          >
+            ← Back
+          </Button>
+        </motion.div>
+      )}
       <motion.div
         className="absolute top-4 right-4"
         whileHover={{ scale: 1.1 }}

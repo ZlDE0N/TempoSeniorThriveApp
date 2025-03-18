@@ -18,10 +18,11 @@ export default function OnboardingLayout({
     <div className="min-h-screen bg-gradient-to-b from-whit to-blue-50">
       <header className="fixed z-20 shadow-md w-dvw mx-auto px-10 md:px-20 bg-white py-4 flex justify-between items-center">
         <Link to="/" className="text-xl font-bold text-blue-600">
-          <span className="text-st_light_orange">Senior</span><span className="text-st_light_blue">Thrive™</span>
+          <span className="text-st_light_orange">Senior</span>
+          <span className="text-st_light_blue">Thrive™</span>
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           {showBackButton && (
             <button
               onClick={() => navigate(backPath)}
@@ -30,12 +31,16 @@ export default function OnboardingLayout({
               ← Back
             </button>
           )}
+          <Link
+            to="/signin"
+            className="text-sm font-medium text-st_light_blue hover:text-st_dark_blue transition-colors"
+          >
+            Already have an account? Sign in
+          </Link>
         </div>
       </header>
 
-      <div className="pt-16">
-        {children}
-      </div>
+      <div className="pt-16">{children}</div>
     </div>
   );
 }

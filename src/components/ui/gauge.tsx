@@ -33,9 +33,16 @@ export default function Gauge({
 
   const progress = (animatedValue / 100) * circumference;
 
+  // Calculate color based on score
+  const getScoreColor = (score: number) => {
+    if (score < 40) return "#e74c3c"; // Red for low scores
+    if (score < 70) return "#f39c12"; // Orange/Yellow for medium scores
+    return "#2ecc71"; // Green for high scores
+  };
+
   return (
     <div className={cn("flex flex-col items-center", className)}>
-      <svg width="80" height="80" viewBox="0 0 140 140">
+      <svg width="100" height="100" viewBox="0 0 140 140">
         {/* Background Circle */}
         <circle
           cx="70"
@@ -43,7 +50,7 @@ export default function Gauge({
           r={radius}
           stroke="#e0e0e0"
           strokeWidth="12"
-          fill="#888888"
+          fill="#f8f9fa"
         />
 
         {/* Progress Circle with Glow */}
@@ -51,7 +58,7 @@ export default function Gauge({
           cx="70"
           cy="70"
           r={radius}
-          stroke={`url(#gradient)`}
+          stroke={`url(#scoreGradient)`}
           strokeWidth="14"
           fill="none"
           strokeDasharray={circumference}
@@ -59,35 +66,31 @@ export default function Gauge({
           strokeLinecap="round"
           transform="rotate(-90 70 70)"
           style={{
-            filter: `drop-shadow(0 0 10px #7aa7ff)`,
-            transition: "stroke-dashoffset 0.3s ease-out",
+            filter: `drop-shadow(0 0 10px rgba(122, 167, 255, 0.7))`,
+            transition: "stroke-dashoffset 0.5s ease-out",
           }}
         />
 
-        {/* Gradient Definition */}
+        {/* Gradient Definition - Dynamic based on score */}
         <defs>
-          <linearGradient id="gradient" x1="1" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color} />
-            <stop offset="100%" stopColor="#7aa7ff" />
+          <linearGradient id="scoreGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={getScoreColor(animatedValue)} />
+            <stop offset="100%" stopColor={color} />
           </linearGradient>
         </defs>
 
-        {/* Main Value */}
-        <text
-          x="70"
-          y="73"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontSize="35"
-          fontWeight="bold"
-          fill="#ffffff"
-        >
-          {Math.round(animatedValue)}
-        </text>
+        {/* Main Value - Removed from here, now displayed below the gauge */}
 
         {/* Label */}
         {label && (
-          <text x="70" y="100" textAnchor="middle" fontSize="12" fill="#777">
+          <text
+            x="70"
+            y="75"
+            textAnchor="middle"
+            fontSize="14"
+            fontWeight="medium"
+            fill="#555"
+          >
             {label}
           </text>
         )}
