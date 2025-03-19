@@ -11,10 +11,11 @@ import { faSun } from "@fortawesome/free-solid-svg-icons";
 export default function MorningRoutine() {
   return (
     <QuestionsCard
-      title="Morning Routine"
+      title="Morning Habits"
       items={[
         {
-          question: "Think about your typical mornings. How smoothly do things usually go?",
+          question:
+            "Think about your typical mornings. How smoothly do things usually go?",
           type: "radio",
           key: "morningRoutine",
           icon: faSun,
