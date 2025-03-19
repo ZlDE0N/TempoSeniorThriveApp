@@ -12,14 +12,15 @@ export default function Age() {
   return (
     <QuestionsCard
       title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      subtitle="Let's get to know you better"
       items={[
         {
-          question: "Which age range describes you?",
+          question: "What is your age range?",
           type: "radio",
           key: "age",
           icon: faPerson,
           options: [
+            "50-59 years young",
             "60-69 years young",
             "70-79 years young",
             "80-89 years young",
@@ -27,7 +28,7 @@ export default function Age() {
           ],
         },
       ]}
-      nextSection="/onboarding/mobility-aids"
+      nextSection="/onboarding/living-situation"
       backPath="/onboarding/name"
       allowSkip={true}
       sectionIndex={1}

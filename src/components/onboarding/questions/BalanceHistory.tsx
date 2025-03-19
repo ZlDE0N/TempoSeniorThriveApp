@@ -9,36 +9,35 @@ import QuestionsCard from "../QuestionsCard";
 import { faPersonFalling } from "@fortawesome/free-solid-svg-icons";
 
 export default function BalanceHistory() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Balance History"
       items={[
         {
           question:
-            "In the past few months, have you had any slips or stumbles?",
+            "In the past three months, how often have you experienced a slip, stumble, or fall?",
           type: "radio",
           key: "balanceHistory",
           icon: faPersonFalling,
           options: [
-            "Steady as a rock",
-            "Maybe a close call or two",
-            "Had a minor slip",
-            "Had a few concerns",
+            "I haven't had any slips or falls",
+            "I've had one or two close calls, but no falls",
+            "I've had a minor slip or stumble",
+            "I've had a fall or multiple concerning stumbles",
           ],
         },
       ]}
       nextSection="/onboarding/energy-and-engagement"
-      backPath="/onboarding/chair-transfer"
+      backPath="/onboarding/vision"
       conditionalNextSection="/onboarding/balance-followup"
       condition={(answer) => {
-        return answer["balanceHistory"] !== "Steady as a rock";
+        return (
+          answer["balanceHistory"] === "I've had a minor slip or stumble" ||
+            answer["balanceHistory"] ===
+            "I've had a fall or multiple concerning stumbles"
+        );
       }}
-      allowSkip={true}
-      sectionIndex={12}
+      sectionIndex={13}
     />
   );
 }
