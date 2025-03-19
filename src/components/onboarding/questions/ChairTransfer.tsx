@@ -17,11 +17,13 @@ export default function ChairTransfer() {
         {
           question:
             "How easy is it for you to get up from a seated position, like from your favorite chair?",
+          subtitle:
+            "This helps us assess your mobility and recommend appropriate support tools",
           type: "radio",
           key: "chairTransfer",
           icon: faChair,
           options: [
-             "I can stand up easily and quickly",
+            "I can stand up easily and quickly",
             "I can stand up, but I take my time",
             "I need to use my arms or something to help me stand",
             "Standing up is very difficult for me",

@@ -16,15 +16,12 @@ export default function Health() {
       items={[
         {
           question: "How would you rate your general health?",
+          subtitle:
+            "Your overall health perception helps us customize our wellness recommendations",
           type: "radio",
           key: "health",
           icon: faHeartPulse,
-          options: [
-            "Excellent",
-            "Good",
-            "Fair",
-            "Poor",
-          ],
+          options: ["Excellent", "Good", "Fair", "Poor"],
         },
       ]}
       nextSection="/onboarding/daily-living"

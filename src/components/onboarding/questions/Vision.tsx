@@ -16,6 +16,8 @@ export default function Vision() {
       items={[
         {
           question: "How would you rate your vision?",
+          subtitle:
+            "Your vision quality affects how we design safety features and recommendations",
           type: "radio",
           key: "vision",
           icon: faEye,

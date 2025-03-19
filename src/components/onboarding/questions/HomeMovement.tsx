@@ -16,6 +16,8 @@ export default function HomeMovement() {
       items={[
         {
           question: "How do you feel moving around your home?",
+          subtitle:
+            "Understanding your comfort level helps us identify potential home safety improvements",
           type: "radio",
           key: "homeMovement",
           icon: faHouseUser,

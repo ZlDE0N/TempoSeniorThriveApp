@@ -16,6 +16,8 @@ export default function Age() {
       items={[
         {
           question: "What is your age range?",
+          subtitle:
+            "This helps us tailor our recommendations to your life stage",
           type: "radio",
           key: "age",
           icon: faPerson,

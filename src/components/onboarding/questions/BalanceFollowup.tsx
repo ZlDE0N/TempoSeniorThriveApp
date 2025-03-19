@@ -16,6 +16,8 @@ export default function BalanceFollowup() {
       items={[
         {
           question: "Where did this slip or fall occur?",
+          subtitle:
+            "Identifying fall locations helps us recommend specific safety measures",
           type: "radio",
           key: "balanceFollowup",
           icon: faPersonFalling,
