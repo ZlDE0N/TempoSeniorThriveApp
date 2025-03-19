@@ -9,31 +9,28 @@ import QuestionsCard from "../QuestionsCard";
 import { faSun } from "@fortawesome/free-solid-svg-icons";
 
 export default function MorningEnergy() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Morning Energy"
       items={[
         {
-          question: "What's your typical energy like in the morning?",
+          question:
+            "How would you describe your energy levels when you wake up in the morning?",
           type: "radio",
           key: "morningEnergy",
           icon: faSun,
           options: [
-            "Ready to tackle the day!",
-            "Takes a bit to get going, then I'm good",
-            "Depends on how well I slept",
-            "Mornings can be tough",
+            "I feel refreshed and ready to go",
+            "It takes me a little while to get going, but then I'm fine",
+            "My morning energy depends on how well I slept",
+            "Mornings are usually difficult for me",
           ],
         },
       ]}
-      nextSection="/onboarding/afternoon-energy"
+      nextSection="/onboarding/sleep-hours"
       backPath="/onboarding/balance-history"
       allowSkip={true}
-      sectionIndex={14}
+      sectionIndex={15}
     />
   );
 }

@@ -8,28 +8,30 @@ import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
 import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 
-export default function AfternoonEnergy() {
+export default function DailyRoutines() {
   return (
     <QuestionsCard
-      title="Afternoon Energy"
+      title="Daily Routines"
       items={[
         {
-          question: "By mid-day, how do you typically feel?",
+          question:
+            "How consistent are your daily routines? Do you find it easy to stick to a regular schedule?",
           type: "radio",
-          key: "afternoonEnergy",
+          key: "dailyRoutines",
           icon: faCloudSun,
           options: [
-            "I'm still energetic and engaged in activities",
-            "I can manage my tasks, but I might need a short break",
-            "I need to pace myself and take frequent breaks",
-            "I find it challenging to do much by mid-day",
+            "Very consistent, I thrive on routine",
+            "I generally maintain a good routine",
+            "My routines vary somewhat",
+            "I struggle to maintain a consistent routine",
           ],
         },
       ]}
-      nextSection="/onboarding/evening-energy"
-      backPath="/onboarding/sleep-hours"
+      nextSection="/onboarding/personal-care"
+      backPath="/onboarding/everyday-tasks"
       allowSkip={true}
-      sectionIndex={17}
+      sectionIndex={7}
     />
   );
 }
+

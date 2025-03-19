@@ -9,17 +9,13 @@ import QuestionsCard from "../QuestionsCard";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Name() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Personal Profile"
-      subtitle="Let's personalize your assessment"
+      subtitle="Let's personalize your journey"
       items={[
         {
-          question: "What name should we use?",
+          question: "What is your first name?",
           type: "input",
           key: "name",
           icon: faUser,

@@ -9,10 +9,6 @@ import QuestionsCard from "../QuestionsCard";
 import { faCloudMoon } from "@fortawesome/free-solid-svg-icons";
 
 export default function EveningEnergy() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Evening Energy"
@@ -24,8 +20,8 @@ export default function EveningEnergy() {
           icon: faCloudMoon,
           options: [
             "Enjoy activities and socializing",
-            "Have energy for quiet activities",
-            "Prefer to take it very easy",
+            "Enjoy calm activities",
+            "Prefer to rest and relax",
             "Ready to wind down early",
           ],
         },
@@ -33,7 +29,7 @@ export default function EveningEnergy() {
       nextSection="/onboarding/support-and-connections"
       backPath="/onboarding/afternoon-energy"
       allowSkip={true}
-      sectionIndex={16}
+      sectionIndex={18}
     />
   );
 }

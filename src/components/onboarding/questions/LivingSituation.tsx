@@ -6,31 +6,32 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
-import { faHeartPulse } from "@fortawesome/free-solid-svg-icons";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
-export default function Health() {
+export default function LivingSituation() {
   return (
     <QuestionsCard
       title="Personal Profile"
       subtitle="Let's get to know you better"
       items={[
         {
-          question: "How would you rate your general health?",
+          question: "Which option best describes your living situation?",
           type: "radio",
-          key: "health",
-          icon: faHeartPulse,
+          key: "livingSituation",
+          icon: faHouse,
           options: [
-            "Excellent",
-            "Good",
-            "Fair",
-            "Poor",
+            "Living alone",
+            "Living with a spouse/partner",
+            "Living with family members",
+            "Living in a senior community",
+            "Other",
           ],
         },
       ]}
-      nextSection="/onboarding/daily-living"
-      backPath="/onboarding/living-situation"
+      nextSection="/onboarding/health"
+      backPath="/onboarding/age"
       allowSkip={true}
-      sectionIndex={3}
+      sectionIndex={2}
     />
   );
 }

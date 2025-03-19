@@ -9,31 +9,28 @@ import QuestionsCard from "../QuestionsCard";
 import { faPersonFalling } from "@fortawesome/free-solid-svg-icons";
 
 export default function BalanceFollowup() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Balance Follow-up"
+      subtitle="This helps us understand where you might need additional support"
       items={[
         {
-          question: "Where did your last balance concern happen?",
+          question: "Where did this slip or fall occur?",
           type: "radio",
           key: "balanceFollowup",
           icon: faPersonFalling,
           options: [
-            "Inside while moving around",
-            "Getting up or sitting down",
+            "Inside my home while walking",
+            "While getting up or sitting down",
             "Outside on my property",
-            "In the community",
+            "In a public space or the community",
           ],
         },
       ]}
       nextSection="/onboarding/energy-and-engagement"
       backPath="/onboarding/balance-history"
       allowSkip={true}
-      sectionIndex={13}
+      sectionIndex={14}
     />
   );
 }
