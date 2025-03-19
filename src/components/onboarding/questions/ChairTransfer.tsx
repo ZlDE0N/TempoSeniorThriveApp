@@ -9,31 +9,29 @@ import QuestionsCard from "../QuestionsCard";
 import { faChair } from "@fortawesome/free-solid-svg-icons";
 
 export default function ChairTransfer() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Chair Transfer"
+      subtitle="Your ability to stand up affects your independence"
       items={[
         {
-          question: "What about getting up from your favorite chair?",
+          question:
+            "How easy is it for you to get up from a seated position, like from your favorite chair?",
           type: "radio",
           key: "chairTransfer",
           icon: faChair,
           options: [
-            "Pop right up when I need to",
-            "Take my time but manage fine",
-            "Sometimes it takes extra effort",
-            "Could use something to push up with",
+             "I can stand up easily and quickly",
+            "I can stand up, but I take my time",
+            "I need to use my arms or something to help me stand",
+            "Standing up is very difficult for me",
           ],
         },
       ]}
-      nextSection="/onboarding/balance-history"
+      nextSection="/onboarding/mobility-aids"
       backPath="/onboarding/home-movement"
       allowSkip={true}
-      sectionIndex={11}
+      sectionIndex={10}
     />
   );
 }

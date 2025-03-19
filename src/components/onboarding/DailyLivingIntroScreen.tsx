@@ -17,7 +17,7 @@ export default function TransitionScreen() {
     <OnboardingLayout>
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
         <p className="text-2xl p-4 font-bold">
-          Personal information
+          Personal Profile
           <FontAwesomeIcon className="pl-2" icon={faCircleCheck}/>
         </p>
         {/* Progress Bar */}

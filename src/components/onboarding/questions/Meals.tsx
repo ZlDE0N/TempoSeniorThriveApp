@@ -9,31 +9,26 @@ import QuestionsCard from "../QuestionsCard";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 export default function Meals() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Your Meals"
       items={[
         {
-          question: "When it comes to meals, what's your style?",
+          question: "When it comes to meals, how comfortable are you with preparing or managing them?",
           type: "radio",
           key: "meals",
           icon: faUtensils,
           options: [
-            "I love putting my own meals together",
-            "I can whip up te basics no problem",
-            "I keep it simple but get by okay",
-            "It's not my favorite part of the day",
+            "I enjoy and easily handle meal preparation",
+            "I can manage basic meals without problems",
+            "I keep meals simple and get by",
+            "Meal times can be difficult for me",
           ],
         },
       ]}
-      nextSection="/onboarding/activities"
+      nextSection="/onboarding/everyday-tasks"
       backPath="/onboarding/morning-routine"
-      allowSkip={true}
-      sectionIndex={8}
+      sectionIndex={5}
     />
   );
 }

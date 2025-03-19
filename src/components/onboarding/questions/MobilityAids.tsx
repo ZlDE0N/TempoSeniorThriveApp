@@ -9,34 +9,29 @@ import QuestionsCard from "../QuestionsCard";
 import { faWheelchair } from "@fortawesome/free-solid-svg-icons";
 
 export default function MobilityAids() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
-      title="Movement Profile"
+      title="Mobility Aids"
       subtitle="Understanding how you move through your day helps us provide relevant insights"
       items={[
         {
-          question: "Do you currently use any mobility aids?",
+          question: "Do you regularly use any mobility devices (such as a cane, walker, or wheelchair)?",
           type: "radio",
-          key: "mobility",
+          key: "mobilityAids",
           icon: faWheelchair,
           options: [
-            "No aids needed",
-            "Sometimes use a cane",
-            "Regularly use a cane",
-            "Use a walker",
-            "Use a wheelchair",
+            "No, I don't use any mobility devices.",
+            "Yes, I use a cane.",
+            "Yes, I use a walker.",
+            "Yes, I use a wheelchair.",
             "Other support",
           ],
         },
       ]}
-      nextSection="/onboarding/movement-considerations"
-      backPath="/onboarding/age"
+      nextSection="/onboarding/vision"
+      backPath="/onboarding/chair-transfer"
       allowSkip={true}
-      sectionIndex={2}
+      sectionIndex={11}
     />
   );
 }

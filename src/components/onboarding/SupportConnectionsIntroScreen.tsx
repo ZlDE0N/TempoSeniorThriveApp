@@ -40,7 +40,7 @@ export default function TransitionScreen() {
 
           <div className="flex justify-center">
             <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
-              <Link to="/onboarding/family-connections">Continue</Link>
+              <Link to="/onboarding/connections">Continue</Link>
             </Button>
           </div>
         </div>

@@ -6,34 +6,32 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
-import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-export default function Activities() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+export default function PersonalCare() {
   return (
     <QuestionsCard
-      title="Daily Activities"
+      title="Personal Care"
       items={[
         {
-          question: "How do you usually spend your afternoons?",
+          question:
+            "How satisfied are you with how you manage your personal care?",
           type: "radio",
-          key: "activities",
-          icon: faCloudSun,
+          key: "personalCare",
+          icon: faUser,
           options: [
-            "Always finding things to do",
-            "Mix of activities and rest",
-            "Take it pretty easy",
-            "Prefer to stay settled",
+            "Very satisfied, I manage everything myself with ease",
+            "Satisfied, I manage most things well",
+            "I manage, but sometimes need assistance",
+            "I find personal care challenging",
           ],
         },
       ]}
       nextSection="/onboarding/movement-and-stability"
-      backPath="/onboarding/meals"
+      backPath="/onboarding/daily-routines"
       allowSkip={true}
-      sectionIndex={9}
+      sectionIndex={8}
     />
   );
 }
+
