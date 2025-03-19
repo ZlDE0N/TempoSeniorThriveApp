@@ -12,6 +12,7 @@ export default function HomeMovement() {
   return (
     <QuestionsCard
       title="Home Movement"
+      subtitle="Your confidence in moving affects your daily activities"
       items={[
         {
           question: "How do you feel moving around your home?",
@@ -19,17 +20,17 @@ export default function HomeMovement() {
           key: "homeMovement",
           icon: faHouseUser,
           options: [
-            "Like a fish in water -  totally at ease",
-            "Pretty comfortable in my space",
-            "Take it slow and steady",
-            "Need to be extra careful",
+            "Completely confident and at ease.",
+            "Mostly comfortable, I move without much worry.",
+            "I move carefully and take my time.",
+            "I need to be very careful and feel unsteady.",
           ],
         },
       ]}
       nextSection="/onboarding/chair-transfer"
-      backPath="/onboarding/activities"
+      backPath="/onboarding/personal-care"
       allowSkip={true}
-      sectionIndex={10}
+      sectionIndex={9}
     />
   );
 }

@@ -9,10 +9,6 @@ import QuestionsCard from "../QuestionsCard";
 import { faPeopleCarryBox } from "@fortawesome/free-solid-svg-icons";
 
 export default function SupportAccess() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Support Access"
@@ -20,7 +16,7 @@ export default function SupportAccess() {
         {
           question: "If you needed help with something, you would:",
           type: "radio",
-          key: "SupportAccess",
+          key: "supportAccess",
           icon: faPeopleCarryBox,
           options: [
             "Have several people to call",
@@ -31,10 +27,10 @@ export default function SupportAccess() {
         },
       ]}
       nextSection="/onboarding/room-assessment"
-      backPath="/onboarding/friends-and-neighbors"
+      backPath="/onboarding/social-satisfaction"
       buttonLabel="Done"
       allowSkip={true}
-      sectionIndex={19}
+      sectionIndex={23}
     />
   );
 }

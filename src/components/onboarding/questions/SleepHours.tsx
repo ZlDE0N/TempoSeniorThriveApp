@@ -6,30 +6,31 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import QuestionsCard from "../QuestionsCard";
-import { faSun } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
-export default function MorningRoutine() {
+export default function SleepHours() {
   return (
     <QuestionsCard
-      title="Morning Routine"
+      title="Sleep Hours"
       items={[
         {
-          question: "Think about your typical mornings. How smoothly do things usually go?",
+          question:
+            "How many hours of sleep do you typically get each night?",
           type: "radio",
-          key: "morningRoutine",
-          icon: faSun,
+          key: "sleepHours",
+          icon: faClock,
           options: [
-            "Everything flows really well",
-            "Most morning are manageable",
-            "I sometimes need a little help",
-            "Mornings can be challenging",
+            "7-9 hours",
+            "6 hours",
+            "5 hours",
+            "4 hours or less",
           ],
         },
       ]}
-      nextSection="/onboarding/meals"
-      backPath="/onboarding/health"
+      nextSection="/onboarding/afternoon-energy"
+      backPath="/onboarding/morning-energy"
       allowSkip={true}
-      sectionIndex={4}
+      sectionIndex={16}
     />
   );
 }

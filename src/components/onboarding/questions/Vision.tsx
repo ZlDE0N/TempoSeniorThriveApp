@@ -9,33 +9,28 @@ import QuestionsCard from "../QuestionsCard";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 export default function Vision() {
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
   return (
     <QuestionsCard
       title="Vision & Safety"
       subtitle="Let's ensure our recommendations match your needs"
       items={[
         {
-          question: "Any vision considerations?",
-          type: "checkbox",
+          question: "How would you rate your vision?",
+          type: "radio",
           key: "vision",
           icon: faEye,
           options: [
-            "General vision is good",
-            "Need good lighting",
-            "Depth perception challenges",
-            "Limited peripheral vision",
-            "Other vision considerations",
+            "Excellent, I have no difficulty seeing",
+            "Good, I have minor vision issues that are corrected with glasses or contacts",
+            "Fair, I have noticeable vision problems that sometimes affect my daily activities",
+            "Poor, my vision significantly impacts my daily life",
           ],
         },
       ]}
-      nextSection="/onboarding/stability"
-      backPath="/onboarding/movement-considerations"
+      nextSection="/onboarding/balance-history"
+      backPath="/onboarding/mobility-aids"
       allowSkip={true}
-      sectionIndex={4}
+      sectionIndex={12}
     />
   );
 }

@@ -78,11 +78,11 @@ export default function QuestionsCard( props: {
   const conditionalNextSection = props.conditionalNextSection || false;
   const navigate = useNavigate();
   const segments = [
-    { label: "Personal Information", sectionTotal: 7 },
-    { label: "Daily Rhythms", sectionTotal: 3 },
-    { label: "Movement & Stability", sectionTotal: 4 },
-    { label: "Energy & Engagement", sectionTotal: 3 },
-    { label: "Support & Connections", sectionTotal: 3 },
+    { label: "Personal Profile", sectionTotal: 4 },
+    { label: "Daily Rhythms", sectionTotal: 5 },
+    { label: "Movement & Stability", sectionTotal: 6 },
+    { label: "Energy & Engagement", sectionTotal: 4 },
+    { label: "Support & Connections", sectionTotal: 5 },
   ];
   const segmentCount = segments.length;
   const getSumUpToNth = (arr, n) => 
@@ -175,7 +175,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} hover:scale-[1.02] border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="checkbox"
@@ -207,7 +207,7 @@ export default function QuestionsCard( props: {
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} hover:scale-[1.02] border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="radio"
