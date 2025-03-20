@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import OnboardingLayout from "./OnboardingLayout";
 
 export default function ImageAnalysis() {
+  const imageUrl =  "https://www.marthastewart.com/thmb/lxfu2-95SWCS0jwciHs1mkbsGUM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/modern-living-rooms-wb-1-bc45b0dc70e541f0ba40364ae6bd8421.jpg"
   const { roomId } = useParams<{ roomId: string }>();
   const allLocalStorageData = {};
 
@@ -17,48 +18,70 @@ export default function ImageAnalysis() {
     }
   }
 
-
   const userName = localStorage.getItem("st_onboarding_name");
-  useEffect(() => {
-    console.log(allLocalStorageData);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
 
-  async function analyzeImage(imageData) {
-  const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/gemini-safety-snapshot`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
-    },
-    body: JSON.stringify({
-      prompt: "Describe the content of this image",
-      image: imageData // Encode your image as a Base64 string or suitable format
-    })
-  });
+  async function analyzeImage(imageUrl: string, prompt: string) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/gemini-integration`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({ 
+          imageUrl: imageUrl,
+          prompt: prompt,
+        })
+      }
+    );
 
-  const data = await response.json();
-  console.log(data);
-}
-const [analysisResult, setAnalysisResult] = useState("");
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-useEffect(() => {
-  async function fetchAnalysis() {
-    const result = await analyzeImage("https://unsplash.com/photos/woman-reading-a-magazine-aODtyhXEAjg");
-    setAnalysisResult(result.body); // Assuming 'body' is part of the returned data
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error analyzing image:", error);
+    return { message: "Failed to analyze image." };
   }
-  
+}
+
+
+  const [analysisResult, setAnalysisResult] = useState("");
+
+  useEffect(() => {
+  async function fetchAnalysis() {
+    setAnalysisResult("Analyzing...");
+
+    const result = await analyzeImage(
+      imageUrl,
+      "Analyze the image and give a brief description of what's in it."
+    );
+
+    setAnalysisResult(result.candidates[0].content.parts[0].text || "Analysis complete, but no description available.");
+  }
+
   fetchAnalysis();
 }, []);
+
+
   return (
     <OnboardingLayout>
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
-              <h1 className="text-2xl font-bold">Image Analysis</h1>
-      <p>Room ID: {roomId}</p>
-      <p>
-        {analysisResult}
-      </p>
+        <h1 className="text-2xl font-bold">Image Analysis</h1>
+        <div className="w-full flex items-center justify-center p-8">
+          <img 
+            className="w-full"
+          src={imageUrl} 
+          />
+        </div>
+        <p>Room ID: {roomId}</p>
+        <p>{analysisResult}</p>
       </div>
     </OnboardingLayout>
   );
 }
+
