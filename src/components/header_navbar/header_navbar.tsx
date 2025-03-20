@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/dashboard/ui/button";
+import fullLogo from "@/assets/icons/seniorthrive-full-logo.svg";
+
 
 interface NavItem {
   label: string;
@@ -40,15 +42,17 @@ export default function HeaderNavbar({
         className="container mx-auto px-6 py-4 flex justify-between items-center"
       >
         {/* 📌 Logo */}
-        <div className="flex items-center">
-          <Link
-            to="/"
-            className="text-2xl font-bold tracking-tight transition-transform hover:scale-105"
-          >
-            <span className="text-st_light_orange">Senior</span>
-            <span className="text-st_light_blue">Thrive™</span>
-          </Link>
-        </div>
+       {/* 📌 Logo */}
+      <div className="flex items-center">
+        <Link to="/" className="transition-transform hover:scale-105">
+          <img
+            src={fullLogo} // ✅ Si lo importaste en Vite/Webpack
+            alt="SeniorThrive Logo"
+            className="h-10 w-auto" // ✅ Ajusta el tamaño del logo
+          />
+        </Link>
+      </div>
+
 
         {/* 📌 Desktop Navigation - Se oculta en 968px (lg:hidden) */}
         <div className="hidden lg:flex items-center space-x-6">
