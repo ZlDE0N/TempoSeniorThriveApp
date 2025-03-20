@@ -1,5 +1,5 @@
 // [build] library: 'shadcn'
-import { Checkbox } from "../components/ui/checkbox";
+import { Checkbox } from "../components/dashboard/ui/checkbox";
 
 const meta = {
   title: "ui/Checkbox",

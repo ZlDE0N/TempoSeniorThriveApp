@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/dashboard/ui/button";
 import { motion } from 'framer-motion';
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import  Gauge from "../ui/gauge";
+import  Gauge from "../dashboard/ui/gauge";
 import { Link } from "react-router-dom";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

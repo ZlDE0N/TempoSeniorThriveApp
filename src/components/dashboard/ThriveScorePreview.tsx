@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import Gauge from "@/components/ui/gauge";
+import { Button } from "@/components/dashboard/ui/button";
+import Gauge from "@/components/dashboard/ui/gauge";
 import Recommendations from "@/components/dashboard/Recommendations";
 import { motion } from "framer-motion";
 import OnboardingLayout from "../onboarding/OnboardingLayout";
