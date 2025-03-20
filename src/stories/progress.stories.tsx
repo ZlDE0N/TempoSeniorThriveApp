@@ -1,5 +1,5 @@
 // [build] library: 'shadcn'
-import { Progress } from "../components/ui/progress";
+import { Progress } from "../components/dashboard/ui/progress";
 
 const meta = {
   title: "ui/Progress",

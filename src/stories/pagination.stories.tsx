@@ -6,7 +6,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../components/ui/pagination";
+} from "../components/dashboard/ui/pagination";
 
 const meta = {
   title: "ui/Pagination",

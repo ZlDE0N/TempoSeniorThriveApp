@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/dashboard/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
