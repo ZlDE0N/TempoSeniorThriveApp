@@ -32,9 +32,10 @@ export default function HeaderNavbar({
   return (
     <header
       className={`w-full bg-white z-50 shadow-md transition-all ${
-        isFixed ? "fixed top-0 left-0 right-0" : "sticky top-0"
+        isFixed ? "fixed top-0 left-0 right-0" : "relative"
       }`}
     >
+
       <motion.div
         initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
