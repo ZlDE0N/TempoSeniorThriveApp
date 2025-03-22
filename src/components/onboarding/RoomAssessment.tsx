@@ -16,27 +16,72 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import OnboardingLayout from "./OnboardingLayout";
+import useBlobStore from '../../store/guestStore';
 
 export default function RoomAssessment() {
+
   const { roomId } = useParams<{ roomId: string }>();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   const [showCamera, setShowCamera] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [convertedImage, setConvertedImage] = useState<Blob | null>(null);
+
+  const { setBlob } = useBlobStore();
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Upload button clicked!"); // Add this
+  const convertToJpeg = async (imageUrl: string) => {
+    const image = new Image();
+    image.src = imageUrl;
 
+    await new Promise((resolve) => {
+        image.onload = () => resolve(null);
+    });
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const maxWidth = 1290;
+    const maxHeight = 720;
+
+    // Calculate new dimensions to maintain aspect ratio
+    const aspectRatio = image.width / image.height;
+    if (image.width > maxWidth || image.height > maxHeight) {
+        if (image.width / maxWidth > image.height / maxHeight) {
+            canvas.width = maxWidth;
+            canvas.height = maxWidth / aspectRatio;
+        } else {
+            canvas.height = maxHeight;
+            canvas.width = maxHeight * aspectRatio;
+        }
+    } else {
+        canvas.width = image.width;
+        canvas.height = image.height;
+    }
+
+    // Draw the image on the canvas
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+    // Convert the canvas to a JPEG Blob
+    const jpegBlob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob(resolve, 'image/jpeg', 0.75); // Adjust quality (0.8 is 80%)
+    });
+
+    return jpegBlob;
+};
+
+  // Image selecting
+  const handleImageSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
     // Clear previous state
-    setUploadedImage(null);
+    setSelectedImage(null);
+    setCapturedImage(null);
     setError(null);
 
     if (!file) return;
@@ -50,7 +95,7 @@ export default function RoomAssessment() {
     // Display image preview
     const reader = new FileReader();
     reader.onload = () => {
-      setUploadedImage(reader.result as string);
+      setSelectedImage(reader.result as string);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
     reader.onerror = () => setError("Failed to read the uploaded image.");
@@ -58,6 +103,8 @@ export default function RoomAssessment() {
   };
 
   const handleTakePhoto = async () => {
+    setCapturedImage(null);
+    setSelectedImage(null);
     setShowCamera(true);
     setError(null);
 
@@ -101,18 +148,6 @@ export default function RoomAssessment() {
     }
   };
 
-
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
-  // Redirect if no room is selected
-  useEffect(() => {
-    if (!roomId) {
-      navigate("/onboarding/room-selection");
-    }
-  }, [roomId, navigate]);
 
   const getRoomMessage = () => {
     switch (roomId) {
@@ -166,6 +201,35 @@ export default function RoomAssessment() {
     }
   };
 
+  useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+
+  // Redirect if no room is selected
+  useEffect(() => {
+    if (!roomId) {
+      navigate("/onboarding/room-selection");
+    }
+  }, [roomId, navigate]);
+
+  // Convert images to jpeg
+  useEffect(() => {
+    if (!capturedImage && !selectedImage) return;
+
+    const convertImage = async () => {
+      const imageToConvert = capturedImage || selectedImage;
+      if (!imageToConvert) return;
+      try {
+        const imageConverted = await convertToJpeg(imageToConvert);
+        setConvertedImage(imageConverted);
+      } catch (error) {
+        console.error('Error converting image:', error);
+      }
+    };
+
+    convertImage();
+  }, [selectedImage, capturedImage]);
+
   return (
     <OnboardingLayout
       showBackButton={true}
@@ -180,7 +244,7 @@ export default function RoomAssessment() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          { (capturedImage || uploadedImage) && (
+          { (capturedImage || selectedImage) && (
             <div className="flex flex-col gap-3">
               <div className="flex justify-center mb-6">
                 <FontAwesomeIcon
@@ -193,7 +257,7 @@ export default function RoomAssessment() {
               </h1>
               <div className="flex py-6 justify-center items-center">
                 <img
-                  src={capturedImage || uploadedImage}
+                  src={capturedImage || selectedImage}
                   alt={`${roomId} image`}
                   className="max-w-full w-full rounded-lg"
                 />
@@ -237,14 +301,16 @@ export default function RoomAssessment() {
               <div className="grid gap-3 grid-rows-1 md:grid-cols-2">
                 <button 
                   className="w-full text-lg p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
-                  onClick={()=>{setUploadedImage(null); setCapturedImage(null);}}
+                  onClick={()=>{setSelectedImage(null); setCapturedImage(null);}}
                 >
                   <FontAwesomeIcon icon={faXmark} className="text-lg" />
                   No, go back
                 </button>
                 <div className="w-full flex justify-center">
-                  <Button size="lg" className="w-full text-lg px-8 py-6 h-auto" asChild>
-                    <Link to="/onboarding/image-analysis">
+                  <Button 
+                    onClick={() => {setBlob(convertedImage)}}
+                    size="lg" className="w-full text-lg px-8 py-6 h-auto" asChild>
+                    <Link to={`/onboarding/image-analysis/${roomId}`}>
                       Yes, analyze with AI 
                     <FontAwesomeIcon icon={faWandMagicSparkles} className="pl-2 text-lg" />
                     </Link>
@@ -346,7 +412,6 @@ export default function RoomAssessment() {
             <label
               htmlFor="upload-input"
               className="w-full md:w-56 cursor-pointer"
-              onClick={() => console.log("Label clicked")} // Add this for testing
             >
               <div
                 className="w-full text-lg p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
@@ -358,7 +423,7 @@ export default function RoomAssessment() {
                 id="upload-input"
                 type="file"
                 accept="image/*"
-                onChange={handleImageUpload}
+                onChange={handleImageSelection}
                 className="hidden"
               />
             </label>

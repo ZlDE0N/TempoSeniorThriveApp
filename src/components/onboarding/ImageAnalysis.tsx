@@ -5,11 +5,27 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import OnboardingLayout from "./OnboardingLayout";
+import useBlobStore from '../../store/guestStore';
+import { createClient } from '@supabase/supabase-js';
+
+
+// Supabase setup
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function ImageAnalysis() {
-  const imageUrl =  "https://www.marthastewart.com/thmb/lxfu2-95SWCS0jwciHs1mkbsGUM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/modern-living-rooms-wb-1-bc45b0dc70e541f0ba40364ae6bd8421.jpg"
+  const [isUploading, setIsUploading] = useState(false);
+  const [ imageUrl, setImageUrl ] = useState("");
+  const [ supabaseImagePath, setSupabaseImagePath ] = useState("");
+  const [ supabaseImageUrl, setSupabaseImageUrl ] = useState("");
+  const { blob, clearBlob } = useBlobStore();
+  const navigate = useNavigate();
   const { roomId } = useParams<{ roomId: string }>();
   const allLocalStorageData = {};
+  const userName = localStorage.getItem("st_onboarding_name") || "guest";
+  const fileName = `guests/guest_${roomId}_${Date.now()}.jpeg`;
+
 
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
@@ -18,21 +34,59 @@ export default function ImageAnalysis() {
     }
   }
 
-  const userName = localStorage.getItem("st_onboarding_name");
+  async function getSignedUrl(fileName) {
+    try {
+      // Generate a signed URL for the uploaded file from the storage bucket
+      const { data, error } = await supabase.storage
+      .from('room-assessment-images')
+      .createSignedUrl(fileName, 60 * 60); // URL valid for 1 hour (60 minutes)
 
-  async function analyzeImage(imageUrl: string, prompt: string) {
+      if (error) {
+        throw error;
+      }
+
+      return data.signedUrl;
+    } catch (error) {
+      console.error('Error generating signed URL:', error.message);
+    }
+  }
+
+  async function uploadImageToSupabase(blob) {
+  try {
+    const { data, error } = await supabase.storage
+      .from('room-assessment-images')
+      .upload(fileName, blob, {
+        cacheControl: '3600',
+        upsert: false,  // Set to true to overwrite file if exists
+        contentType: 'image/jpeg',
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    console.log('File uploaded successfully:', data);
+    console.log(fileName);
+    return data.path;
+  } catch (error) {
+    console.error("Error uploading image:", error.message);
+  }
+}
+
+  async function analyzeImage(imagePath: string, roomId: string) {
+    console.log(imagePath, roomId);
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/gemini-integration`,
+      `${supabaseUrl}/functions/v1/room-image-validation`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          "Authorization": `Bearer ${supabaseKey}`,
         },
         body: JSON.stringify({ 
-          imageUrl: imageUrl,
-          prompt: prompt,
+          imagePath: imagePath,
+          roomId: roomId,
         })
       }
     );
@@ -49,24 +103,68 @@ export default function ImageAnalysis() {
   }
 }
 
-
   const [analysisResult, setAnalysisResult] = useState("");
 
   useEffect(() => {
-  async function fetchAnalysis() {
-    setAnalysisResult("Analyzing...");
+    if (!supabaseImagePath) return;
 
-    const result = await analyzeImage(
-      imageUrl,
-      "Analyze the image and give a brief description of what's in it."
-    );
+    let isCancelled = false; // Add cancellation flag
 
-    setAnalysisResult(result.candidates[0].content.parts[0].text || "Analysis complete, but no description available.");
-  }
+    async function fetchAnalysis() {
+      setAnalysisResult("Analyzing...");
 
-  fetchAnalysis();
-}, []);
+      const result = await analyzeImage(supabaseImagePath, roomId);
 
+      if (!isCancelled) {
+        setAnalysisResult(result.candidates[0]?.content?.parts[0]?.text || "Analysis complete, but no description available.");
+      }
+    }
+
+    fetchAnalysis();
+
+    return () => {
+      isCancelled = true; // Prevent setting state after unmount
+    };
+  }, [supabaseImagePath]);
+
+  // Redirect if no room or image is selected
+  useEffect(() => {
+    if (!roomId) {
+      navigate("/onboarding/room-selection");
+    }
+  }, [roomId]);
+
+  useEffect(() => {
+  const uploadAndSetPath = async () => {
+    if (!blob) {
+      navigate("/onboarding/room-selection");
+    } else if (isUploading) {
+      return; // Prevent uploading if already uploading
+    } else {
+      setIsUploading(true); // Set the flag to true when starting the upload
+
+      // Create the object URL for the image preview
+      setImageUrl(URL.createObjectURL(blob));
+
+      try {
+        // Upload the image to Supabase
+        const image_path = await uploadImageToSupabase(blob);
+        setSupabaseImagePath(image_path);
+
+        // Fetch the signed URL after uploading the image
+        // const signedUrl = await getSignedUrl(fileName);
+        // setSupabaseImageUrl(signedUrl);
+      } catch (error) {
+        console.error("Error uploading or getting signed URL:", error);
+      } finally {
+        //setIsUploading(false); // Reset the flag once the upload is finished
+      }
+    }
+  };
+
+  // Call the async function
+  uploadAndSetPath();
+}, [blob]);
 
   return (
     <OnboardingLayout>

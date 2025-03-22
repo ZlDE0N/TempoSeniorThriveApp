@@ -14,6 +14,7 @@ if (process.env.TEMPO === "true") {
 export default defineConfig({
   base: process.env.NODE_ENV === "development" ? "/" : process.env.VITE_BASE_PATH || "/",
   optimizeDeps: {
+    exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util'],
     entries: ["src/main.tsx", "src/tempobook/**/*"],
   },
   plugins: [
