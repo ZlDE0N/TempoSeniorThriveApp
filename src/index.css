@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes scale-in {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out;
+}
+
 @layer base {
   :root {
     /* Colors from document */
@@ -53,8 +68,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%; */
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -74,14 +89,7 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
+
 .surrounding-shadow {
   -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.75);

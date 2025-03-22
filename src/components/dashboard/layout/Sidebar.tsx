@@ -1,4 +1,3 @@
-import React from 'react';
 import { Calendar, Heart, Pill, Activity, Phone, AlertTriangle, Users, FileText, Briefcase, LayoutDashboard, FolderArchive, MessageCircle, Star, BarChart2, ShoppingCart, Brain, Target, Award, Camera, UtensilsCrossed, Car, PawPrint as Paw, Book, Palette, UserCog, ClipboardList, AlignCenterVertical as Certificate, TrendingUp, Bell, Clock } from 'lucide-react';
 import { useUserStore } from '../../../store/userStore';
 
