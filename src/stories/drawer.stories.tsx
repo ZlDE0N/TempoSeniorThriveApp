@@ -1,4 +1,4 @@
-import { Button } from "../components/dashboard/ui/button";
+import { Button } from "../views/dashboard/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "../components/dashboard/ui/drawer";
+} from "../views/dashboard/ui/drawer";
 
 const meta = {
   title: "ui/Drawer",

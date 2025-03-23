@@ -1,5 +1,5 @@
 // [build] library: 'shadcn'
-import { Badge } from "../components/dashboard/ui/badge";
+import { Badge } from "../views/dashboard/ui/badge";
 
 const meta = {
   title: "ui/Badge",

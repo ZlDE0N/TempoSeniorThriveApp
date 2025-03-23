@@ -1,5 +1,5 @@
 // [build] library: 'shadcn'
-import { Button } from "../components/dashboard/ui/button";
+import { Button } from "../views/dashboard/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,9 +8,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../components/dashboard/ui/dialog";
-import { Input } from "../components/dashboard/ui/input";
-import { Label } from "../components/dashboard/ui/label";
+} from "../views/dashboard/ui/dialog";
+import { Input } from "../views/dashboard/ui/input";
+import { Label } from "../views/dashboard/ui/label";
 
 const meta = {
   title: "ui/Dialog",

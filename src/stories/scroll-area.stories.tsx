@@ -1,8 +1,8 @@
 // [build] library: 'shadcn'
 import React from "react";
 
-import { ScrollArea } from "../components/dashboard/ui/scroll-area";
-import { Separator } from "../components/dashboard/ui/separator";
+import { ScrollArea } from "../views/dashboard/ui/scroll-area";
+import { Separator } from "../views/dashboard/ui/separator";
 
 const meta = {
   title: "ui/ScrollArea",

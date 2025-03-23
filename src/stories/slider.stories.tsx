@@ -1,5 +1,5 @@
 // [build] library: 'shadcn'
-import { Slider } from "../components/dashboard/ui/slider";
+import { Slider } from "../views/dashboard/ui/slider";
 
 const meta = {
   title: "ui/Slider",

@@ -13,7 +13,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "../components/dashboard/ui/context-menu";
+} from "../views/dashboard/ui/context-menu";
 
 const meta = {
   title: "ui/ContextMenu",

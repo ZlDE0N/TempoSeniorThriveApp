@@ -1,7 +1,7 @@
 // [build] library: 'shadcn'
-import { Button } from "../components/dashboard/ui/button";
-import { Label } from "../components/dashboard/ui/label";
-import { Textarea } from "../components/dashboard/ui/textarea";
+import { Button } from "../views/dashboard/ui/button";
+import { Label } from "../views/dashboard/ui/label";
+import { Textarea } from "../views/dashboard/ui/textarea";
 
 const meta = {
   title: "ui/Textarea",

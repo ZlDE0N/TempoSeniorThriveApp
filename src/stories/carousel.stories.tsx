@@ -1,11 +1,11 @@
-import { Card, CardContent } from "../components/dashboard/ui/card";
+import { Card, CardContent } from "../views/dashboard/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../components/dashboard/ui/carousel";
+} from "../views/dashboard/ui/carousel";
 
 const meta = {
   title: "ui/Carousel",

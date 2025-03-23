@@ -1,13 +1,13 @@
 // [build] library: 'shadcn'
 import { Plus } from "lucide-react";
 
-import { Button } from "../components/dashboard/ui/button";
+import { Button } from "../views/dashboard/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
   TooltipProvider,
-} from "../components/dashboard/ui/tooltip";
+} from "../views/dashboard/ui/tooltip";
 
 const meta = {
   title: "ui/Tooltip",

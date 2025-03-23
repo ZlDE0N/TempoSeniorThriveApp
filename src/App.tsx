@@ -1,13 +1,20 @@
 import { Suspense } from "react";
 import { useRoutes, Routes, Route } from "react-router-dom";
-import Home from "./components/home";
+import Home from "./views/dashboard/base_layout_dashboard";
 import routes from "tempo-routes";
-import LandingPage from "./components/landing/LandingPage";
-import OnboardingRoutes from "./components/onboarding/OnboardingRoutes";
-import LoginPage from "./components/auth/LoginPage";
-import RegisterPage from "./components/auth/RegisterPage";
-import ForgotPasswordPage from "./components/auth/ForgotPasswordPage";
-import ThriveScorePreview from "./components/dashboard/ThriveScorePreview";
+import LandingPage from "./backup_views/LandingPage";
+import OnboardingRoutes from "./views/onboarding/OnboardingRoutes";
+import LoginPage from "./views/auth/LoginPage";
+import RegisterPage from "./views/auth/RegisterPage";
+import ForgotPasswordPage from "./views/auth/ForgotPasswordPage";
+import ThriveScorePreview from "./backup_views/ThriveScorePreview";
+import HomePage from "./views/landing/HomePage";
+import ThriveScore from "./backup_views/components_backup/ThriveScore";
+import VisionAssessment from "./backup_views/components_backup/VisionAssessment";
+import Modal from "./components/Modal";
+import MainLayout from "./backup_views/components_backup/Sidebar_Layout_Dashboard";
+import WelcomeHeader from "./views/dashboard/dashboard-views/family/WelcomeHeader";
+import Sidebar_Layout_Dashboard from "./backup_views/components_backup/Sidebar_Layout_Dashboard";
 
 function App() {
   const tempoRoutes =
@@ -25,7 +32,8 @@ function App() {
     >
       <>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<HomePage />} />
+          {/* <Route path="/" element={< Sidebar_Layout_Dashboard/>} /> */}
           <Route path="/onboarding/*" element={<OnboardingRoutes />} />
           <Route path="/dashboard" element={<Home />} />
           <Route path="/thrive-preview" element={<ThriveScorePreview />} />

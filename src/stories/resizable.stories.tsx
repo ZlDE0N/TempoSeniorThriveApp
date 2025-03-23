@@ -2,7 +2,7 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "../components/dashboard/ui/resizable";
+} from "../views/dashboard/ui/resizable";
 
 const meta= {
   title: "ui/ResizablePanelGroup",

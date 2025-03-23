@@ -1,5 +1,5 @@
 // [build] library: 'shadcn'
-import { Label } from "../components/dashboard/ui/label";
+import { Label } from "../views/dashboard/ui/label";
 
 const meta = {
   title: "ui/Label",
