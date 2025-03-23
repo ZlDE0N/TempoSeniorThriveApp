@@ -20,16 +20,20 @@ import { useUserStore } from '../../store/userStore';// import { useCaregiverSto
 // import SelfPortal from './self/SelfPortal';
 import FamilyPortal from './dashboard-views/family/FamilyPortal';
 
+interface FamilyPortalProps {
+  section: string;
+}
+
 export default function RoleRouter() {
-  const { currentUser, activeSection } = useUserStore();
+  // const { currentUser, activeSection } = useUserStore();
   // const { getCurrentShift } = useCaregiverStore();
 
-  if (!currentUser) {
-    return null;
-  }
+  // if (!currentUser) {
+  //  return <Navigate to="/" replace />;
+  // }
 
   // if (currentUser.role === 'family') {
-    return <FamilyPortal section={activeSection} />;
+    <FamilyPortal section="dashboard" />
   // }
   return (
     <div className="text-center text-gray-500 mt-10">
