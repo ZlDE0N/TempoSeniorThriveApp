@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/components/dashboard/ui/button";
+import { Label } from "@/components/dashboard/ui/label";
 import { useMemo, useEffect, useState } from "react";
 import { motion } from 'framer-motion';
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { RadioGroup, RadioGroupItem } from "@/components/dashboard/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";

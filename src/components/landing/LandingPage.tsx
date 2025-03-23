@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/dashboard/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import HeaderNavbar from "../header_navbar/header_navbar";
 
 interface NavItem {
   label: string;
@@ -19,198 +20,42 @@ export default function LandingPage() {
     setIsAuthenticated(false);
   };
 
-  const navItems: NavItem[] = [
-    ...(isAuthenticated
-      ? [{ label: "Safety Scan", href: "/safety-scan" }]
-      : []),
-    ...(isPremium && isAuthenticated
-      ? [
-          { label: "Fitness", href: "/fitness" },
-          { label: "Community", href: "/community" },
-        ]
-      : []),
-    { label: "Pricing", href: "/pricing" },
-    ...(!isAuthenticated
-      ? [
-          { label: "Sign In", href: "/signin" },
-          { label: "Register", href: "/register" },
-        ]
-      : []),
+  // const navItems: NavItem[] = [
+  //   ...(isAuthenticated
+  //     ? [{ label: "Safety Scan", href: "/safety-scan" }]
+  //     : []),
+  //   ...(isPremium && isAuthenticated
+  //     ? [
+  //         { label: "Fitness", href: "/fitness" },
+  //         { label: "Community", href: "/community" },
+  //       ]
+  //     : []),
+  //   { label: "Pricing", href: "/pricing" },
+  //   ...(!isAuthenticated
+  //     ? [
+  //         { label: "Sign In", href: "/signin" },
+  //         { label: "Register", href: "/register" },
+  //       ]
+  //     : []),
+  // ];
+
+  const navItems = [
+    { label: "Home", href: "/" },
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Profile", href: "/profile" },
   ];
+  
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header/Navbar */}
-      <header className="fixed top-0 left-0 right-0 bg-white z-50 shadow-md">
-        <motion.div
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="container mx-auto px-6 py-5 flex justify-between items-center"
-        >
-          <div className="flex items-center">
-            <Link
-              to="/"
-              className="text-2xl font-bold tracking-tight transition-transform hover:scale-105"
-            >
-              <span className="text-st_light_orange">Senior</span>
-              <span className="text-st_light_blue">Thrive™</span>
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <nav className="flex items-center space-x-6">
-              {navItems.map((item) => (
-                <motion.div
-                  key={item.label}
-                  whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 500 }}
-                >
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    className="text-base font-medium text-slate-700 hover:text-st_light_blue hover:bg-blue-50 focus:ring-2 focus:ring-blue-200 focus:ring-offset-2 transition-all"
-                    asChild
-                  >
-                    <Link to={item.href}>{item.label}</Link>
-                  </Button>
-                </motion.div>
-              ))}
-            </nav>
-
-            {isAuthenticated && (
-              <>
-                <div className="h-8 w-px bg-slate-200 mx-2"></div>
-
-                <div className="flex items-center space-x-5">
-                  <motion.span
-                    whileHover={{ scale: 1.05 }}
-                    className={`px-4 py-1.5 text-sm font-medium rounded-full shadow-sm ${isPremium ? "bg-blue-100 text-blue-800 border border-blue-200" : "bg-slate-100 text-slate-800 border border-slate-200"}`}
-                  >
-                    {isPremium ? "Premium Active" : "Free Plan"}
-                  </motion.span>
-
-                  <span className="text-base font-medium text-slate-700">
-                    Welcome, {userName}
-                  </span>
-
-                  <motion.div whileHover={{ scale: 1.05 }}>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="font-medium border-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </Button>
-                  </motion.div>
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-12 w-12 rounded-md hover:bg-blue-50"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              <motion.svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                animate={isMenuOpen ? { rotate: 90 } : { rotate: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {isMenuOpen ? (
-                  <>
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </>
-                ) : (
-                  <>
-                    <line x1="4" x2="20" y1="12" y2="12" />
-                    <line x1="4" x2="20" y1="6" y2="6" />
-                    <line x1="4" x2="20" y1="18" y2="18" />
-                  </>
-                )}
-              </motion.svg>
-            </Button>
-          </div>
-        </motion.div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-white border-t border-slate-200 px-6 py-4 shadow-lg"
-          >
-            <div className="flex flex-col space-y-3 py-3">
-              {navItems.map((item) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ x: -10, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Link
-                    to={item.href}
-                    className="px-4 py-3 text-base font-medium text-slate-700 hover:text-st_light_blue hover:bg-blue-50 rounded-lg flex items-center transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
-
-              {isAuthenticated && (
-                <>
-                  <div className="h-px bg-slate-200 my-3"></div>
-
-                  <div className="px-4 py-3 flex items-center justify-between bg-slate-50 rounded-lg">
-                    <div className="flex flex-col">
-                      <span
-                        className={`px-3 py-1.5 text-sm font-medium rounded-full w-fit shadow-sm ${isPremium ? "bg-blue-100 text-blue-800 border border-blue-200" : "bg-slate-100 text-slate-800 border border-slate-200"}`}
-                      >
-                        {isPremium ? "Premium Active" : "Free Plan"}
-                      </span>
-                      <span className="text-base font-medium text-slate-700 mt-2">
-                        Welcome, {userName}
-                      </span>
-                    </div>
-
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="font-medium border-2 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors"
-                      onClick={() => {
-                        handleLogout();
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      Logout
-                    </Button>
-                  </div>
-                </>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </header>
-
+ <HeaderNavbar
+        navItems={navItems}
+        isAuthenticated={isAuthenticated}
+        userName={userName}
+        isPremium={isPremium}
+        handleLogout={() => console.log("Logout")}
+        isFixed={false} // 🔹 Cambia esto según la necesidad
+      />
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-blue-50 to-white">
         <div className="container mx-auto px-4">
