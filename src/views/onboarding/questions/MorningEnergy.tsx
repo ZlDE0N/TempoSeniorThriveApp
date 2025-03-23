@@ -27,10 +27,10 @@ export default function MorningEnergy() {
           ],
         },
       ]}
-      nextSection="/onboarding/sleep-hours"
-      backPath="/onboarding/balance-history"
+      nextSection="/onboarding/meals"
+      backPath="/onboarding/health"
       allowSkip={true}
-      sectionIndex={15}
+      sectionIndex={3}
     />
   );
 }

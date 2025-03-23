@@ -33,7 +33,7 @@ export default function Age() {
       nextSection="/onboarding/living-situation"
       backPath="/onboarding/name"
       allowSkip={true}
-      sectionIndex={1}
+      sectionIndex={0}
     />
   );
 }

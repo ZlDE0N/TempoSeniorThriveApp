@@ -32,8 +32,54 @@ export default function QuestionsCard( props: {
   sectionTotal: number,
   buttonLabel?: string,
 }){
-  // Scroll to top on mount
+
+  const navigate = useNavigate();
+  const keysToCheck = [
+    "age",
+    "livingSituation",
+    "health",
+    "morningEnergy",
+    "meals",
+    "everydayTasks",
+    "sleepHours",
+    "homeMovement",
+    "mobilityAids",
+    "vision",
+    "balanceHistory",
+    "supportAccess",
+    "connections",
+  ];
+
+  const navPaths = [
+    "/onboarding/age",
+    "/onboarding/living-situation",
+    "/onboarding/health",
+    "/onboarding/morning-energy",
+    "/onboarding/meals",
+    "/onboarding/everyday-tasks",
+    "/onboarding/sleep-hours",
+    "/onboarding/home-movement",
+    "/onboarding/mobility-aids",
+    "/onboarding/vision",
+    "/onboarding/balance-history",
+    "/onboarding/support-access",
+    "/onboarding/connections",
+  ];
+
   useEffect(() => {
+    // Check if previous questions have been anwered
+    // navigate to the corresponding navPath if an
+    // answer is not found
+    const checkUntil = props.sectionIndex;
+    for (let i = 0; i < checkUntil; i++) {
+      if (!localStorage.getItem(`st_onboarding_${keysToCheck[i]}`)) {
+        console.log("Answer: " + keysToCheck[i] + " is not found in localStorage");
+        navigate(navPaths[i]);
+        break;
+      }
+    }
+
+    // Scroll to top on mount
     window.scrollTo({ top: 0 , behavior: "smooth" });
   }, []);
 
@@ -76,13 +122,11 @@ export default function QuestionsCard( props: {
   const allowSkip = props.allowSkip || false;
   const buttonLabel = props.buttonLabel || "Next Step";
   const conditionalNextSection = props.conditionalNextSection || false;
-  const navigate = useNavigate();
   const segments = [
-    { label: "Personal Profile", sectionTotal: 4 },
-    { label: "Daily Rhythms", sectionTotal: 5 },
-    { label: "Movement & Stability", sectionTotal: 6 },
-    { label: "Energy & Engagement", sectionTotal: 4 },
-    { label: "Support & Connections", sectionTotal: 5 },
+    { label: "Personal Profile", sectionTotal: 3 },
+    { label: "Daily Life", sectionTotal: 4 },
+    { label: "Movement & Stability", sectionTotal: 4 },
+    { label: "Support & Connections", sectionTotal: 2 },
   ];
   const segmentCount = segments.length;
   const getSumUpToNth = (arr, n) => 
@@ -236,7 +280,7 @@ export default function QuestionsCard( props: {
               ))}
 
           </motion.div>
-              <div className="pt-4 flex justify-center">
+              <div className="pt-4 text-white flex justify-center">
                 <Button
                   type="button"
                   className="cursor-pointer w-1/2"

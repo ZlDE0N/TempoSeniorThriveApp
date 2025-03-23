@@ -1,23 +1,28 @@
 import { Button } from "@/views/dashboard/ui/button";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion';
 import { useEffect, useState } from "react";
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
-import { motion } from 'framer-motion';
 
 export default function TransitionScreen() {
-  const userName = localStorage.getItem("st_onboarding_name");
+
+  const navigate = useNavigate();
   // Scroll to top on mount
+  // Auto advance after 2.5 seconds
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(() => {
+      navigate("/onboarding/home-movement");
+    }, 2500);
   }, []);
   return (
     <OnboardingLayout>
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
         <p className="text-2xl p-4 font-bold">
-          Daily Rhythms
+          Daily Life
           <FontAwesomeIcon className="pl-2" icon={faCircleCheck}/>
         </p>
         {/* Progress Bar */}
@@ -29,20 +34,14 @@ export default function TransitionScreen() {
           />
         </div>
 
-        <div className="bg-white rounded-xl surrounding-shadow p-12">
-          <h1 className="text-3xl font-bold text-st_black mb-6">
-            You're doing great!
+        <div className="bg-white rounded-xl flex flex-col gap-8 surrounding-shadow p-12">
+          <h1 className="text-3xl font-bold text-st_black">
+            Let’s share how you move around.
           </h1>
 
-          <p className="text-xl text-slate-600 mb-8">
-            Now let's talk about moving through your home.
+          <p className="text-xl text-slate-600">
+            Remember, every step you take is a step towards a more vibrant and fulfilling life. This information helps us understand how to make your home environment as safe and accessible as possible
           </p>
-
-          <div className="flex justify-center">
-            <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
-              <Link to="/onboarding/home-movement">Continue</Link>
-            </Button>
-          </div>
         </div>
       </div>
     </OnboardingLayout>

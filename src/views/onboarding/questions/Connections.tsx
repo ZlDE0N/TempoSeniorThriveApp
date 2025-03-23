@@ -27,10 +27,10 @@ export default function Connections() {
           ],
         },
       ]}
-      nextSection="/onboarding/meaningful-conversations"
-      backPath="/onboarding/evening-energy"
+      nextSection="/onboarding/room-assessment"
+      backPath="/onboarding/support-access"
       allowSkip={true}
-      sectionIndex={19}
+      sectionIndex={12}
     />
   );
 }

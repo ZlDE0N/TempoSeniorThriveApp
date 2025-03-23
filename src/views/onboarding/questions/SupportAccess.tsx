@@ -26,11 +26,11 @@ export default function SupportAccess() {
           ],
         },
       ]}
-      nextSection="/onboarding/room-assessment"
-      backPath="/onboarding/social-satisfaction"
+      nextSection="/onboarding/connections"
+      backPath="/onboarding/balance-history"
       buttonLabel="Done"
       allowSkip={true}
-      sectionIndex={23}
+      sectionIndex={11}
     />
   );
 }

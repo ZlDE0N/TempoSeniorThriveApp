@@ -4,7 +4,7 @@ import ExpectationScreen from "./ExpectationScreen";
 import ProcessExplanation from "./ProcessExplanation";
 import TransitionScreen from "./TransitionScreen";
 import DailyLivingIntroScreen from "./DailyLivingIntroScreen";
-import MovementStabilityIntroScreen from "./MovementStabilityIntroScreen";
+import MobilityStabilityIntroScreen from "./MobilityStabilityIntroScreen";
 import EnergyEngagementIntroScreen from "./EnergyEngagementIntroScreen";
 import SupportConnectionsIntroScreen from "./SupportConnectionsIntroScreen";
 import RoomAssessmentIntroScreen from "./RoomAssessmentIntroScreen";
@@ -45,52 +45,36 @@ import ImageAnalysis from "./ImageAnalysis";
 export default function OnboardingRoutes() {
   return (
     <Routes>
-      {/* Welcomiing routes */}
+      {/* Welcoming routes */}
       <Route path="/" element={<WelcomeScreen />} />
       <Route path="/expectations" element={<ExpectationScreen />} />
       <Route path="/process" element={<ProcessExplanation />} />
 
       {/* Personal profile*/ }
-      <Route path="/name" element={<Name />} />
       <Route path="/age" element={<Age />} />
       <Route path="/living-situation" element={<LivingSituation />} />
       <Route path="/health" element={<Health />} />
 
-      {/* Transition to daily rhythms */ }
+      {/* Transition to daily living */ }
       <Route path="/daily-living" element={<DailyLivingIntroScreen />} />
 
-      {/* Daily rhythms */ }
-      <Route path="/morning-routine" element={<MorningRoutine />} />
+      {/* Daily living */ }
+      <Route path="/morning-energy" element={<MorningEnergy />} />
       <Route path="/meals" element={<Meals />} />
       <Route path="/everyday-tasks" element={<EverydayTasks />} />
-      <Route path="/daily-routines" element={<DailyRoutines />} />
-      <Route path="/personal-care" element={<PersonalCare />} />
+      <Route path="/sleep-hours" element={<SleepHours />} />
 
-      {/* Transition to movement & stability */ }
+      {/* Transition to mobility & stability */ }
       <Route
-        path="/movement-and-stability"
-        element={<MovementStabilityIntroScreen />}
+        path="/mobility-and-stability"
+        element={<MobilityStabilityIntroScreen />}
       />
 
-      {/* Movement & stability */ }
+      {/* Mobility & stability */ }
       <Route path="/home-movement" element={<HomeMovement />} />
-      <Route path="/chair-transfer" element={<ChairTransfer />} />
       <Route path="/mobility-aids" element={<MobilityAids />} />
       <Route path="/vision" element={<Vision />} />
       <Route path="/balance-history" element={<BalanceHistory />} />
-      <Route path="/balance-followup" element={<BalanceFollowup />} />
-
-      {/* Transition to energy & engagement */ }
-      <Route
-        path="/energy-and-engagement"
-        element={<EnergyEngagementIntroScreen />}
-      />
-
-      {/* Energy & engagement */ }
-      <Route path="/morning-energy" element={<MorningEnergy />} />
-      <Route path="/sleep-hours" element={<SleepHours />} />
-      <Route path="/afternoon-energy" element={<AfternoonEnergy />} />
-      <Route path="/evening-energy" element={<EveningEnergy />} />
 
       { /* Transition to support and connections */ }
       <Route
@@ -99,11 +83,8 @@ export default function OnboardingRoutes() {
       />
 
       { /* Support and Connections */ }
-      <Route path="/connections" element={<Connections />} />
-      <Route path="/meaningful-conversations" element={<MeaningfulConversations />} />
-      <Route path="/overall-mood" element={<OverallMood />} />
-      <Route path="/social-satisfaction" element={<SocialSatisfaction />} />
       <Route path="/support-access" element={<SupportAccess />} />
+      <Route path="/connections" element={<Connections />} />
 
 
       <Route

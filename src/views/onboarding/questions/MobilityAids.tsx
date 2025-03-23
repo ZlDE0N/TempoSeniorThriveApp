@@ -15,7 +15,7 @@ export default function MobilityAids() {
       subtitle="Understanding how you move through your day helps us provide relevant insights"
       items={[
         {
-          question: "Do you regularly use any mobility devices (such as a cane, walker, or wheelchair)?",
+          question: "Do you regularly use any mobility devices?",
           type: "radio",
           key: "mobilityAids",
           icon: faWheelchair,
@@ -29,9 +29,9 @@ export default function MobilityAids() {
         },
       ]}
       nextSection="/onboarding/vision"
-      backPath="/onboarding/chair-transfer"
+      backPath="/onboarding/home-movement"
       allowSkip={true}
-      sectionIndex={11}
+      sectionIndex={8}
     />
   );
 }

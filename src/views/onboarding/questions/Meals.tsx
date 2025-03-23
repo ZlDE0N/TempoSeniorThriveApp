@@ -27,8 +27,8 @@ export default function Meals() {
         },
       ]}
       nextSection="/onboarding/everyday-tasks"
-      backPath="/onboarding/morning-routine"
-      sectionIndex={5}
+      backPath="/onboarding/morning-energy"
+      sectionIndex={4}
     />
   );
 }

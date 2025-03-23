@@ -27,17 +27,9 @@ export default function BalanceHistory() {
           ],
         },
       ]}
-      nextSection="/onboarding/energy-and-engagement"
+      nextSection="/onboarding/support-and-connections"
       backPath="/onboarding/vision"
-      conditionalNextSection="/onboarding/balance-followup"
-      condition={(answer) => {
-        return (
-          answer["balanceHistory"] === "I've had a minor slip or stumble" ||
-            answer["balanceHistory"] ===
-            "I've had a fall or multiple concerning stumbles"
-        );
-      }}
-      sectionIndex={13}
+      sectionIndex={10}
     />
   );
 }

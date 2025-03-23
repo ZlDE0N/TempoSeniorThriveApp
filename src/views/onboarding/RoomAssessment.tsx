@@ -300,7 +300,7 @@ export default function RoomAssessment() {
               </motion.div>
               <div className="grid gap-3 grid-rows-1 md:grid-cols-2">
                 <button 
-                  className="w-full text-lg p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
+                  className="w-full text-lg p-5 shadow-md border-2 border-st_dark_blue bg-white hover:bg-gray-100 hover:gray-200 text-st_dark_blue rounded-md flex items-center justify-center gap-2"
                   onClick={()=>{setSelectedImage(null); setCapturedImage(null);}}
                 >
                   <FontAwesomeIcon icon={faXmark} className="text-lg" />
@@ -309,7 +309,9 @@ export default function RoomAssessment() {
                 <div className="w-full flex justify-center">
                   <Button 
                     onClick={() => {setBlob(convertedImage)}}
-                    size="lg" className="w-full text-lg px-8 py-6 h-auto" asChild>
+                    size="lg" 
+                    className="w-full text-white shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-lg px-8 py-6 h-auto" 
+                    asChild>
                     <Link to={`/onboarding/image-analysis/${roomId}`}>
                       Yes, analyze with AI 
                     <FontAwesomeIcon icon={faWandMagicSparkles} className="pl-2 text-lg" />

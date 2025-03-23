@@ -15,9 +15,8 @@ export default function HomeMovement() {
       subtitle="Your confidence in moving affects your daily activities"
       items={[
         {
-          question: "How do you feel moving around your home?",
-          subtitle:
-            "Understanding your comfort level helps us identify potential home safety improvements",
+          question: 
+            "How confident do you feel moving around your home?",
           type: "radio",
           key: "homeMovement",
           icon: faHouseUser,
@@ -29,10 +28,10 @@ export default function HomeMovement() {
           ],
         },
       ]}
-      nextSection="/onboarding/chair-transfer"
-      backPath="/onboarding/personal-care"
+      nextSection="/onboarding/mobility-aids"
+      backPath="/onboarding/sleep-hours"
       allowSkip={true}
-      sectionIndex={9}
+      sectionIndex={7}
     />
   );
 }

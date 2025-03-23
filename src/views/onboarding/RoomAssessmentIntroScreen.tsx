@@ -44,7 +44,9 @@ export default function RoomAssessmentIntroScreen() {
           </p>
 
           <div className="flex justify-center">
-            <Button size="lg" className="text-lg px-8 py-6 h-auto" asChild>
+            <Button size="lg" 
+              className="shadow-md text-white hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto"
+              asChild>
               <Link to="/onboarding/room-selection">Continue to Room Assessment</Link>
             </Button>
           </div>

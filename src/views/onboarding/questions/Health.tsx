@@ -27,7 +27,7 @@ export default function Health() {
       nextSection="/onboarding/daily-living"
       backPath="/onboarding/living-situation"
       allowSkip={true}
-      sectionIndex={3}
+      sectionIndex={2}
     />
   );
 }

@@ -27,10 +27,10 @@ export default function EverydayTasks() {
           ],
         },
       ]}
-      nextSection="/onboarding/daily-routines"
+      nextSection="/onboarding/sleep-hours"
       backPath="/onboarding/meals"
       allowSkip={true}
-      sectionIndex={6}
+      sectionIndex={5}
     />
   );
 }

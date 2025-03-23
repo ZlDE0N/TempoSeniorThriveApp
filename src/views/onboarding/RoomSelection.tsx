@@ -173,7 +173,7 @@ export default function RoomSelection() {
                 size="lg"
                 onClick={handleContinue}
                 className={cn(
-                  "shadow-md border-2 text-lg px-8 py-6 h-auto",
+                  "shadow-md border-2 text-lg text-white px-8 py-6 h-auto",
                   selectedRoom
                     ? "hover:shadow-xl border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue"
                     : "pointer-events-none cursor-not-allowed opacity-50 border-st_dark_blue bg-st_dark_blue",
