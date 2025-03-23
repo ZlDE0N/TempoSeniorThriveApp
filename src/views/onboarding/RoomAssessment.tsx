@@ -16,7 +16,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
-import useBlobStore from '../../store/guestStore';
+import useBlobStore from '../../store/onboarding_store/guestStore';
 
 export default function RoomAssessment() {
 

@@ -6,7 +6,7 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
-import useBlobStore from '../../store/guestStore';
+import useBlobStore from '../../store/onboarding_store/guestStore';
 import { createClient } from '@supabase/supabase-js';
 
 
