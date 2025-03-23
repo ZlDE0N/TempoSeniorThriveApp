@@ -57,7 +57,7 @@ export default function FamilyPortal({ section }: FamilyPortalProps) {
       case 'pets':
         // return <PetDashboard />;
       default:
-        // return <FamilyDashboard />;
+        return <FamilyDashboard />;
     }
   };
 
