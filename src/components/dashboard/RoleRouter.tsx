@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useUserStore } from '../../store/userStore';// import { useCaregiverStore } from '../store/caregiverStore';
 // import VitalsView from './vitals/VitalsView';
 // import MedicationList from './medications/MedicationList';
@@ -20,21 +21,26 @@ import { useUserStore } from '../../store/userStore';// import { useCaregiverSto
 // import SelfPortal from './self/SelfPortal';
 import FamilyPortal from './dashboard-views/family/FamilyPortal';
 
-interface FamilyPortalProps {
-  section: string;
-}
-
 export default function RoleRouter() {
-  // const { currentUser, activeSection } = useUserStore();
-  // const { getCurrentShift } = useCaregiverStore();
+  const { currentUser, activeSection, setCurrentUser } = useUserStore();
 
-  // if (!currentUser) {
-  //  return <Navigate to="/" replace />;
-  // }
+  useEffect(() => {
+    if (!currentUser) {
+      setCurrentUser({
+        id: crypto.randomUUID(),
+        name: 'Demo Family Member',
+        role: 'family',
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=family`,
+      });
+    }
+  }, [currentUser, setCurrentUser]);
 
-  // if (currentUser.role === 'family') {
-    <FamilyPortal section="dashboard" />
-  // }
+  if (!currentUser) return null; // mientras se setea el estado
+
+  if (currentUser.role === 'family') {
+    return <FamilyPortal section={activeSection} />;
+  }
+
   return (
     <div className="text-center text-gray-500 mt-10">
       No view available for this role.
