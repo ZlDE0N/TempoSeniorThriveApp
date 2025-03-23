@@ -1,4 +1,4 @@
-import { useUserStore } from '../../store/userStore';// import { useCaregiverStore } from '../store/caregiverStore';
+import { useUserStore } from '../../store/dashboard_store/userStore';// import { useCaregiverStore } from '../store/caregiverStore';
 // import VitalsView from './vitals/VitalsView';
 // import MedicationList from './medications/MedicationList';
 // import ActivityList from './activities/ActivityList';
