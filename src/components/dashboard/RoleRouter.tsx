@@ -22,20 +22,9 @@ import { useUserStore } from '../../store/dashboard_store/userStore';// import {
 import FamilyPortal from './dashboard-views/family/FamilyPortal';
 
 export default function RoleRouter() {
-  const { currentUser, activeSection, setCurrentUser } = useUserStore();
+  const { currentUser, activeSection } = useUserStore();
 
-  useEffect(() => {
-    if (!currentUser) {
-      setCurrentUser({
-        id: crypto.randomUUID(),
-        name: 'Demo Family Member',
-        role: 'family',
-        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=family`,
-      });
-    }
-  }, [currentUser, setCurrentUser]);
-
-  if (!currentUser) return null; // mientras se setea el estado
+  if (!currentUser) return null;
 
   if (currentUser.role === 'family') {
     return <FamilyPortal section={activeSection} />;
@@ -46,6 +35,8 @@ export default function RoleRouter() {
       No view available for this role.
     </div>
   );
+
+  
 
   // if (currentUser.role === 'self') {
   //   return <SelfPortal section={activeSection} />;

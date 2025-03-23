@@ -57,61 +57,92 @@ const defaultSharingPreferences: SharingPreferences = {
 
 export const useUserStore = create<UserState>()(
   persist(
-    (set) => ({
-      currentUser: null,
+    (set, get) => ({
+      currentUser: {
+        id: crypto.randomUUID(),
+        name: 'Demo Family Member',
+        role: 'family',
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=family`,
+        sharingPreferences: defaultSharingPreferences
+      },
       activeProfile: null,
       activeSection: 'dashboard',
       careMode: 'self',
       sharingPreferences: defaultSharingPreferences,
 
-      setCurrentUser: (user) => set({ 
-        currentUser: user,
-        sharingPreferences: user.sharingPreferences || defaultSharingPreferences
-      }),
+      setCurrentUser: (user) =>
+        set({
+          currentUser: user,
+          sharingPreferences: user.sharingPreferences || defaultSharingPreferences,
+        }),
 
       setActiveProfile: (profile) => set({ activeProfile: profile }),
 
-      updateProfile: (id, updates) => set((state) => ({
-        activeProfile: state.activeProfile?.id === id
-          ? { ...state.activeProfile, ...updates }
-          : state.activeProfile,
-        currentUser: state.currentUser?.id === id
-          ? { ...state.currentUser, ...updates }
-          : state.currentUser
-      })),
+      updateProfile: (id, updates) =>
+        set((state) => ({
+          activeProfile:
+            state.activeProfile?.id === id
+              ? { ...state.activeProfile, ...updates }
+              : state.activeProfile,
+          currentUser:
+            state.currentUser?.id === id
+              ? { ...state.currentUser, ...updates }
+              : state.currentUser,
+        })),
 
       setActiveSection: (section) => set({ activeSection: section }),
-      
       setCareMode: (mode) => set({ careMode: mode }),
 
-      updateSharingPreferences: (preferences) => set((state) => {
-        const updatedPreferences = {
-          ...state.sharingPreferences,
-          ...preferences
-        };
+      updateSharingPreferences: (preferences) =>
+        set((state) => {
+          const updatedPreferences = {
+            ...state.sharingPreferences,
+            ...preferences,
+          };
 
-        if (state.currentUser) {
-          set({
-            currentUser: {
-              ...state.currentUser,
-              sharingPreferences: updatedPreferences
-            }
-          });
-        }
+          if (state.currentUser) {
+            set({
+              currentUser: {
+                ...state.currentUser,
+                sharingPreferences: updatedPreferences,
+              },
+            });
+          }
 
-        return { sharingPreferences: updatedPreferences };
-      }),
+          return { sharingPreferences: updatedPreferences };
+        }),
 
-      logout: () => set({ 
-        currentUser: null, 
-        activeProfile: null, 
-        activeSection: 'dashboard',
-        careMode: 'self',
-        sharingPreferences: defaultSharingPreferences
-      })
+      logout: () =>
+        set({
+          currentUser: {
+            id: crypto.randomUUID(),
+            name: 'Demo Family Member',
+            role: 'family',
+            avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=family`,
+            sharingPreferences: defaultSharingPreferences,
+          },
+          activeProfile: null,
+          activeSection: 'dashboard',
+          careMode: 'self',
+          sharingPreferences: defaultSharingPreferences,
+        }),
     }),
     {
-      name: 'user-storage'
+      name: 'user-storage',
+      merge: (persistedState, currentState) => {
+        const typedState = persistedState as Partial<UserState>;
+        return {
+          ...typedState,
+          ...currentState,
+          currentUser: {
+            id: crypto.randomUUID(),
+            name: 'Demo Family Member',
+            role: 'family',
+            avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=family`,
+            sharingPreferences: defaultSharingPreferences,
+          },
+        };
+      }      
     }
   )
 );
