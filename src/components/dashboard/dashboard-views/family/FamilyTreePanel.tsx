@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Users, Plus, X } from 'lucide-react';
-import { useFamilyStore, FamilyMember } from '../../../../store/familyStore';
+import { useFamilyStore, FamilyMember } from '../../../../store/dashboard_store/familyStore';
 
 interface FamilyTreePanelProps {
   onClose: () => void;

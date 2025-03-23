@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Camera, Search, Filter, Eye, Calendar, Plus, Heart, Share2, Tag, X, Star, Edit, Save, Trash2, Grid, List, Clock, Users } from 'lucide-react';
-import { useFamilyStore } from '../../../../store/familyStore';
+import { useFamilyStore } from '../../../../store/dashboard_store/familyStore';
 import Modal from '../../Modal';
 import ImageViewer from './ImageViewer';
 import UploadArtModal from './UploadArtModal';
