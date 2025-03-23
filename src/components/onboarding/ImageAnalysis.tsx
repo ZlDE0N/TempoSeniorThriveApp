@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import OnboardingLayout from "./OnboardingLayout";
 import useBlobStore from '../../store/guestStore';
 import { createClient } from '@supabase/supabase-js';
@@ -15,7 +15,7 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function ImageAnalysis() {
-  const [isUploading, setIsUploading] = useState(false);
+  const isUploading = useRef(false);
   const [ imageUrl, setImageUrl ] = useState("");
   const [ supabaseImagePath, setSupabaseImagePath ] = useState("");
   const [ supabaseImageUrl, setSupabaseImageUrl ] = useState("");
@@ -31,23 +31,6 @@ export default function ImageAnalysis() {
     const key = localStorage.key(i);
     if (key) {
       allLocalStorageData[key] = localStorage.getItem(key);
-    }
-  }
-
-  async function getSignedUrl(fileName) {
-    try {
-      // Generate a signed URL for the uploaded file from the storage bucket
-      const { data, error } = await supabase.storage
-      .from('room-assessment-images')
-      .createSignedUrl(fileName, 60 * 60); // URL valid for 1 hour (60 minutes)
-
-      if (error) {
-        throw error;
-      }
-
-      return data.signedUrl;
-    } catch (error) {
-      console.error('Error generating signed URL:', error.message);
     }
   }
 
@@ -136,32 +119,22 @@ export default function ImageAnalysis() {
 
   useEffect(() => {
   const uploadAndSetPath = async () => {
-    if (!blob) {
-      navigate("/onboarding/room-selection");
-    } else if (isUploading) {
-      return; // Prevent uploading if already uploading
-    } else {
-      setIsUploading(true); // Set the flag to true when starting the upload
+    if (!blob) navigate("/onboarding/room-selection"); 
+    if (isUploading.current) return;
 
-      // Create the object URL for the image preview
-      setImageUrl(URL.createObjectURL(blob));
+    isUploading.current = true;
+    // Create the object URL for the image preview
+    setImageUrl(URL.createObjectURL(blob));
 
-      try {
-        // Upload the image to Supabase
-        const image_path = await uploadImageToSupabase(blob);
-        setSupabaseImagePath(image_path);
+    try {
+      // Upload the image to Supabase
+      const image_path = await uploadImageToSupabase(blob);
+      setSupabaseImagePath(image_path);
 
-        // Fetch the signed URL after uploading the image
-        // const signedUrl = await getSignedUrl(fileName);
-        // setSupabaseImageUrl(signedUrl);
-      } catch (error) {
-        console.error("Error uploading or getting signed URL:", error);
-      } finally {
-        //setIsUploading(false); // Reset the flag once the upload is finished
-      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
     }
-  };
-
+  }
   // Call the async function
   uploadAndSetPath();
 }, [blob]);
