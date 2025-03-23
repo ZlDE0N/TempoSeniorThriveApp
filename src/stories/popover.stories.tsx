@@ -1,14 +1,14 @@
 // [build] library: 'shadcn'
 import { Settings2 } from "lucide-react";
 
-import { Button } from "../components/dashboard/ui/button";
-import { Input } from "../components/dashboard/ui/input";
-import { Label } from "../components/dashboard/ui/label";
+import { Button } from "../views/dashboard/ui/button";
+import { Input } from "../views/dashboard/ui/input";
+import { Label } from "../views/dashboard/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../components/dashboard/ui/popover";
+} from "../views/dashboard/ui/popover";
 
 const meta = {
   title: "ui/Popover",

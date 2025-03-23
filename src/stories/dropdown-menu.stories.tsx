@@ -16,7 +16,7 @@ import {
   Users,
 } from "lucide-react";
 
-import { Button } from "../components/dashboard/ui/button";
+import { Button } from "../views/dashboard/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,7 +30,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "../components/dashboard/ui/dropdown-menu";
+} from "../views/dashboard/ui/dropdown-menu";
 
 const meta = {
   title: "ui/DropdownMenu",

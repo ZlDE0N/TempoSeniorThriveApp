@@ -8,7 +8,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "../components/dashboard/ui/select";
+} from "../views/dashboard/ui/select";
 
 const meta = {
   title: "ui/Select",

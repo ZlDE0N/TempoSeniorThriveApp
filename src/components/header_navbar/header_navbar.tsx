@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/dashboard/ui/button";
+import { Button } from "@/views/dashboard/ui/button";
 import fullLogo from "@/assets/icons/seniorthrive-full-logo.svg";
 
 

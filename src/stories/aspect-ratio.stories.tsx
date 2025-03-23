@@ -1,5 +1,5 @@
 // [build] library: 'shadcn'
-import { AspectRatio } from "../components/dashboard/ui/aspect-ratio";
+import { AspectRatio } from "../views/dashboard/ui/aspect-ratio";
 
 const meta = {
   title: "ui/AspectRatio",

@@ -1,4 +1,4 @@
-import { Button } from "@/components/dashboard/ui/button";
+import { Button } from "@/views/dashboard/ui/button";
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";

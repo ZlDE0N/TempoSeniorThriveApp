@@ -1,5 +1,5 @@
 // [build] library: 'shadcn'
-import { Avatar, AvatarFallback, AvatarImage } from "../components/dashboard/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../views/dashboard/ui/avatar";
 
 const meta = {
   title: "ui/Avatar",

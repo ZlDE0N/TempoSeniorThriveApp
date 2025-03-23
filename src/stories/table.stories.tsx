@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../components/dashboard/ui/table";
+} from "../views/dashboard/ui/table";
 
 const meta = {
   title: "ui/Table",

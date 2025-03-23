@@ -1,4 +1,4 @@
-import { Button } from "@/components/dashboard/ui/button";
+import { Button } from "@/views/dashboard/ui/button";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";

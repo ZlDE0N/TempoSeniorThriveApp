@@ -6,7 +6,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../components/dashboard/ui/sheet";
+} from "../views/dashboard/ui/sheet";
 
 const meta = {
   title: "ui/Sheet",
