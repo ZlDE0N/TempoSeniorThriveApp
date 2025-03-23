@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Activity, AlertTriangle, Calendar, Clock, Heart, Pill, Users, Camera, Phone, Mail, MapPin, Video, MessageCircle, Bell, FileText } from 'lucide-react';
-import { useVitalsStore } from '../../../../store/vitalsStore';
+import { useVitalsStore } from '../../../../store/dashboard_store/vitalsStore';
 import { useMedicationStore } from '../../../../store/dashboard_store/medicationStore';
 import { useActivityStore } from '../../../../store/dashboard_store/activityStore';
 import { useIncidentStore } from '../../../../store/dashboard_store/incidentStore';
