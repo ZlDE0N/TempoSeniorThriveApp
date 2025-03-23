@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import QuestionsCard from "../QuestionsCard";
+import QuestionsCard from "../../../components/onboarding/QuestionsCard";
 import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 
 export default function Connections() {

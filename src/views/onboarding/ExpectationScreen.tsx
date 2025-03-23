@@ -2,7 +2,7 @@ import { Button } from "@/views/dashboard/ui/button";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import OnboardingLayout from "./OnboardingLayout";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 
 export default function ExpectationScreen() {
   // Scroll to top on mount

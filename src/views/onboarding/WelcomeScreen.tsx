@@ -6,7 +6,7 @@ import  Gauge from "../dashboard/ui/gauge";
 import { Link } from "react-router-dom";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import OnboardingLayout from "./OnboardingLayout";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 
 export default function WelcomeScreen() {
   // Scroll to top on mount

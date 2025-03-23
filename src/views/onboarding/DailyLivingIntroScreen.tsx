@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 import { useEffect, useState } from "react";
-import OnboardingLayout from "./OnboardingLayout";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 

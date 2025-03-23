@@ -2,7 +2,7 @@ import { Button } from "@/views/dashboard/ui/button";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import OnboardingLayout from "./OnboardingLayout";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 
 export default function ProcessExplanation() {
   // Scroll to top on mount

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import OnboardingLayout from "./OnboardingLayout";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 
 export default function TransitionScreen() {
   const allLocalStorageData = {};

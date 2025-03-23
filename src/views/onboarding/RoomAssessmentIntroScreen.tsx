@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import OnboardingLayout from "./OnboardingLayout";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 export default function RoomAssessmentIntroScreen() {

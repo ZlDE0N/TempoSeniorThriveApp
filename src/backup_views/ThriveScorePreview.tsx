@@ -4,7 +4,7 @@ import { Button } from "@/views/dashboard/ui/button";
 import Gauge from "@/views/dashboard/ui/gauge";
 import Recommendations from "@/backup_views/components_backup/Recommendations";
 import { motion } from "framer-motion";
-import OnboardingLayout from "../views/onboarding/OnboardingLayout";
+import OnboardingLayout from "../components/onboarding/OnboardingLayout";
 
 export default function ThriveScorePreview() {
   const [showBlur, setShowBlur] = useState(false);
