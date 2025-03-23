@@ -28,9 +28,14 @@ export default function RoleRouter() {
     return null;
   }
 
-  if (currentUser.role === 'family') {
+  // if (currentUser.role === 'family') {
     return <FamilyPortal section={activeSection} />;
-  }
+  // }
+  return (
+    <div className="text-center text-gray-500 mt-10">
+      No view available for this role.
+    </div>
+  );
 
   // if (currentUser.role === 'self') {
   //   return <SelfPortal section={activeSection} />;
