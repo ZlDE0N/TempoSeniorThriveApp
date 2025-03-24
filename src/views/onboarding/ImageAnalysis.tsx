@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -17,6 +16,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function ImageAnalysis() {
   const isUploading = useRef(false);
+  const [analysisResult, setAnalysisResult] = useState("");
   const [ imageUrl, setImageUrl ] = useState("");
   const [ supabaseImagePath, setSupabaseImagePath ] = useState("");
   const [ supabaseImageUrl, setSupabaseImageUrl ] = useState("");
@@ -28,6 +28,7 @@ export default function ImageAnalysis() {
   const fileName = `guests/guest_${roomId}_${Date.now()}.jpeg`;
 
 
+  // Get all the user answers from local storage
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (key) {
@@ -35,9 +36,9 @@ export default function ImageAnalysis() {
     }
   }
 
-  async function uploadImageToSupabase(blob) {
-  try {
-    const { data, error } = await supabase.storage
+  async function uploadImage(blob) {
+    try {
+      const { data, error } = await supabase.storage
       .from('room-assessment-images')
       .upload(fileName, blob, {
         cacheControl: '3600',
@@ -45,71 +46,48 @@ export default function ImageAnalysis() {
         contentType: 'image/jpeg',
       });
 
-    if (error) {
-      throw error;
+      if (error) {
+        throw error;
+      }
+
+      console.log('File uploaded successfully:', data);
+      console.log(fileName);
+      return data.path;
+    } catch (error) {
+      console.error("Error uploading image:", error.message);
     }
-
-    console.log('File uploaded successfully:', data);
-    console.log(fileName);
-    return data.path;
-  } catch (error) {
-    console.error("Error uploading image:", error.message);
   }
-}
 
-  async function analyzeImage(imagePath: string, roomId: string) {
+  // Verifies that the image is suited for the safety scan
+  async function verifyImage(imagePath: string, roomId: string) {
     console.log(imagePath, roomId);
-  try {
-    const response = await fetch(
-      `${supabaseUrl}/functions/v1/room-image-validation`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${supabaseKey}`,
-        },
-        body: JSON.stringify({ 
-          imagePath: imagePath,
-          roomId: roomId,
-        })
+    try {
+      const response = await fetch(
+        `${supabaseUrl}/functions/v1/room-image-validation`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${supabaseKey}`,
+          },
+          body: JSON.stringify({ 
+            imagePath: imagePath,
+            roomId: roomId,
+          })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    );
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error("Error analyzing image:", error);
+      return { message: "Failed to analyze image." };
     }
-
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error("Error analyzing image:", error);
-    return { message: "Failed to analyze image." };
   }
-}
-
-  const [analysisResult, setAnalysisResult] = useState("");
-
-  useEffect(() => {
-    if (!supabaseImagePath) return;
-
-    let isCancelled = false; // Add cancellation flag
-
-    async function fetchAnalysis() {
-      setAnalysisResult("Analyzing...");
-
-      const result = await analyzeImage(supabaseImagePath, roomId);
-
-      if (!isCancelled) {
-        setAnalysisResult(result.candidates[0]?.content?.parts[0]?.text || "Analysis complete, but no description available.");
-      }
-    }
-
-    fetchAnalysis();
-
-    return () => {
-      isCancelled = true; // Prevent setting state after unmount
-    };
-  }, [supabaseImagePath]);
 
   // Redirect if no room or image is selected
   useEffect(() => {
@@ -119,26 +97,36 @@ export default function ImageAnalysis() {
   }, [roomId]);
 
   useEffect(() => {
-  const uploadAndSetPath = async () => {
-    if (!blob) navigate("/onboarding/room-selection"); 
-    if (isUploading.current) return;
+    const uploadAndSetPath = async () => {
+      if (!blob) navigate("/onboarding/room-selection"); 
+      if (isUploading.current) return;
 
-    isUploading.current = true;
-    // Create the object URL for the image preview
-    setImageUrl(URL.createObjectURL(blob));
+      isUploading.current = true;
+      // Create the object URL for the image preview
+      setImageUrl(URL.createObjectURL(blob));
 
-    try {
+      let image_path: string | undefined;
+      let result: string | undefined;
+
       // Upload the image to Supabase
-      const image_path = await uploadImageToSupabase(blob);
-      setSupabaseImagePath(image_path);
+      try {
+        image_path = await uploadImage(blob);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
 
-    } catch (error) {
-      console.error("Error uploading image:", error);
+      // Verify the image
+      try {
+        result = await verifyImage(image_path, roomId);
+        setAnalysisResult(result.candidates[0]?.content?.parts[0]?.text || "Analysis complete, but no description available.");
+      } catch (error) {
+        console.error("Error verifying image:", error);
+      }
+      
     }
-  }
-  // Call the async function
-  uploadAndSetPath();
-}, [blob]);
+    // Call the async function
+    uploadAndSetPath();
+  }, [blob]);
 
   return (
     <OnboardingLayout>
@@ -156,4 +144,3 @@ export default function ImageAnalysis() {
     </OnboardingLayout>
   );
 }
-
