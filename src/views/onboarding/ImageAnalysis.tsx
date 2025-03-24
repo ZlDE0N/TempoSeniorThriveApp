@@ -26,7 +26,7 @@ export default function ImageAnalysis() {
   const allLocalStorageData = {};
   const userName = localStorage.getItem("st_onboarding_name") || "guest";
   const fileName = `guests/guest_${roomId}_${Date.now()}.jpeg`;
-
+  const [ assessmentStage, setAssessmentStage] = useState("Uploading")
 
   // Get all the user answers from local storage
   for (let i = 0; i < localStorage.length; i++) {
@@ -97,7 +97,7 @@ export default function ImageAnalysis() {
   }, [roomId]);
 
   useEffect(() => {
-    const uploadAndSetPath = async () => {
+    const uploadAndAnalyze = async () => {
       if (!blob) navigate("/onboarding/room-selection"); 
       if (isUploading.current) return;
 
@@ -106,7 +106,7 @@ export default function ImageAnalysis() {
       setImageUrl(URL.createObjectURL(blob));
 
       let image_path: string | undefined;
-      let result: string | undefined;
+      let verificationResult: string | undefined;
 
       // Upload the image to Supabase
       try {
@@ -114,18 +114,28 @@ export default function ImageAnalysis() {
       } catch (error) {
         console.error("Error uploading image:", error);
       }
+      
+      setAssessmentStage("Veryifying");
 
       // Verify the image
       try {
-        result = await verifyImage(image_path, roomId);
-        setAnalysisResult(result.candidates[0]?.content?.parts[0]?.text || "Analysis complete, but no description available.");
+        const result = await verifyImage(image_path, roomId);
+        try {
+          verificationResult = JSON.parse(verificationResult.candidates[0]?.content?.parts[0]?.text);
+        } catch (error) {
+          verificationResult = "Failed to parse verification result.";
+        }
       } catch (error) {
         console.error("Error verifying image:", error);
       }
+
+      setAssessmentStage("Analyzing");
+      // Perform safety scan
+
       
     }
     // Call the async function
-    uploadAndSetPath();
+    uploadAndAnalyze();
   }, [blob]);
 
   return (
@@ -139,7 +149,7 @@ export default function ImageAnalysis() {
           />
         </div>
         <p>Room ID: {roomId}</p>
-        <p>{analysisResult}</p>
+        <p>{assessmentStage}</p>
       </div>
     </OnboardingLayout>
   );
