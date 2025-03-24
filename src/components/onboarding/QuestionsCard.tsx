@@ -125,7 +125,7 @@ export default function QuestionsCard( props: {
   const segments = [
     { label: "Personal Profile", sectionTotal: 3 },
     { label: "Daily Life", sectionTotal: 4 },
-    { label: "Movement & Stability", sectionTotal: 4 },
+    { label: "Mobility & Stability", sectionTotal: 4 },
     { label: "Support & Connections", sectionTotal: 2 },
   ];
   const segmentCount = segments.length;

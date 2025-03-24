@@ -42,6 +42,9 @@ import FriendsNeighbors from "./questions/FriendsNeighbors";
 import SupportAccess from "./questions/SupportAccess";
 import ImageAnalysis from "./ImageAnalysis";
 
+import ThriveScorePreview from "./ThriveScorePreview";
+
+
 export default function OnboardingRoutes() {
   return (
     <Routes>
@@ -100,6 +103,7 @@ export default function OnboardingRoutes() {
       <Route path="/room-assessment/:roomId" element={<RoomAssessment />} />
 
       <Route path="/image-analysis/:roomId" element={<ImageAnalysis />} />
+      <Route path="/analysis-results" element={<ThriveScorePreview />} />
     </Routes>
   );
 }
