@@ -34,10 +34,10 @@ export default function SelfPortal({ section }: SelfPortalProps) {
         return <SelfDashboard />;
       case 'goals':
         // return <GoalsDashboard />;
-        return <div>Medications coming soon</div>;
+        return <div>Goals coming soon</div>;
       case 'health':
         // return <HealthDashboard />;
-        return <div>Medications coming soon</div>;
+        return <div>Health coming soon</div>;
       case 'health/vitals':
         // return <VitalsView />;
         return <div>Medications coming soon</div>;
