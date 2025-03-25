@@ -77,7 +77,6 @@ export default function ImageAnalysis() {
   const [ assessmentStage, setAssessmentStage] = useState("Uploading")
   const [ stageIndex, setStageIndex] = useState(0)
   const { executeRecaptcha } = useGoogleReCaptcha();
-  console.log(executeRecaptcha); // It should log a function when available
 
 
   // Construct a questionnaire json with all the obtained answers
