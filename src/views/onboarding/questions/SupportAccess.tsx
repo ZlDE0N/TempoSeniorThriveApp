@@ -30,7 +30,7 @@ export default function SupportAccess() {
       backPath="/onboarding/balance-history"
       buttonLabel="Done"
       allowSkip={true}
-      sectionIndex={11}
+      sectionIndex={12}
     />
   );
 }

@@ -31,7 +31,7 @@ export default function HomeMovement() {
       nextSection="/onboarding/mobility-aids"
       backPath="/onboarding/sleep-hours"
       allowSkip={true}
-      sectionIndex={7}
+      sectionIndex={8}
     />
   );
 }

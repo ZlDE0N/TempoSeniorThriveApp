@@ -30,7 +30,7 @@ export default function SleepHours() {
       nextSection="/onboarding/mobility-and-stability"
       backPath="/onboarding/everyday-tasks"
       allowSkip={true}
-      sectionIndex={6}
+      sectionIndex={7}
     />
   );
 }

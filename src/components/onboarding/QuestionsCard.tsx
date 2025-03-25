@@ -35,6 +35,7 @@ export default function QuestionsCard( props: {
 
   const navigate = useNavigate();
   const keysToCheck = [
+    "name",
     "age",
     "livingSituation",
     "health",
@@ -51,6 +52,7 @@ export default function QuestionsCard( props: {
   ];
 
   const navPaths = [
+    "/onboarding/name",
     "/onboarding/age",
     "/onboarding/living-situation",
     "/onboarding/health",
@@ -123,7 +125,7 @@ export default function QuestionsCard( props: {
   const buttonLabel = props.buttonLabel || "Next Step";
   const conditionalNextSection = props.conditionalNextSection || false;
   const segments = [
-    { label: "Personal Profile", sectionTotal: 3 },
+    { label: "Personal Profile", sectionTotal: 4 },
     { label: "Daily Life", sectionTotal: 4 },
     { label: "Mobility & Stability", sectionTotal: 4 },
     { label: "Support & Connections", sectionTotal: 2 },
@@ -133,13 +135,13 @@ export default function QuestionsCard( props: {
     arr.slice(0, n).reduce((sum, item) => sum + item.sectionTotal, 0);
   return (
     <OnboardingLayout showBackButton={true} backPath={props.backPath}>
-      <div className="container mx-auto px-4 py-12 max-w-2xl">
+      <div className="container mx-auto px-4 md:py-12 py-6 max-w-2xl">
         {/* Progress Bar */}
-        <div className="w-full h-auto flex flex-wrap flex-row items-center justify-center">
+        <div className="w-full h-auto flex flex-wrap flex-row items-end justify-center">
           {segments.map((segment,index) => ( 
             <div 
               key={index}
-              className="w-20 md:w-32 px-1 grid grid-row grid-rows-2"
+              className="w-[9.5vh] md:w-32 px-1 flex h-full flex-col pb-4 md:pb-8"
             > 
               <div className="w-full text-center pb-2 flex items-center justify-center font-bold md:text-lg text-xs">
                 {segment.label}
@@ -160,12 +162,12 @@ export default function QuestionsCard( props: {
            ))}
         </div>
 
-        <div className="bg-white rounded-xl surrounding-shadow p-8">
-            <h1 className="text-3xl font-bold text-st_black text-center mb-4">
+        <div className="bg-white rounded-xl surrounding-shadow px-4 py-6 md:py-8 md:px-8">
+          <h1 className="md:text-3xl text-2xl font-bold text-st_black text-center mb-4">
               {props.title}
             </h1>
             {props.subtitle && (
-              <p className="text-center text-lg text-slate-600 mb-8">
+              <p className="text-center text-base md:text-lg text-slate-600 mb-6 md:mb-8">
                 {props.subtitle}
               </p>
             )}
@@ -190,21 +192,21 @@ export default function QuestionsCard( props: {
               {/* Questions */}
               {props.items.map((item) => (
                 <div key={item.key} className="p-4 flex flex-col gap-2 rounded-md">
-                  <div className="text-st_black text-xl">
+                  <div className="text-st_black md:text-xl text-lg">
                     {item.icon && (
                       <FontAwesomeIcon
                         icon={item.icon}
-                        className="text-xl pr-2 text-st_black"
+                        className="text-base md:text-xl pr-2 text-st_black"
                       />
                     )}
                     {item.question}
                   </div>
                   { item.subtitle && (
-                    <p className="text-slate-600 text-sm">{item.subtitle}</p>
+                    <p className="text-slate-600 text-xs md:text-sm">{item.subtitle}</p>
                   )}
                 { item.type === "input" && (
                   <input
-                    className="text-lg border-2 p-3 mt-4 rounded-md outline-none aria-selected:border-st_light_orange focus:border-st_light_orange border-st_black"
+                    className="md:text-lg text-base border-2 p-3 mt-4 rounded-md outline-none aria-selected:border-st_light_orange focus:border-st_light_orange border-st_black"
                     placeholder={"Enter your preferred " + item.key}
                     onChange={(e) =>
                       handleChange(item.key, e.target.value)
@@ -244,14 +246,14 @@ export default function QuestionsCard( props: {
                     </div>
                   ) || item.type === "radio" && (
                     <div className="pt-4">
-                      <p className="text-slate-600 text-base">
+                      <p className="text-slate-600 text-sm md:text-base">
                         (Select one)
                       </p>
                       <div className="flex flex-col gap-2">
                         {item.options.map((option) => (
                           <label
                             key={option}
-                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-sm md:text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
                           >
                             <input
                               type="radio"
@@ -268,7 +270,7 @@ export default function QuestionsCard( props: {
                             />
                             <FontAwesomeIcon
                               icon={answers[item.key] === option ? faCircleDot : faCircle}
-                              className="text-2xl text-st_black"
+                              className="md:text-2xl text-xl text-st_black"
                             />
                             {option}
                           </label>
@@ -305,7 +307,7 @@ export default function QuestionsCard( props: {
                   }
                   asChild
                 >
-                  <div className="cursor-pointer w-1/2 h-full">{buttonLabel}</div>
+                  <div className="cursor-pointer text-sm md:text-xl w-1/2 h-full">{buttonLabel}</div>
                 </Button>
               </div>
             </form>

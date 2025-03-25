@@ -29,7 +29,7 @@ export default function BalanceHistory() {
       ]}
       nextSection="/onboarding/support-and-connections"
       backPath="/onboarding/vision"
-      sectionIndex={10}
+      sectionIndex={11}
     />
   );
 }

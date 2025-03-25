@@ -31,7 +31,7 @@ export default function LivingSituation() {
       nextSection="/onboarding/health"
       backPath="/onboarding/age"
       allowSkip={true}
-      sectionIndex={1}
+      sectionIndex={2}
     />
   );
 }

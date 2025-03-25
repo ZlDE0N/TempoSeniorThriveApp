@@ -25,7 +25,7 @@ const ProgressStep = ({ stageIndex, analysisError }: { stageIndex: number; analy
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="absolute w-full h-12 flex justify-center items-center space-x-2 text-red-500"
+        className="absolute w-full h-20 flex justify-center items-center space-x-2 text-red-500"
       >
         <FontAwesomeIcon icon={faTimes} className="text-red-500" />
         <span>{analysisError}</span>
@@ -81,6 +81,7 @@ export default function ImageAnalysis() {
 
   // Construct a questionnaire json with all the obtained answers
   const keysToCheck = [
+    "name",
     "age",
     "livingSituation",
     "health",
@@ -97,6 +98,7 @@ export default function ImageAnalysis() {
   ];
   
   const questions = [
+    "What is your first name?",
     "What is your age range?",
     "What is your curent lliving situation?",
     "How would you rate your general health?",
@@ -125,6 +127,7 @@ export default function ImageAnalysis() {
 
   // Validate reCaptcha
   async function validateCaptcha(reason: string) {
+  console.log("executeRecaptcha:", executeRecaptcha);
     const recaptchaToken = await executeRecaptcha(reason);
     const response = await fetch(`${supabaseUrl}/functions/v1/captcha-validation`, {
       method: 'POST',
@@ -237,6 +240,9 @@ export default function ImageAnalysis() {
     if (!executeRecaptcha) return;
     if (isUploading.current) return;
     isUploading.current = true;
+    // Create the object URL for the image preview
+    setImageUrl(URL.createObjectURL(blob));
+
 
     const uploadAndAnalyze = async () => {
       try {
@@ -246,9 +252,6 @@ export default function ImageAnalysis() {
         setAnalysisError("Error: " + error.message);
         return;
       }
-
-      // Create the object URL for the image preview
-      setImageUrl(URL.createObjectURL(blob));
 
       let image_path: string | undefined;
       let verificationResult: string | undefined;
@@ -290,11 +293,12 @@ export default function ImageAnalysis() {
       try {
         const result = await safetyScanImage(image_path, roomId, questionnaireString);
         try {
+          console.log(result);
           safetyScanResult = JSON.parse(result.candidates[0]?.content?.parts[0]?.text.replaceAll("json", "").replaceAll("```",""));
           console.log(safetyScanResult);
           setAnalysisResult(safetyScanResult);
         } catch (error) {
-          setAnalysisError("Error performing safety scan: " + error.message);
+          setAnalysisError("Error performing safety scan: AI output is not formatted correctly");
           return;
         }
       } catch (error) {
@@ -310,8 +314,9 @@ export default function ImageAnalysis() {
     uploadAndAnalyze();
   }, [blob, executeRecaptcha]);
 
+
   return (
-    <OnboardingLayout>
+    <OnboardingLayout showLoginLink={false}>
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
         <h1 className="text-2xl font-bold">Image Analysis</h1>
         <div className="w-full rounded-lg flex items-center justify-center py-8">

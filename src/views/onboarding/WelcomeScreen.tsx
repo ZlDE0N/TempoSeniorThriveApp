@@ -109,7 +109,7 @@ export default function WelcomeScreen() {
           <div className="flex justify-center">
             <Button size="md" 
               className="shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto" asChild>
-              <Link to="/onboarding/age">
+              <Link to="/onboarding/name">
                 Start Your 7-Minute Discovery
               </Link>
             </Button>

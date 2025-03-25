@@ -83,7 +83,7 @@ export default function RoomSelection() {
             <div className="flex justify-center mb-6">
               <FontAwesomeIcon
                 icon={faHouse}
-                className="text-4xl text-st_black"
+                className="text-3xl md:text-4xl text-st_black"
               />
             </div>
             <motion.div
@@ -92,12 +92,12 @@ export default function RoomSelection() {
               transition={{ duration: 0.5 }}
             >
 
-              <h1 className="text-3xl font-bold text-st_black text-center mb-4">
+              <h1 className="text-2xl md:text-3xl font-bold text-st_black text-center mb-4">
                 Choose a room where you spend much of your day
               </h1>
 
-              <div className="mt-6 mb-8">
-                <h3 className="text-lg font-medium text-slate-700 mb-3">
+              <div className="md:block hidden mt-6 mb-8">
+                <h3 className="text-sm md:text-lg font-medium text-slate-700 mb-3">
                   Why This Matters:
                 </h3>
                 <ul className="space-y-2 text-slate-600">
@@ -138,7 +138,7 @@ export default function RoomSelection() {
                       />
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center gap-2">
+                      <div className="flex md:text-base text-sm items-center gap-2">
                         <FontAwesomeIcon
                           icon={room.icon}
                           className={cn(
@@ -173,7 +173,7 @@ export default function RoomSelection() {
                 size="lg"
                 onClick={handleContinue}
                 className={cn(
-                  "shadow-md border-2 text-lg text-white px-8 py-6 h-auto",
+                  "shadow-md border-2 text-sm md:text-xl text-white px-8 py-6 h-auto",
                   selectedRoom
                     ? "hover:shadow-xl border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue"
                     : "pointer-events-none cursor-not-allowed opacity-50 border-st_dark_blue bg-st_dark_blue",

@@ -30,7 +30,7 @@ export default function MorningEnergy() {
       nextSection="/onboarding/meals"
       backPath="/onboarding/health"
       allowSkip={true}
-      sectionIndex={3}
+      sectionIndex={4}
     />
   );
 }

@@ -32,7 +32,7 @@ export default function Vision() {
       nextSection="/onboarding/balance-history"
       backPath="/onboarding/mobility-aids"
       allowSkip={true}
-      sectionIndex={9}
+      sectionIndex={10}
     />
   );
 }

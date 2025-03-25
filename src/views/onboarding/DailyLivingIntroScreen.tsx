@@ -34,11 +34,11 @@ export default function TransitionScreen() {
         </div>
 
         <div className="bg-white rounded-xl flex flex-col gap-8 surrounding-shadow p-12">
-          <h1 className="text-3xl font-bold text-st_black">
+          <h1 className="text-xl md:text-3xl font-bold text-st_black">
             Let's talk about your daily life, routines, and energy.
           </h1>
 
-          <p className="text-xl text-slate-600">
+          <p className="text-sm md:text-xl text-slate-600">
             Understanding your 'why' behind your daily habits is a great way to continue creating a life you love and enjoy!
           </p>
         </div>

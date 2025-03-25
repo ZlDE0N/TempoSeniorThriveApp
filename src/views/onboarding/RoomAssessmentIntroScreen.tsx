@@ -33,10 +33,10 @@ export default function RoomAssessmentIntroScreen() {
         <motion.div
           className="bg-white rounded-xl surrounding-shadow p-12"
         >
-          <h1 className="text-3xl font-bold text-st_black mb-6">
+          <h1 className="text-xl md:text-3xl font-bold text-st_black mb-6">
             Let's add one more layer to your story!
           </h1>
-          <p className="text-xl text-slate-600 mb-8">
+          <p className="text-sm md:text-xl text-slate-600 mb-8">
             A quick peek at your space can reveal simple ways to enhance your
             daily confidence. Just like a friend offering a fresh perspective,
             we'll look at the room where you spend time and spot opportunities
@@ -45,7 +45,7 @@ export default function RoomAssessmentIntroScreen() {
 
           <div className="flex justify-center">
             <Button size="lg" 
-              className="shadow-md text-white hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto"
+              className="shadow-md text-sm md:text-xl text-white hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto"
               asChild>
               <Link to="/onboarding/room-selection">Continue to Room Assessment</Link>
             </Button>

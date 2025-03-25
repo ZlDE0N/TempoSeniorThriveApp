@@ -30,7 +30,7 @@ export default function Connections() {
       nextSection="/onboarding/room-assessment"
       backPath="/onboarding/support-access"
       allowSkip={true}
-      sectionIndex={12}
+      sectionIndex={13}
     />
   );
 }

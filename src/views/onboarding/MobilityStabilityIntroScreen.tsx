@@ -35,11 +35,11 @@ export default function TransitionScreen() {
         </div>
 
         <div className="bg-white rounded-xl flex flex-col gap-8 surrounding-shadow p-12">
-          <h1 className="text-3xl font-bold text-st_black">
+          <h1 className="text-xl md:text-3xl font-bold text-st_black">
             Let’s share how you move around.
           </h1>
 
-          <p className="text-xl text-slate-600">
+          <p className="text-sm md:text-xl text-slate-600">
             Remember, every step you take is a step towards a more vibrant and fulfilling life. This information helps us understand how to make your home environment as safe and accessible as possible
           </p>
         </div>

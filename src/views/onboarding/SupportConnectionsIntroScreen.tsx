@@ -35,11 +35,11 @@ export default function TransitionScreen() {
         </div>
 
         <div className="bg-white rounded-xl flex flex-col gap-8 surrounding-shadow p-12">
-          <h1 className="text-3xl font-bold text-st_black">
+          <h1 className="text-xl md:text-3xl font-bold text-st_black">
             Finally, let's explore how you connect with others and how you've been feeling lately
           </h1>
 
-          <p className="text-xl text-slate-600">
+          <p className="text-sm md:text-xl text-slate-600">
             Your relationships and emotional well-being are the foundation of a happy and fulfilling life. It's time to nurture your connections and celebrate your emotional strength!
           </p>
         </div>

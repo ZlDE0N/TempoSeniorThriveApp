@@ -31,7 +31,7 @@ export default function MobilityAids() {
       nextSection="/onboarding/vision"
       backPath="/onboarding/home-movement"
       allowSkip={true}
-      sectionIndex={8}
+      sectionIndex={9}
     />
   );
 }

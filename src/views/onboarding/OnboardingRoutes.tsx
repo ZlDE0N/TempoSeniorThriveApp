@@ -56,6 +56,7 @@ export default function OnboardingRoutes() {
       <Route path="/process" element={<ProcessExplanation />} />
 
       {/* Personal profile*/ }
+      <Route path="/name" element={<Name />} />
       <Route path="/age" element={<Age />} />
       <Route path="/living-situation" element={<LivingSituation />} />
       <Route path="/health" element={<Health />} />

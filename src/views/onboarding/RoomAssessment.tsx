@@ -6,6 +6,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBath,
+  faSpinner,
   faExclamationTriangle,
   faWandMagicSparkles,
   faBed,
@@ -252,7 +253,7 @@ export default function RoomAssessment() {
                   className="text-4xl text-st_black"
                 />
               </div>
-              <h1 className="text-center w-full text-3xl font-bold">
+              <h1 className="text-center w-full text-2xl md:text-3xl font-bold">
                 Is this your {roomId}?
               </h1>
               <div className="flex py-6 justify-center items-center">
@@ -266,7 +267,7 @@ export default function RoomAssessment() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="bg-blue-50 border border-blue-100 rounded-lg p-6 mb-8"
+                className="bg-blue-50 border md:text-base text-sm border-blue-100 rounded-lg p-6 mb-8"
               >
                 <h3 className="font-medium text-slate-800 mb-3">
                   For best results, please make sure that your picture...
@@ -294,6 +295,12 @@ export default function RoomAssessment() {
                     <span className="text-st_light_blue">•</span>
                     <span>
                       Doesn't have any people in it
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-st_light_blue">•</span>
+                    <span>
+                      Is taken at around eye level
                     </span>
                   </li>
                 </ul>
@@ -326,11 +333,11 @@ export default function RoomAssessment() {
           <div className="flex justify-center mb-6">
             <FontAwesomeIcon
               icon={getRoomIcon()}
-              className="text-4xl text-st_black"
+              className="text-3xl md:text-4xl text-st_black"
             />
           </div>
 
-          <h1 className="text-3xl font-bold text-st_black text-center mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-st_black text-center mb-6">
             {getRoomTitle()}
           </h1>
 
@@ -338,7 +345,7 @@ export default function RoomAssessment() {
             {isLoading && (
               <div className="absolute inset-0 bg-slate-200 flex items-center justify-center">
                 <FontAwesomeIcon
-                  icon={faClock}
+                  icon={faSpinner}
                   spin
                   className="text-2xl text-st_light_blue"
                 />
@@ -355,7 +362,7 @@ export default function RoomAssessment() {
             />
           </div>
 
-          <p className="text-xl text-center text-slate-700 mb-8">
+            <p className="text-sm md:text-xl text-center text-slate-700 mb-8">
             {getRoomMessage()}
           </p>
 
@@ -365,10 +372,10 @@ export default function RoomAssessment() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="bg-blue-50 border border-blue-100 rounded-lg p-6 mb-8"
           >
-            <h3 className="font-medium text-slate-800 mb-3">
+            <h3 className="font-medium text-sm md:text-xl text-slate-800 mb-3">
               What happens next:
             </h3>
-            <ul className="space-y-2 text-slate-600">
+            <ul className="space-y-2 text-sm md:text-xltext-slate-600">
               <li className="flex items-start gap-2">
                 <span className="text-st_light_blue">1.</span>
                 <span>Take a photo or upload an image of your {roomId}</span>
@@ -391,7 +398,7 @@ export default function RoomAssessment() {
 
           {/* Error Message Display */}
           {error && (
-            <div className="my-4 bg-red-500 text-white p-4 rounded-md flex items-center gap-2">
+            <div className="text-sm md:text-base my-4 bg-red-500 text-white p-4 rounded-md flex items-center justify-center gap-2">
               <FontAwesomeIcon icon={faExclamationTriangle} />
               {error}
             </div>
@@ -404,7 +411,7 @@ export default function RoomAssessment() {
             className="flex flex-col md:flex-row gap-4 justify-center"
           >
             <button 
-              className="w-full md:w-56 text-lg p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
+              className="w-full md:w-56 text-sm md:text-xl p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
               onClick={handleTakePhoto}
             >
               <FontAwesomeIcon icon={faCamera} className="text-lg" />
@@ -416,7 +423,7 @@ export default function RoomAssessment() {
               className="w-full md:w-56 cursor-pointer"
             >
               <div
-                className="w-full text-lg p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
+                className="w-full text-sm md:text-lg p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
               >
                 <FontAwesomeIcon icon={faUpload} className="text-lg" />
                 Upload Image
@@ -437,7 +444,7 @@ export default function RoomAssessment() {
                   <video ref={videoRef} className="w-full rounded-lg" />
                   <Button
                     onClick={handleCapture}
-                    className="mt-4 bg-green-600 text-xl w-full text-center text-white px-4 py-6 rounded"
+                    className="mt-4 bg-green-600 text-sm md:text-xl w-full text-center text-white px-4 py-6 rounded"
                   >
                     <FontAwesomeIcon icon={faCamera} className="pr-2" />
                     Take Photo
@@ -451,7 +458,7 @@ export default function RoomAssessment() {
           </div>
           )
           }
-          <p className="text-center pt-4 w-full text-sm">
+          <p className="text-center pt-4 w-full text-xs md:text-sm">
             Photos are used only for assessment  
             and are kept private and secure.
           </p>
