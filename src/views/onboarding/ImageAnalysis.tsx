@@ -17,62 +17,6 @@ const statusTexts = [
   "Results are ready!"
 ];
 
-const ImageWithBoundingBoxes = ({ imageUrl, feedbackData }) => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const img = new Image();
-
-    // Load the image
-    img.src = imageUrl;
-    img.onload = () => {
-      // Set canvas dimensions based on the image
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      // Draw the image on the canvas
-      ctx.drawImage(img, 0, 0);
-
-      // Draw bounding boxes for issues, independence barriers, and engagement opportunities
-      const drawBoundingBoxes = (items) => {
-        try {
-          items.forEach((item) => {
-            const [x1, y1, x2, y2] = item.area;
-            const width = (x2 - x1) * canvas.width;
-            const height = (y2 - y1) * canvas.height;
-            const x = x1 * canvas.width;
-            const y = y1 * canvas.height;
-
-            // Set the color from the item
-            const boxColor = item.color + "50" || "#FFFFFF50"; // Use the color from the item, default to white if not provided
-
-            // Fill the bounding box with transparent color
-            ctx.fillStyle = boxColor; // The "80" adds transparency (50% opacity)
-            ctx.fillRect(x, y, width, height);
-
-            // Draw the border of the bounding box
-            ctx.strokeStyle = boxColor;
-            ctx.lineWidth = 3;
-            ctx.strokeRect(x, y, width, height);
-          });
-        } catch (error) {
-          return;
-        }
-      };
-
-      // Draw bounding boxes for all categories
-      drawBoundingBoxes(feedbackData.issues);
-      drawBoundingBoxes(feedbackData.engagement_opportunities);
-    };
-  }, [imageUrl, feedbackData]);
-
-  return (
-    <canvas ref={canvasRef} className="w-full rounded-lg shadow-xl"></canvas>
-  );
-};
-
 const ProgressStep = ({ stageIndex, analysisError }: { stageIndex: number; analysisError: string }) => (
   <div className="relative h-12 overflow-hidden text-lg">
     {analysisError ? (
@@ -176,6 +120,7 @@ export default function ImageAnalysis() {
 
   const questionnaireString = JSON.stringify(questionnaire, null, 2);
 
+  // Upload the image to supabase
   async function uploadImage(blob) {
     try {
       const { data, error } = await supabase.storage
@@ -314,6 +259,7 @@ export default function ImageAnalysis() {
       try {
         const result = await safetyScanImage(image_path, roomId, questionnaireString);
         try {
+          console.log(result);
           safetyScanResult = JSON.parse(result.candidates[0]?.content?.parts[0]?.text.replaceAll("json", "").replaceAll("```",""));
           console.log(safetyScanResult);
           setAnalysisResult(safetyScanResult);
@@ -339,14 +285,10 @@ export default function ImageAnalysis() {
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
         <h1 className="text-2xl font-bold">Image Analysis</h1>
         <div className="w-full rounded-lg flex items-center justify-center py-8">
-          {stageIndex !== 3 &&
-            <img 
-              className="w-full rounded-lg shadow-xl"
-            src={imageUrl} 
-            />
-            ||
-            <ImageWithBoundingBoxes imageUrl={imageUrl} feedbackData={analysisResult} />
-          }
+          <img 
+            className="w-full rounded-lg shadow-xl"
+          src={imageUrl} 
+          />
         </div>
         {/* Progress Bar */}
         <div className="w-full bg-slate-100 rounded-full h-4 mb-4">
