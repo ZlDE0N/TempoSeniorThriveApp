@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 import useBlobStore from '../../store/onboarding_store/guestStore';
 import { createClient } from '@supabase/supabase-js';
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const statusTexts = [
   "Uploading image to our servers",
@@ -57,8 +58,8 @@ const ProgressStep = ({ stageIndex, analysisError }: { stageIndex: number; analy
 );
 
 // Supabase setup
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function ImageAnalysis() {
@@ -75,6 +76,9 @@ export default function ImageAnalysis() {
   const fileName = `guests/guest_${roomId}_${Date.now()}.jpeg`;
   const [ assessmentStage, setAssessmentStage] = useState("Uploading")
   const [ stageIndex, setStageIndex] = useState(0)
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  console.log(executeRecaptcha); // It should log a function when available
+
 
   // Construct a questionnaire json with all the obtained answers
   const keysToCheck = [
@@ -120,6 +124,26 @@ export default function ImageAnalysis() {
 
   const questionnaireString = JSON.stringify(questionnaire, null, 2);
 
+  // Validate reCaptcha
+  async function validateCaptcha(reason: string) {
+    const recaptchaToken = await executeRecaptcha(reason);
+    const response = await fetch(`${supabaseUrl}/functions/v1/captcha-validation`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${supabaseKey}`,
+      },
+      body: JSON.stringify({ token: recaptchaToken })
+    });
+
+    const data = await response.json();
+    if (!data.success) {
+      console.error(data);
+      throw new Error("reCaptcha validation failed");
+    }
+    return;
+  }
+
   // Upload the image to supabase
   async function uploadImage(blob) {
     try {
@@ -137,7 +161,7 @@ export default function ImageAnalysis() {
 
       return data.path;
     } catch (error) {
-      console.error("Error uploading image:", error.message);
+      throw error; 
     }
   }
 
@@ -210,11 +234,20 @@ export default function ImageAnalysis() {
   }, [roomId]);
 
   useEffect(() => {
-    const uploadAndAnalyze = async () => {
-      if (!blob) navigate("/onboarding/room-selection"); 
-      if (isUploading.current) return;
+    if (!blob) navigate("/onboarding/room-selection"); 
+    if (!executeRecaptcha) return;
+    if (isUploading.current) return;
+    isUploading.current = true;
 
-      isUploading.current = true;
+    const uploadAndAnalyze = async () => {
+      try {
+        await validateCaptcha("room_assessment");
+      } catch (error) {
+        console.error(error);
+        setAnalysisError("Error: " + error.message);
+        return;
+      }
+
       // Create the object URL for the image preview
       setImageUrl(URL.createObjectURL(blob));
 
@@ -226,7 +259,7 @@ export default function ImageAnalysis() {
       try {
         image_path = await uploadImage(blob);
       } catch (error) {
-        setAnalysisError("Error uploading image");
+        setAnalysisError("Error uploading image: " + error.message);
         return;
       }
       
@@ -238,18 +271,17 @@ export default function ImageAnalysis() {
         const result = await verifyImage(image_path, roomId);
         try {
           verificationResult = JSON.parse(result.candidates[0]?.content?.parts[0]?.text.replaceAll("json", "").replaceAll("```",""));
-          console.log(verificationResult);
           if (verificationResult.check_status !== "passed")
           {
             setAnalysisError(`Image did not pass. Reason: ${verificationResult.reason}`);
             return;
           }
         } catch (error) {
-          setAnalysisError("Error verifying image");
+          setAnalysisError("Error verifying image: " + error.message);
           return;
         }
       } catch (error) {
-        setAnalysisError("Error verifying image");
+        setAnalysisError("Error verifying image: " + error.message);
         return;
       }
 
@@ -259,16 +291,15 @@ export default function ImageAnalysis() {
       try {
         const result = await safetyScanImage(image_path, roomId, questionnaireString);
         try {
-          console.log(result);
           safetyScanResult = JSON.parse(result.candidates[0]?.content?.parts[0]?.text.replaceAll("json", "").replaceAll("```",""));
           console.log(safetyScanResult);
           setAnalysisResult(safetyScanResult);
         } catch (error) {
-          setAnalysisError("Error performing safety scan");
+          setAnalysisError("Error performing safety scan: " + error.message);
           return;
         }
       } catch (error) {
-        setAnalysisError("Error performing safety scan");
+        setAnalysisError("Error performing safety scan: " + error.message);
         return;
       }
 
@@ -278,7 +309,7 @@ export default function ImageAnalysis() {
     }
     // Call the async function
     uploadAndAnalyze();
-  }, [blob]);
+  }, [blob, executeRecaptcha]);
 
   return (
     <OnboardingLayout>

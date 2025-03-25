@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import WelcomeScreen from "./WelcomeScreen";
 import ExpectationScreen from "./ExpectationScreen";
 import ProcessExplanation from "./ProcessExplanation";
@@ -46,6 +47,7 @@ import ThriveScorePreview from "./ThriveScorePreview";
 
 
 export default function OnboardingRoutes() {
+  const reCaptchaKey = import.meta.env.VITE_RECAPTCHA_KEY;
   return (
     <Routes>
       {/* Welcoming routes */}
@@ -102,7 +104,11 @@ export default function OnboardingRoutes() {
       <Route path="/room-selection" element={<RoomSelection />} />
       <Route path="/room-assessment/:roomId" element={<RoomAssessment />} />
 
-      <Route path="/image-analysis/:roomId" element={<ImageAnalysis />} />
+      <Route path="/image-analysis/:roomId" element={
+      <GoogleReCaptchaProvider reCaptchaKey={reCaptchaKey}>
+        <ImageAnalysis />
+      </GoogleReCaptchaProvider>
+      } />
       <Route path="/analysis-results" element={<ThriveScorePreview />} />
     </Routes>
   );
