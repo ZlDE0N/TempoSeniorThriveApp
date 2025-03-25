@@ -17,7 +17,7 @@ interface SharingPreferences {
   nutrition: boolean;
 }
 
-interface User {
+export interface User {
   id: string;
   name: string;
   role: UserRole;
@@ -31,6 +31,7 @@ interface UserState {
   activeProfile: User | null;
   activeSection: string;
   careMode: 'self' | 'patient';
+  isPremium: boolean;
   sharingPreferences: SharingPreferences;
   setCurrentUser: (user: User) => void;
   setActiveProfile: (profile: User | null) => void;
@@ -39,6 +40,7 @@ interface UserState {
   setCareMode: (mode: 'self' | 'patient') => void;
   updateSharingPreferences: (preferences: Partial<SharingPreferences>) => void;
   logout: () => void;
+  setPremium: (value: boolean) => void;
 }
 
 const defaultSharingPreferences: SharingPreferences = {
@@ -63,12 +65,14 @@ export const useUserStore = create<UserState>()(
         name: 'Demo Family Member',
         role: 'family',
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=family`,
-        sharingPreferences: defaultSharingPreferences
+        sharingPreferences: defaultSharingPreferences,
       },
       activeProfile: null,
       activeSection: 'dashboard',
       careMode: 'self',
       sharingPreferences: defaultSharingPreferences,
+      isPremium: false,
+      setPremium: (value) => set({ isPremium: value }),
 
       setCurrentUser: (user) =>
         set({
@@ -132,17 +136,19 @@ export const useUserStore = create<UserState>()(
       merge: (persistedState, currentState) => {
         const typedState = persistedState as Partial<UserState>;
         return {
-          ...typedState,
           ...currentState,
-          currentUser: {
+          ...typedState,
+          currentUser: typedState.currentUser || {
             id: crypto.randomUUID(),
             name: 'Demo Family Member',
             role: 'family',
             avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=family`,
             sharingPreferences: defaultSharingPreferences,
           },
+          isPremium: typedState.isPremium ?? false, // ✅ agregar
+          setPremium: currentState.setPremium       //
         };
-      }      
+      }
     }
   )
 );

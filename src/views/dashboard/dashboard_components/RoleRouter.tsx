@@ -20,6 +20,7 @@ import { useUserStore } from '../../../store/dashboard_store/userStore';// impor
 // import CareLog from './CareLog';
 // import SelfPortal from './self/SelfPortal';
 import FamilyPortal from '../dashboard-views/family/FamilyPortal';
+import SelfPortal from '../dashboard-views/self/SelfPortal';
 
 export default function RoleRouter() {
   const { currentUser, activeSection } = useUserStore();
@@ -30,18 +31,18 @@ export default function RoleRouter() {
     return <FamilyPortal section={activeSection} />;
   }
 
+  
+  
+  if (currentUser.role === 'self') {
+    return <SelfPortal section={activeSection} />;
+  }
+  
   return (
     <div className="text-center text-gray-500 mt-10">
       No view available for this role.
     </div>
   );
-
   
-
-  // if (currentUser.role === 'self') {
-  //   return <SelfPortal section={activeSection} />;
-  // }
-
   // // Caregiver Manager role
   // if (currentUser.role === 'caregiver_manager') {
   //   switch (activeSection) {

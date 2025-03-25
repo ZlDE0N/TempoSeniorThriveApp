@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/views/dashboard/ui/button";
 import fullLogo from "@/assets/icons/seniorthrive-full-logo.svg";
+import { useUserStore, type User } from '../../store/dashboard_store/userStore';
 
 
 interface NavItem {
@@ -23,17 +24,41 @@ export default function HeaderNavbar({
   navItems,
   isAuthenticated,
   userName,
-  isPremium,
+  // isPremium,
   handleLogout,
   isFixed = true,
 }: HeaderNavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const currentUser = useUserStore(state => state.currentUser);
+  const setCurrentUser = useUserStore(state => state.setCurrentUser);
+  const setCareMode = useUserStore(state => state.setCareMode);
+  const isPremium = useUserStore(state => state.isPremium);
+  const setPremium = useUserStore(state => state.setPremium);
+
+  const handleSetToSelf = () => {
+    if (!currentUser) return;
+  
+    const newRole = currentUser.role === 'self' ? 'family' : 'self';
+  
+    // Crear el nuevo usuario con rol cambiado
+    const updatedUser: User = {
+      ...currentUser,
+      role: newRole,
+    };
+  
+    setCurrentUser(updatedUser);
+    setCareMode(newRole); // opcional, si querés sincronizarlo con el modo de cuidado
+
+    // setTimeout(() => {
+    //   console.log('Rol actual:', useUserStore.getState().currentUser?.role);
+    // }, 0);
+  };
+
   return (
     <header
-      className={`w-full bg-white z-50 shadow-md transition-all ${
-        isFixed ? "fixed top-0 left-0 right-0" : "relative"
-      }`}
+      className={`w-full bg-white z-50 shadow-md transition-all ${isFixed ? "fixed top-0 left-0 right-0" : "relative"
+        }`}
     >
 
       <motion.div
@@ -43,16 +68,16 @@ export default function HeaderNavbar({
         className="container mx-auto px-6 py-4 flex justify-between items-center"
       >
         {/* 📌 Logo */}
-       {/* 📌 Logo */}
-      <div className="flex items-center">
-        <Link to="/" className="transition-transform hover:scale-105">
-          <img
-            src={fullLogo} // ✅ Si lo importaste en Vite/Webpack
-            alt="SeniorThrive Logo"
-            className="h-10 w-auto" // ✅ Ajusta el tamaño del logo
-          />
-        </Link>
-      </div>
+        {/* 📌 Logo */}
+        <div className="flex items-center">
+          <Link to="/" className="transition-transform hover:scale-105">
+            <img
+              src={fullLogo} // ✅ Si lo importaste en Vite/Webpack
+              alt="SeniorThrive Logo"
+              className="h-10 w-auto" // ✅ Ajusta el tamaño del logo
+            />
+          </Link>
+        </div>
 
 
         {/* 📌 Desktop Navigation - Se oculta en 968px (lg:hidden) */}
@@ -74,20 +99,32 @@ export default function HeaderNavbar({
                 </Button>
               </motion.div>
             ))}
+            <button onClick={handleSetToSelf}>
+
+              Older adult
+
+            </button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="font-medium border-2 hover:bg-green-50 hover:text-green-600 hover:border-green-200 transition-colors"
+              onClick={() => setPremium(!isPremium)} // 🔄 Toggle
+            >
+              {isPremium ? 'Disable ThriveMax' : 'Activate ThriveMax'}
+            </Button>
           </nav>
 
           {isAuthenticated && (
             <>
               <div className="h-8 w-px bg-slate-200 mx-2"></div>
 
-              <div className="flex items-center space-x-5">
+              <div className="flex items-center space-x-5 w-full">
                 <motion.span
                   whileHover={{ scale: 1.05 }}
-                  className={`px-4 py-1.5 text-sm font-medium rounded-full shadow-sm ${
-                    isPremium
-                      ? "bg-blue-100 text-blue-800 border border-blue-200"
-                      : "bg-slate-100 text-slate-800 border border-slate-200"
-                  }`}
+                  className={`px-4 py-1.5 text-sm font-medium rounded-full shadow-sm ${isPremium
+                    ? "bg-blue-100 text-blue-800 border border-blue-200"
+                    : "bg-slate-100 text-slate-800 border border-slate-200"
+                    }`}
                 >
                   {isPremium ? "Premium Active" : "Free Plan"}
                 </motion.span>
@@ -155,9 +192,8 @@ export default function HeaderNavbar({
         initial={{ opacity: 0, height: 0 }}
         animate={isMenuOpen ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className={`lg:hidden bg-white border-t border-slate-200 px-6 py-4 shadow-lg ${
-          isMenuOpen ? "block" : "hidden"
-        }`}
+        className={`lg:hidden bg-white border-t border-slate-200 px-6 py-4 shadow-lg ${isMenuOpen ? "block" : "hidden"
+          }`}
       >
         <div className="flex flex-col space-y-3 py-3">
           {navItems.map((item) => (
@@ -184,11 +220,10 @@ export default function HeaderNavbar({
               <div className="px-4 py-3 flex items-center justify-between bg-slate-50 rounded-lg">
                 <div className="flex flex-col">
                   <span
-                    className={`px-3 py-1.5 text-sm font-medium rounded-full w-fit shadow-sm ${
-                      isPremium
-                        ? "bg-blue-100 text-blue-800 border border-blue-200"
-                        : "bg-slate-100 text-slate-800 border border-slate-200"
-                    }`}
+                    className={`px-3 py-1.5 text-sm font-medium rounded-full w-fit shadow-sm ${isPremium
+                      ? "bg-blue-100 text-blue-800 border border-blue-200"
+                      : "bg-slate-100 text-slate-800 border border-slate-200"
+                      }`}
                   >
                     {isPremium ? "Premium Active" : "Free Plan"}
                   </span>
@@ -209,6 +244,7 @@ export default function HeaderNavbar({
                   Logout
                 </Button>
               </div>
+
             </>
           )}
         </div>

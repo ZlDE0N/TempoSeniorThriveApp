@@ -1,5 +1,7 @@
-import { Calendar, Heart, Pill, Activity, Phone, AlertTriangle, Users, FileText, Briefcase, LayoutDashboard, FolderArchive, MessageCircle, Star, BarChart2, ShoppingCart, Brain, Target, Award, Camera, UtensilsCrossed, Car, PawPrint as Paw, Book, Palette, UserCog, ClipboardList, AlignCenterVertical as Certificate, TrendingUp, Bell, Clock } from 'lucide-react';
+import { Calendar, Heart, Pill, Activity, Phone, AlertTriangle, Users, FileText, Briefcase, LayoutDashboard, FolderArchive, MessageCircle, Star, BarChart2, ShoppingCart, Brain, Target, Award, Camera, UtensilsCrossed, Car, PawPrint as Paw, Book, Palette, UserCog, ClipboardList, AlignCenterVertical as Certificate, TrendingUp, Bell, Clock, Lock } from 'lucide-react';
 import { useUserStore } from '../../../store/dashboard_store/userStore';
+import { motion } from 'framer-motion';
+
 
 const menuGroups = {
   overview: {
@@ -12,7 +14,7 @@ const menuGroups = {
   health: {
     label: 'Health & Wellness',
     items: [
-      { 
+      {
         id: 'health',
         icon: Heart,
         label: 'Health',
@@ -101,29 +103,71 @@ const familyMenuItems = [
 ];
 
 export default function Sidebar() {
-  const { currentUser, activeSection, setActiveSection } = useUserStore();
+  const { currentUser, activeSection, isPremium, setActiveSection } = useUserStore();
 
-  const renderMenuItem = (item: any, depth = 0) => (
-    <li key={item.id}>
-      <button
-        onClick={() => setActiveSection(item.id)}
-        className={`w-full flex items-center px-4 py-2 text-sm font-medium rounded-md ${
-          activeSection === item.id
-            ? 'bg-primary-light text-primary'
-            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-        }`}
-        style={{ paddingLeft: `${depth * 1 + 1}rem` }}
-      >
-        <item.icon className="mr-3 h-5 w-5" />
-        {item.label}
-      </button>
-      {item.subItems && (
-        <ul className="ml-4 space-y-1 mt-1">
-          {item.subItems.map((subItem: any) => renderMenuItem(subItem, depth + 1))}
-        </ul>
-      )}
-    </li>
-  );
+  // const renderMenuItem = (item: any, depth = 0) => (
+  //   <li key={item.id}>
+  //     <button
+  //       onClick={() => setActiveSection(item.id)}
+  //       className={`w-full flex items-center px-4 py-2 text-sm font-medium rounded-md ${
+  //         activeSection === item.id
+  //           ? 'bg-primary-light text-primary'
+  //           : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+  //       }`}
+  //       style={{ paddingLeft: `${depth * 1 + 1}rem` }}
+  //     >
+  //       <item.icon className="mr-3 h-5 w-5" />
+  //       {item.label}
+  //     </button>
+  //     {item.subItems && (
+  //       <ul className="ml-4 space-y-1 mt-1">
+  //         {item.subItems.map((subItem: any) => renderMenuItem(subItem, depth + 1))}
+  //       </ul>
+  //     )}
+  //   </li>
+  // );
+
+  const renderMenuItem = (item: any, depth = 0) => {
+    const isLocked = !['dashboard', 'calendar'].includes(item.id) && !isPremium;
+
+    return (
+      <li key={item.id}>
+        <button
+          onClick={() => !isLocked && setActiveSection(item.id)}
+          className={`w-full flex items-center px-4 py-2 text-sm font-medium rounded-md ${activeSection === item.id
+              ? 'bg-primary-light text-primary'
+              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+            }`}
+          style={{ paddingLeft: `${depth * 1 + 1}rem` }}
+          disabled={isLocked}
+        >
+          <div className="flex items-center space-x-2">
+            <item.icon className="h-5 w-5" />
+            <span>{item.label}</span>
+            {isLocked && (
+              <motion.div
+    whileHover={{
+      y: -2,
+      rotate: [0, -10, 10, 0],
+      color: '#ef4444' // rojo
+    }}
+    transition={{ type: 'spring', stiffness: 300, damping: 10 }}
+    title="Unlock with ThriveMax"
+    className="text-gray-400"
+  >
+    <Lock className="h-4 w-4" />
+  </motion.div>
+            )}
+          </div>
+        </button>
+        {item.subItems && (
+          <ul className="ml-4 space-y-1 mt-1">
+            {item.subItems.map((subItem: any) => renderMenuItem(subItem, depth + 1))}
+          </ul>
+        )}
+      </li>
+    );
+  };
 
   const renderMenuGroup = (group: any) => (
     <div key={group.label} className="space-y-1">
