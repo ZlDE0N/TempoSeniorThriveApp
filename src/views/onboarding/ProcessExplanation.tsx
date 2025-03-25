@@ -30,7 +30,7 @@ export default function ProcessExplanation() {
 
           <div className="space-y-6 mb-8">
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+              <div className="flex-shrink-0 md:w-10 md:h-10 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
                 1
               </div>
               <div>
@@ -44,29 +44,61 @@ export default function ProcessExplanation() {
             </div>
 
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+              <div className="flex-shrink-0 md:w-10 md:h-10 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
                 2
               </div>
               <div>
                 <h3 className="font-medium text-st_black">
-                  Daily Living (3 min)
+                  Daily Living (2 min)
                 </h3>
                 <ul className="text-slate-600 space-y-1">
-                  <li>• Morning routines</li>
-                  <li>• Movement patterns</li>
-                  <li>• Energy levels</li>
-                  <li>• Social connections</li>
+                  <li>• Morning energy</li>
+                  <li>• Meal preparation</li>
+                  <li>• Eeveryday tasks</li>
+                  <li>• Sleep hours</li>
                 </ul>
               </div>
             </div>
 
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+              <div className="flex-shrink-0 md:w-10 md:h-10 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
                 3
               </div>
               <div>
                 <h3 className="font-medium text-st_black">
-                  Room Review (2 min)
+                  Mobility & Stability (2 min)
+                </h3>
+                <ul className="text-slate-600 space-y-1">
+                  <li>• Home movement</li>
+                  <li>• Mobility aids</li>
+                  <li>• Vision & safety</li>
+                  <li>• Balance history</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 md:w-10 md:h-10 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                4
+              </div>
+              <div>
+                <h3 className="font-medium text-st_black">
+                  Support & Connections (1 min)
+                </h3>
+                <ul className="text-slate-600 space-y-1">
+                  <li>• Support access</li>
+                  <li>• Connections</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 md:w-10 md:h-10 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                5
+              </div>
+              <div>
+                <h3 className="font-medium text-st_black">
+                  Room Assessment (2 min)
                 </h3>
                 <p className="text-slate-600">
                   A simple photo helps spot opportunities for confidence
@@ -75,7 +107,7 @@ export default function ProcessExplanation() {
             </div>
 
             <div className="flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold">
+              <div className="flex-shrink-0 md:w-10 md:h-10 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold">
                 ✓
               </div>
               <div>
@@ -109,7 +141,7 @@ export default function ProcessExplanation() {
             </div>
             <div className="flex items-start gap-3">
               <div className="text-blue-600 text-xl">✦</div>
-              <p className="text-slate-700">Skip any question you prefer</p>
+              <p className="text-slate-700">Clear indications about every step</p>
             </div>
           </div>
         </div>
@@ -133,7 +165,7 @@ export default function ProcessExplanation() {
           </h3>
           <Button
             size="lg"
-            className="text-lg px-8 py-6 h-auto bg-green-600 hover:shadow-md border-2 border-green-600 hover:border-white hover:bg-green-700"
+            className="text-lg text-white px-8 py-6 h-auto bg-green-600 hover:shadow-md border-2 border-green-600 hover:border-white hover:bg-green-700"
             asChild
           >
             <Link to="/onboarding/name">

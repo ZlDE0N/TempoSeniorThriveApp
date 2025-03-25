@@ -18,6 +18,64 @@ const statusTexts = [
   "Results are ready!"
 ];
 
+const ImageWithBoundingBoxes = ({ imageUrl, feedbackData }) => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+
+    // Load the image
+    img.src = imageUrl;
+    img.onload = () => {
+      // Set canvas dimensions based on the image
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      // Draw the image on the canvas
+      ctx.drawImage(img, 0, 0);
+
+      // Draw bounding boxes for issues, independence barriers, and engagement opportunities
+      const drawBoundingBoxes = (items) => {
+        try {
+          items.forEach((item) => {
+            const [y1, x1, y2, x2] = item.area;
+            const width = ((x2 - x1)/1000) * canvas.width;
+            const height = ((y2 - y1)/1000) * canvas.height;
+            const x = x1 * canvas.width/1000;
+            const y = y1 * canvas.height/1000;
+
+            // Set the color from the item
+            const boxColor = item.color + "50" || "#FFFFFF50"; // Use the color from the item, default to white if not provided
+
+            // Fill the bounding box with transparent color
+            ctx.fillStyle = boxColor; // The "80" adds transparency (50% opacity)
+            ctx.fillRect(x, y, width, height);
+
+            // Draw the border of the bounding box
+            ctx.strokeStyle = boxColor;
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x, y, width, height);
+          });
+        } catch (error) {
+          return;
+        }
+      };
+
+      // Draw bounding boxes for all categories
+      drawBoundingBoxes(feedbackData.issues);
+      drawBoundingBoxes(feedbackData.engagement_opportunities);
+      drawBoundingBoxes(feedbackData.independence_barriers);
+    };
+  }, [imageUrl, feedbackData]);
+
+  return (
+    <canvas ref={canvasRef} className="w-full rounded-lg border-2 border-black shadow-xl"></canvas>
+  );
+};
+
+
 const ProgressStep = ({ stageIndex, analysisError }: { stageIndex: number; analysisError: string }) => (
   <div className="relative h-12 overflow-hidden text-lg">
     {analysisError ? (
@@ -272,6 +330,7 @@ export default function ImageAnalysis() {
       try {
         const result = await verifyImage(image_path, roomId);
         try {
+          console.log(result.candidates[0]?.content?.parts[0]?.text.replaceAll("json", "").replaceAll("```",""));
           verificationResult = JSON.parse(result.candidates[0]?.content?.parts[0]?.text.replaceAll("json", "").replaceAll("```",""));
           if (verificationResult.check_status !== "passed")
           {
@@ -279,6 +338,7 @@ export default function ImageAnalysis() {
             return;
           }
         } catch (error) {
+          console.error(error);
           setAnalysisError("Error verifying image: " + error.message);
           return;
         }
@@ -320,10 +380,14 @@ export default function ImageAnalysis() {
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
         <h1 className="text-2xl font-bold">Image Analysis</h1>
         <div className="w-full rounded-lg flex items-center justify-center py-8">
-          <img 
-            className="w-full rounded-lg shadow-xl"
-          src={imageUrl} 
-          />
+          {stageIndex !== 3 &&
+            <img 
+              className="w-full rounded-lg shadow-xl"
+            src={imageUrl} 
+            />
+            ||
+            <ImageWithBoundingBoxes imageUrl={imageUrl} feedbackData={analysisResult} />
+          }
         </div>
         {/* Progress Bar */}
         <div className="w-full bg-slate-100 rounded-full h-4 mb-4">
@@ -350,6 +414,11 @@ export default function ImageAnalysis() {
             </Link>
           </Button>
         }
+        {stageIndex === 3 && analysisResult && (
+          <pre className="w-full text-justify">
+            {JSON.stringify(analysisResult, null, 2)}
+          </pre>
+        )}
       </div>
     </OnboardingLayout>
   );

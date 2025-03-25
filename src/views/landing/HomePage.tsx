@@ -32,7 +32,7 @@ export default function HomePage() {
     });
   
     // Redirigir a onboarding
-    navigate('/onboarding');
+    navigate('/onboarding/process');
   };
 
   return (

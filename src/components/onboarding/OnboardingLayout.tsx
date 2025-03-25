@@ -47,7 +47,7 @@ export default function OnboardingLayout({
         </div>
       </header>
 
-      <div className="pt-16 md:pt-12">{children}</div>
+      <div className="pt-20 md:pt-16">{children}</div>
       {showLoginLink && (
         <Link
           to="/signin"
