@@ -17,7 +17,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
-import useBlobStore from '../../store/onboarding_store/guestStore';
+import useGuestStore from '../../store/onboarding_store/guestStore';
 
 export default function RoomAssessment() {
 
@@ -31,7 +31,7 @@ export default function RoomAssessment() {
   const [error, setError] = useState<string | null>(null);
   const [convertedImage, setConvertedImage] = useState<Blob | null>(null);
 
-  const { setBlob } = useBlobStore();
+  const { setRoomImage } = useGuestStore();
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -315,7 +315,7 @@ export default function RoomAssessment() {
                 </button>
                 <div className="w-full flex justify-center">
                   <Button 
-                    onClick={() => {setBlob(convertedImage)}}
+                    onClick={() => {setRoomImage(roomId, convertedImage)}}
                     size="lg" 
                     className="w-full text-white shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-lg px-8 py-6 h-auto" 
                     asChild>

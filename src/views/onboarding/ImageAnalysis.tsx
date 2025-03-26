@@ -7,7 +7,7 @@ import { faTimes, faSpinner, faCheck, faArrowLeft } from "@fortawesome/free-soli
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from "react";
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
-import useBlobStore from '../../store/onboarding_store/guestStore';
+import useGuestStore from '../../store/onboarding_store/guestStore';
 import { createClient } from '@supabase/supabase-js';
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
@@ -122,12 +122,12 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function ImageAnalysis() {
   const isUploading = useRef(false);
-  const [analysisResult, setAnalysisResult] = useState("");
+  const [ isExiting, setIsExiting ] = useState(false);
   const [ imageUrl, setImageUrl ] = useState("");
   const [ supabaseImagePath, setSupabaseImagePath ] = useState("");
   const [ supabaseImageUrl, setSupabaseImageUrl ] = useState("");
   const [ analysisError, setAnalysisError ] = useState("");
-  const { blob, clearBlob } = useBlobStore();
+  const { roomImages, setRoomImage, analysisResults, setAnalysisResult } = useGuestStore();
   const navigate = useNavigate();
   const { roomId } = useParams<{ roomId: string }>();
   const userName = localStorage.getItem("st_onboarding_name") || "guest";
@@ -294,12 +294,12 @@ export default function ImageAnalysis() {
   }, [roomId]);
 
   useEffect(() => {
-    if (!blob) navigate("/onboarding/room-selection"); 
+    if (!roomImages[roomId]) navigate("/onboarding/room-selection"); 
     if (!executeRecaptcha) return;
     if (isUploading.current) return;
     isUploading.current = true;
     // Create the object URL for the image preview
-    setImageUrl(URL.createObjectURL(blob));
+    setImageUrl(URL.createObjectURL(roomImages[roomId]));
 
 
     const uploadAndAnalyze = async () => {
@@ -317,7 +317,7 @@ export default function ImageAnalysis() {
 
       // Upload the image to Supabase
       try {
-        image_path = await uploadImage(blob);
+        image_path = await uploadImage(roomImages[roomId]);
       } catch (error) {
         setAnalysisError("Error uploading image: " + error.message);
         return;
@@ -356,7 +356,7 @@ export default function ImageAnalysis() {
           console.log(result);
           safetyScanResult = JSON.parse(result.candidates[0]?.content?.parts[0]?.text.replaceAll("json", "").replaceAll("```",""));
           console.log(safetyScanResult);
-          setAnalysisResult(safetyScanResult);
+          setAnalysisResult(roomId, safetyScanResult);
         } catch (error) {
           setAnalysisError("Error performing safety scan: AI output is not formatted correctly");
           return;
@@ -372,22 +372,30 @@ export default function ImageAnalysis() {
     }
     // Call the async function
     uploadAndAnalyze();
-  }, [blob, executeRecaptcha]);
+  }, [roomImages, executeRecaptcha]);
 
+  useEffect(() => {
+    if (stageIndex !== 3) return;
+    setIsExiting(true)
+    setTimeout(() => {
+      navigate("/onboarding/analysis-results");
+    }, 500) 
+  }, [stageIndex])
 
   return (
     <OnboardingLayout showLoginLink={false}>
+      <motion.div
+        initial={{opacity: 1, y: 0}}
+        animate={{opacity: isExiting? 0 : 1, y: isExiting? -10 : 0}}
+        transition={{ duration:0.5, ease: "easeOut" }}
+      >
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
         <h1 className="text-2xl font-bold">Image Analysis</h1>
         <div className="w-full rounded-lg flex items-center justify-center py-8">
-          {stageIndex !== 3 &&
             <img 
               className="w-full rounded-lg shadow-xl"
             src={imageUrl} 
             />
-            ||
-            <ImageWithBoundingBoxes imageUrl={imageUrl} feedbackData={analysisResult} />
-          }
         </div>
         {/* Progress Bar */}
         <div className="w-full bg-slate-100 rounded-full h-4 mb-4">
@@ -404,7 +412,7 @@ export default function ImageAnalysis() {
         {/* Back button */}
         {analysisError !== "" &&
           <Button 
-            onClick={() => {setBlob(convertedImage)}}
+            onClick={() => {setRoomImage(roomId, null)}}
             size="lg" 
             className="mt-6 text-white shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-lg px-8 py-6 h-auto" 
             asChild>
@@ -414,12 +422,13 @@ export default function ImageAnalysis() {
             </Link>
           </Button>
         }
-        {stageIndex === 3 && analysisResult && (
+        {stageIndex === 3 && analysisResults[roomId] && false && (
           <pre className="w-full text-justify">
-            {JSON.stringify(analysisResult, null, 2)}
+            {JSON.stringify(analysisResult[roomId], null, 2)}
           </pre>
         )}
       </div>
+      </motion.div>
     </OnboardingLayout>
   );
 }
