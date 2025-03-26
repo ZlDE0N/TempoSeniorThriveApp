@@ -24,6 +24,9 @@ export default function SupportAccess() {
             "Try to manage on my own",
             "Not be sure who to ask",
           ],
+          deductions: [
+            1,3,5,7,
+          ],
         },
       ]}
       nextSection="/onboarding/connections"

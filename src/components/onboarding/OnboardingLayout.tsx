@@ -36,14 +36,6 @@ export default function OnboardingLayout({
             Already have an account? Sign in
           </Link>
           )}
-          {showBackButton && (
-            <button
-              onClick={() => navigate(backPath)}
-              className="text-sm w-20 bg-st_dark_blue p-3 rounded-md text-white"
-            >
-              ← Back
-            </button>
-          )}
         </div>
       </header>
 

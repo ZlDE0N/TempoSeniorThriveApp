@@ -110,7 +110,7 @@ export default function OnboardingRoutes() {
         <ImageAnalysis />
       </GoogleReCaptchaProvider>
       } />
-      <Route path="/analysis-results" element={<ThriveScorePreview />} />
+      <Route path="/analysis-results/:roomId" element={<ThriveScorePreview />} />
     </Routes>
   );
 }

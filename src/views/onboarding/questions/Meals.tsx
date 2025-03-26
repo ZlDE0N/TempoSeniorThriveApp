@@ -19,10 +19,14 @@ export default function Meals() {
           key: "meals",
           icon: faUtensils,
           options: [
-            "I enjoy and easily handle meal preparation",
-            "I can manage basic meals without problems",
-            "I keep meals simple and get by",
-            "Meal times can be difficult for me",
+            "I enjoy preparing varied and complex meals", 
+            "I am comfortable preparing most meals.", 
+            "I prepare only very simple meals.",
+            "I order meals or eat out regularly.",
+            "Meal preparation is difficult for me.",
+          ],
+          deductions: [
+            3,5,6,9,12,
           ],
         },
       ]}

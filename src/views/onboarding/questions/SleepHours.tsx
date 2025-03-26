@@ -25,6 +25,9 @@ export default function SleepHours() {
             "5 hours",
             "4 hours or less",
           ],
+          deductions: [
+            1,3,5,7,
+          ],
         },
       ]}
       nextSection="/onboarding/mobility-and-stability"

@@ -294,7 +294,15 @@ export default function ImageAnalysis() {
   }, [roomId]);
 
   useEffect(() => {
-    if (!roomImages[roomId]) navigate("/onboarding/room-selection"); 
+    if (!roomImages[roomId]) {
+      navigate("/onboarding/room-selection");
+      return;
+    }
+    if (analysisResults[roomId]) {
+      setAnalysisResult(roomId, null)
+      navigate("/onboarding/room-selection"); 
+      return;
+    }
     if (!executeRecaptcha) return;
     if (isUploading.current) return;
     isUploading.current = true;
@@ -378,7 +386,7 @@ export default function ImageAnalysis() {
     if (stageIndex !== 3) return;
     setIsExiting(true)
     setTimeout(() => {
-      navigate("/onboarding/analysis-results");
+      navigate(`/onboarding/analysis-results/${roomId}`);
     }, 500) 
   }, [stageIndex])
 

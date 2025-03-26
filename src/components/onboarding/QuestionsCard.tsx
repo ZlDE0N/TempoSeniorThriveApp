@@ -134,188 +134,246 @@ export default function QuestionsCard( props: {
   const getSumUpToNth = (arr, n) => 
     arr.slice(0, n).reduce((sum, item) => sum + item.sectionTotal, 0);
   return (
-    <OnboardingLayout showBackButton={true} backPath={props.backPath}>
-      <div className="container mx-auto px-4 md:py-12 py-6 max-w-2xl">
-        {/* Progress Bar */}
-        <div className="w-full h-auto flex flex-wrap flex-row items-end justify-center">
-          {segments.map((segment,index) => ( 
-            <div 
-              key={index}
-              className="w-[9.5vh] md:w-32 px-1 flex h-full flex-col pb-4 md:pb-8"
-            > 
-              <div className="w-full text-center pb-2 flex items-center justify-center font-bold md:text-lg text-xs">
-                {segment.label}
-              </div>
-              <div className="w-full bg-slate-100 rounded-full overflow-hidden h-2">
-                {props.sectionIndex >= getSumUpToNth(segments, index + 1) ? (
-                  <div className="w-full h-full bg-green-400" />
-                ) : props.sectionIndex >= getSumUpToNth(segments, index) && (
-                  <motion.div
-                    className={`bg-st_light_blue h-full rounded-full`}
-                    initial={{ width: `${Math.max(0, (props.sectionIndex - getSumUpToNth(segments, index))) * (100 / segment.sectionTotal)}%` }}
-                    animate={{ width: `${(props.sectionIndex + 1 - getSumUpToNth(segments, index)) * (100 / segment.sectionTotal)}%` }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                  />
-                )}
-              </div>
+  <OnboardingLayout showBackButton={true} backPath={props.backPath}>
+    <div className="container mx-auto px-4 md:py-12 py-6 max-w-2xl">
+      {/* Progress Bar */}
+      <div className="w-full h-auto flex flex-wrap flex-row items-end justify-center">
+        {segments.map((segment, index) => (
+          <div 
+            key={index}
+            className="w-[9.5vh] md:w-32 px-1 flex h-full flex-col pb-4 md:pb-8"
+          > 
+            <div className="w-full text-center pb-2 flex items-center justify-center font-bold md:text-lg text-xs">
+              {segment.label}
             </div>
-           ))}
-        </div>
+            <div className="w-full bg-slate-100 rounded-full overflow-hidden h-2">
+              {props.sectionIndex >= getSumUpToNth(segments, index + 1) ? (
+                <div className="w-full h-full bg-green-400" />
+              ) : props.sectionIndex >= getSumUpToNth(segments, index) && (
+                <motion.div
+                  className={`bg-st_light_blue h-full rounded-full`}
+                  initial={{ width: `${Math.max(0, (props.sectionIndex - getSumUpToNth(segments, index))) * (100 / segment.sectionTotal)}%` }}
+                  animate={{ width: `${(props.sectionIndex + 1 - getSumUpToNth(segments, index)) * (100 / segment.sectionTotal)}%` }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                />
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
 
-        <div className="bg-white rounded-xl surrounding-shadow px-4 py-6 md:py-8 md:px-8">
-          <h1 className="md:text-3xl text-2xl font-bold text-st_black text-center mb-4">
-              {props.title}
-            </h1>
-            {props.subtitle && (
-              <p className="text-center text-base md:text-lg text-slate-600 mb-6 md:mb-8">
-                {props.subtitle}
-              </p>
-            )}
-            <form 
-              onSubmit={(e) => e.preventDefault()}
-              className="space-y-4">
+      <div className="bg-white rounded-xl surrounding-shadow px-4 py-6 md:py-8 md:px-8">
+        <h1 className="md:text-3xl text-2xl font-bold text-st_black text-center mb-4">
+          {props.title}
+        </h1>
+        {props.subtitle && (
+          <p className="text-center text-base md:text-lg text-slate-600 mb-6 md:mb-8">
+            {props.subtitle}
+          </p>
+        )}
+        
+        {/* Form with proper submission handling */}
+        <form 
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (allAnswersFilled) {
+              props.items.forEach(item => {
+                localStorage.setItem(`st_onboarding_${item.key}`, answers[item.key] ?? '');
+              });
+              setIsExiting(true);
+              setTimeout(() => {
+                navigate(nextSection);
+              }, 500);
+            }
+          }}
+          className="space-y-4"
+        >
           <motion.div
             initial={
-            isExiting?
-            { opacity: 1, x: 0 }
-            :
-            { opacity: 0, x: 50 }
+              isExiting ?
+              { opacity: 1, x: 0 } :
+              { opacity: 0, x: 50 }
             }
             animate={
-            isExiting?
-            { opacity: 0, x: -50 }
-            :
-            { opacity: 1, x: 0 }
+              isExiting ?
+              { opacity: 0, x: -50 } :
+              { opacity: 1, x: 0 }
             }
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-              {/* Questions */}
-              {props.items.map((item) => (
-                <div key={item.key} className="p-4 flex flex-col gap-2 rounded-md">
-                  <div className="text-st_black md:text-xl text-lg">
-                    {item.icon && (
-                      <FontAwesomeIcon
-                        icon={item.icon}
-                        className="text-base md:text-xl pr-2 text-st_black"
-                      />
-                    )}
-                    {item.question}
-                  </div>
-                  { item.subtitle && (
-                    <p className="text-slate-600 text-xs md:text-sm">{item.subtitle}</p>
+            {/* Questions */}
+            {props.items.map((item) => (
+              <div 
+                key={item.key} 
+                className="p-4 flex flex-col gap-2 rounded-md"
+                role="group"
+                aria-labelledby={`${item.key}-label`}
+              >
+                <div 
+                  id={`${item.key}-label`}
+                  className="text-st_black md:text-xl text-lg"
+                >
+                  {item.icon && (
+                    <FontAwesomeIcon
+                      icon={item.icon}
+                      className="text-base md:text-xl pr-2 text-st_black"
+                    />
                   )}
-                { item.type === "input" && (
+                  {item.question}
+                </div>
+                {item.subtitle && (
+                  <p className="text-slate-600 text-xs md:text-sm">{item.subtitle}</p>
+                )}
+                
+                {item.type === "input" && (
                   <input
                     className="md:text-lg text-base border-2 p-3 mt-4 rounded-md outline-none aria-selected:border-st_light_orange focus:border-st_light_orange border-st_black"
                     placeholder={"Enter your preferred " + item.key}
-                    onChange={(e) =>
-                      handleChange(item.key, e.target.value)
-                    }
-                  />)
-                  || item.type === "checkbox" && (
-                    <div className="pt-4">
-                      <p className="text-slate-600 text-base">
-                        (Select none, one or many that apply)
-                      </p>
-                      <div className="flex flex-col gap-2">
-                        {item.options.map((option) => (
-                          <label
-                            key={option}
-                            className={`${answers[item.key]?.[option]? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
-                          >
-                            <input
-                              type="checkbox"
-                              className="sr-only"
-                              checked={answers[item.key]?.[option] || false}
-                              onChange={(e) => {
-                                const updatedOptions = {
-                                  ...answers[item.key],
-                                  [option]: e.target.checked || null
-                                };
-                                handleChange(item.key, updatedOptions);
-                              }}
-                            />
-                            <FontAwesomeIcon
-                              icon={answers[item.key]?.[option] ? faSquareCheck : faSquare}
-                              className="text-2xl text-st_black"
-                            />
-                            {option}
-                          </label>
-                        ))}
-                      </div>
+                    onChange={(e) => handleChange(item.key, e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && allAnswersFilled) {
+                        e.preventDefault();
+                        document.getElementById('submit-button')?.click();
+                      }
+                    }}
+                  />
+                )}
+                {item.type === "checkbox" && (
+                  <div className="pt-4">
+                    <p className="text-slate-600 text-base">
+                      (Select none, one or many that apply)
+                    </p>
+                    <div className="flex flex-col gap-2">
+                      {item.options.map((option) => (
+                        <label
+                          key={option}
+                          className={`${answers[item.key]?.[option] ? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                          tabIndex={0}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              const updatedOptions = {
+                                ...answers[item.key],
+                                [option]: !answers[item.key]?.[option]
+                              };
+                              handleChange(item.key, updatedOptions);
+                            }
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            className="sr-only"
+                            checked={answers[item.key]?.[option] || false}
+                            onChange={(e) => {
+                              const updatedOptions = {
+                                ...answers[item.key],
+                                [option]: e.target.checked || null
+                              };
+                              handleChange(item.key, updatedOptions);
+                            }}
+                          />
+                          <FontAwesomeIcon
+                            icon={answers[item.key]?.[option] ? faSquareCheck : faSquare}
+                            className="text-2xl text-st_black"
+                          />
+                          {option}
+                        </label>
+                      ))}
                     </div>
-                  ) || item.type === "radio" && (
-                    <div className="pt-4">
-                      <p className="text-slate-600 text-sm md:text-base">
-                        (Select one)
-                      </p>
-                      <div className="flex flex-col gap-2">
-                        {item.options.map((option) => (
-                          <label
-                            key={option}
-                            className={`${answers[item.key] === option? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-sm md:text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
-                          >
-                            <input
-                              type="radio"
-                              className="sr-only"
-                              name={item.key}
-                              value={option}
-                              checked={answers[item.key] === option}
-                              onChange={() =>
-                                handleChange(
-                                  item.key,
-                                  answers[item.key] === option ? null : option
+                  </div>
+                )}
+                {item.type === "radio" && (
+                  <div className="pt-4">
+                    <p className="text-slate-600 text-sm md:text-base">
+                      (Select one)
+                    </p>
+                    <div className="flex flex-col gap-2">
+                      {item.options.map((option) => (
+                        <label
+                          key={option}
+                          className={`${answers[item.key] === option ? "bg-blue-50 border-st_light_blue" : "bg-gray-50 border-slate-100"} border-2 text-sm md:text-lg p-4 transition rounded-md flex items-center gap-2 cursor-pointer`}
+                          tabIndex={0}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              handleChange(
+                                item.key,
+                                answers[item.key] === option ? null : option
+                              );
+                            }
+                          }}
+                        >
+                          <input
+                            type="radio"
+                            className="sr-only"
+                            name={item.key}
+                            value={option}
+                            checked={answers[item.key] === option}
+                            onChange={() =>
+                              handleChange(
+                                item.key,
+                                answers[item.key] === option ? null : option
                               )
-                              }
-                            />
-                            <FontAwesomeIcon
-                              icon={answers[item.key] === option ? faCircleDot : faCircle}
-                              className="md:text-2xl text-xl text-st_black"
-                            />
-                            {option}
-                          </label>
-                        ))}
-                      </div>
+                            }
+                          />
+                          <FontAwesomeIcon
+                            icon={answers[item.key] === option ? faCircleDot : faCircle}
+                            className="md:text-2xl text-xl text-st_black"
+                          />
+                          {option}
+                        </label>
+                      ))}
                     </div>
-                  )}
-                </div>
-              ))}
-
+                  </div>
+                )}
+              </div>
+            ))}
           </motion.div>
-              <div className="pt-4 text-white flex justify-center">
-                <Button
-                  type="button"
-                  className="cursor-pointer w-1/2"
-                  size="lg"
-                  onClick={() => {
-                    props.items.forEach(item => {
-                      localStorage.setItem(`st_onboarding_${item.key}`, answers[item.key] ?? '');
-                      setIsExiting(true);
-                      setTimeout(
-                        () => {
-                      navigate(nextSection)                        
-                        }, 500
-                      );
-                    });
 
+          <div className="pt-4 text-white flex justify-center">
+            <div className="grid w-full gap-3 grid-rows-1 md:grid-cols-2">
+              {/* Back button as type="button" to prevent form submission */}
+              <button 
+                type="button"
+                className="w-full text-sm md:text-xl p-5 shadow-md border-2 border-st_dark_blue bg-white hover:bg-gray-100 hover:gray-200 text-st_dark_blue rounded-md flex items-center justify-center gap-2"
+                onClick={() => {
+                  navigate(props.backPath);
+                }}
+              >
+                Back
+              </button>
+              <div className="w-full flex justify-center">
+                <Button 
+                  id="submit-button"
+                  type="submit"
+                  onClick={() => {
+                    if (allAnswersFilled) {
+                      props.items.forEach(item => {
+                        localStorage.setItem(`st_onboarding_${item.key}`, answers[item.key] ?? '');
+                      });
+                      setIsExiting(true);
+                      setTimeout(() => {
+                        navigate(nextSection);
+                      }, 500);
+                    }
                   }}
+                  size="lg" 
                   className={
-                    (allAnswersFilled)?
-                      `shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-lg bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto`
-                    :
-                      `pointer-events-none cursor-not-allowed opacity-50 shadow-md border-2 hover:bg-st_dark_blue border-st_dark_blue text-lg bg-st_dark_blue px-8 py-6 h-auto`
+                    allAnswersFilled ?
+                    `md:text-xl shadow-md w-full hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-sm bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto` :
+                    `md:text-xl pointer-events-none w-full cursor-not-allowed opacity-50 shadow-md border-2 hover:bg-st_dark_blue border-st_dark_blue text-sm bg-st_dark_blue px-8 py-6 h-auto`
                   }
-                  asChild
                 >
-                  <div className="cursor-pointer text-sm md:text-xl w-1/2 h-full">{buttonLabel}</div>
+                  Next
                 </Button>
               </div>
-            </form>
-        </div>
+            </div>
+          </div>
+        </form>
+      </div>
 
-        {/* Skip option */}
-        {allowSkip && false 
-        && (
+      {/* Skip option */}
+      {allowSkip && false && (
         <div className="mt-4 text-center">
           <Link
             to={nextSection}
@@ -324,8 +382,7 @@ export default function QuestionsCard( props: {
             I'd prefer to skip this step
           </Link>
         </div>
-        )}
-      </div>
-    </OnboardingLayout>
-  );
-}
+      )}
+    </div>
+  </OnboardingLayout>
+)};
