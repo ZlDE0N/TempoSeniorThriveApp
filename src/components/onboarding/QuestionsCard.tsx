@@ -345,6 +345,7 @@ export default function QuestionsCard( props: {
               <div className="w-full flex justify-center">
                 <Button 
                   id="submit-button"
+                  disabled={!allAnswersFilled}
                   type="submit"
                   onClick={() => {
                     if (allAnswersFilled) {
@@ -385,4 +386,4 @@ export default function QuestionsCard( props: {
       )}
     </div>
   </OnboardingLayout>
-)};
+)};;
