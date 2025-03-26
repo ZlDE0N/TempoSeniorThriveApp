@@ -25,6 +25,9 @@ export default function EverydayTasks() {
             "I can manage, but sometimes need to pace myself.",
             "I find it difficult to manage many tasks.",
           ],
+          deductions: [
+            1,4,7,10
+          ],
         },
       ]}
       nextSection="/onboarding/sleep-hours"

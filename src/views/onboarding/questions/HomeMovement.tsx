@@ -26,6 +26,9 @@ export default function HomeMovement() {
             "I move carefully and take my time.",
             "I need to be very careful and feel unsteady.",
           ],
+          deductions: [
+            1,4,7,10,
+          ],
         },
       ]}
       nextSection="/onboarding/mobility-aids"

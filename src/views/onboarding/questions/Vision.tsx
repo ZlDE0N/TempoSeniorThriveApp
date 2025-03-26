@@ -27,6 +27,9 @@ export default function Vision() {
             "Fair, I have noticeable vision problems that sometimes affect my daily activities",
             "Poor, my vision significantly impacts my daily life",
           ],
+          deductions: [
+            2,5,8,10,
+          ],
         },
       ]}
       nextSection="/onboarding/balance-history"

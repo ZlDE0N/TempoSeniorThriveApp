@@ -19,7 +19,7 @@ export default function TransitionScreen() {
     }, 2500);
   }, []);
   return (
-    <OnboardingLayout>
+    <OnboardingLayout showLoginLink={false}>
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
         <p className="text-2xl p-4 font-bold">
           Daily Life

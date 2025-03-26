@@ -1,100 +1,99 @@
-import React, { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import React, { useEffect, useState, useRef } from 'react';
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { motion } from 'framer-motion';
 
-interface GaugeProps {
-  value: number; // Value between 0-100
-  label?: string;
-  color?: string;
-  className?: string;
-}
+// Improved easing function (easeOutQuad)
+const easeOutQuad = (t) => t * (2 - t);
 
-export default function Gauge({
-  value,
-  label = "Progress",
-  color = "#3761D5",
-  className,
-}: GaugeProps) {
-  const radius = 45;
-  const circumference = 2 * Math.PI * radius;
+export default function GradientGauge ( props: {
+  value, 
+  maxValue?,
+  children?: React.ReactNode;
+}){
+  const [displayValue, setDisplayValue] = useState(0);
+  const animationRef = useRef(null);
+  const targetValue = useRef(0);
+  const startValue = useRef(0);
+  const startTime = useRef(null);
+  const value = props.value;
+  const maxValue = props.maxValue || 100;
 
-  const [animatedValue, setAnimatedValue] = useState(0);
-
-  // Smooth animation for value updates
   useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimatedValue((prev) => {
-        const step = (value - prev) * 0.1;
-        return Math.abs(step) < 0.5 ? value : prev + step;
-      });
-    }, 32);
+    // When value changes, setup new animation
+    targetValue.current = value;
+    startValue.current = displayValue;
+    startTime.current = null;
 
-    return () => clearInterval(interval);
+    const animate = (timestamp) => {
+      if (!startTime.current) startTime.current = timestamp;
+      
+      const duration = 1500; // 1 second animation
+      const elapsed = timestamp - startTime.current;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Apply easing function to progress
+      const easedProgress = easeOutQuad(progress);
+      
+      // Calculate new value
+      const newValue = startValue.current + 
+        (targetValue.current - startValue.current) * easedProgress;
+      
+      setDisplayValue(newValue);
+
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
   }, [value]);
 
-  const progress = (animatedValue / 100) * circumference;
-
-  // Calculate color based on score
-  const getScoreColor = (score: number) => {
-    if (score < 40) return "#e74c3c"; // Red for low scores
-    if (score < 70) return "#f39c12"; // Orange/Yellow for medium scores
-    return "#2ecc71"; // Green for high scores
-  };
-
   return (
-    <div className={cn("flex flex-col items-center", className)}>
-      <svg width="100" height="100" viewBox="0 0 140 140">
-        {/* Background Circle */}
-        <circle
-          cx="70"
-          cy="70"
-          r={radius}
-          stroke="#e0e0e0"
-          strokeWidth="12"
-          fill="#f8f9fa"
-        />
+    <div style={{ width: 100, height: 100}}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <CircularProgressbarWithChildren
+          strokeWidth={12}
+          value={displayValue}
+          maxValue={maxValue}
+          styles={buildStyles({
+            pathColor: `url(#gradient)`,
+            textColor: '#000',
+            trailColor: '#eee',
+            pathTransition: 'none',
+          })}
+        >
+          { props.children && 
+          <div>
+            {props.children}
+          </div>
+          || 
+          <div className="text-4xl font-bold">
+          {Math.round(displayValue)}
+          </div>
+          }
+        </CircularProgressbarWithChildren>
+      </motion.div>
 
-        {/* Progress Circle with Glow */}
-        <circle
-          cx="70"
-          cy="70"
-          r={radius}
-          stroke={`url(#scoreGradient)`}
-          strokeWidth="14"
-          fill="none"
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference - progress}
-          strokeLinecap="round"
-          transform="rotate(-90 70 70)"
-          style={{
-            filter: `drop-shadow(0 0 10px rgba(122, 167, 255, 0.7))`,
-            transition: "stroke-dashoffset 0.5s ease-out",
-          }}
-        />
-
-        {/* Gradient Definition - Dynamic based on score */}
+      <svg style={{ height: 0 }}>
         <defs>
-          <linearGradient id="scoreGradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor={getScoreColor(animatedValue)} />
-            <stop offset="100%" stopColor={color} />
+          <linearGradient id="gradient" gradientTransform="rotate(90)">
+            <stop offset="0%" stopColor="#316AA2" />
+            <stop offset="100%" stopColor="#3bc4ff" />
           </linearGradient>
         </defs>
-
-        {/* Main Value - Removed from here, now displayed below the gauge */}
-
-        {/* Label */}
-        {label && (
-          <text
-            x="70"
-            y="75"
-            textAnchor="middle"
-            fontSize="14"
-            fontWeight="medium"
-            fill="#555"
-          >
-            {label}
-          </text>
-        )}
       </svg>
     </div>
   );
-}
+};
+

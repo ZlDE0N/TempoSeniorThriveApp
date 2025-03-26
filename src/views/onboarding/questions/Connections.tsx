@@ -25,6 +25,9 @@ export default function Connections() {
             "Sometimes, but I wish it were more",
             "Rarely, I often feel isolated",
           ],
+          deductions: [
+            1,3,5,7,
+          ],
         },
       ]}
       nextSection="/onboarding/room-assessment"

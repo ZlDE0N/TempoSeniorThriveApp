@@ -25,6 +25,9 @@ export default function BalanceHistory() {
             "I've had a minor slip or stumble",
             "I've had a fall or multiple concerning stumbles",
           ],
+          deductions: [
+            1,3,5,7,
+          ],
         },
       ]}
       nextSection="/onboarding/support-and-connections"

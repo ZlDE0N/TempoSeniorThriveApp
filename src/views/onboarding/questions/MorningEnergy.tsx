@@ -25,6 +25,9 @@ export default function MorningEnergy() {
             "My morning energy depends on how well I slept",
             "Mornings are usually difficult for me",
           ],
+          deductions: [
+            1,3,5,7,
+          ],
         },
       ]}
       nextSection="/onboarding/meals"

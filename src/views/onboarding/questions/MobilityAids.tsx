@@ -26,6 +26,9 @@ export default function MobilityAids() {
             "Yes, I use a wheelchair.",
             "Other support",
           ],
+          deductions: [
+            3,5,7,10,
+          ],
         },
       ]}
       nextSection="/onboarding/vision"
