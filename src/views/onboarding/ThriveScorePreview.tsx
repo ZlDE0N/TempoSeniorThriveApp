@@ -6,6 +6,12 @@ import { motion } from "framer-motion";
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 import useGuestStore from '../../store/onboarding_store/guestStore';
 import { cn } from "@/lib/utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircle,
+  faExclamationTriangle,
+  faCircleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
 
 const calculateThriveScore = (): number => {
   const AnswersAndDeductions = {
@@ -144,7 +150,7 @@ const ImageWithBoundingBox = ({ imageUrl, item }) => {
       const y = y1 * canvas.height/1000;
 
       // Set the color from the item
-      const boxColor = item.color + "50" || "#FFFFFF50"; // Use the color from the item, default to white if not provided
+      const boxColor = item.color + "66" || "#FFFFFF66"; // Use the color from the item, default to white if not provided
 
       // Fill the bounding box with transparent color
       ctx.fillStyle = boxColor; // The "80" adds transparency (50% opacity)
@@ -158,7 +164,7 @@ const ImageWithBoundingBox = ({ imageUrl, item }) => {
   }, [imageUrl, item]);
 
   return (
-    <canvas ref={canvasRef} className="w-full rounded-lg surrounding-shadow"></canvas>
+    <canvas ref={canvasRef} className="max-h-[60vh] max-w-full rounded-lg surrounding-shadow"></canvas>
   );
 };
 
@@ -192,6 +198,14 @@ export default function ThriveScorePreview() {
     if (tag.includes('High')) return 'bg-red-100 text-red-800';
     return 'bg-gray-100 text-gray-800';
   };
+
+  const getIcon = (tag: string) => {
+    if (tag.includes('Low')) return faCircle;
+    if (tag.includes('Medium')) return faExclamationTriangle;
+    if (tag.includes('High')) return faCircleExclamation;
+    return faCircle;
+  }
+
 
   // Animate the ThriveScore on load
   useEffect(() => {
@@ -245,12 +259,12 @@ export default function ThriveScorePreview() {
               >
                 <div className="relative bg-white rounded-xl p-6">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-semibold text-slate-700">
+                    <h3 className="text-2xl font-semibold text-slate-700">
                       Your Personalized Action Plan
                     </h3>
                   </div>
 
-                  <p className="text-slate-600 mb-6">
+                  <p className="text-slate-600 text-lg mb-6">
                     These personalized recommendations will help you maintain independence
                     and improve your well-being. Start with what feels right for you.
                   </p>
@@ -279,11 +293,14 @@ export default function ThriveScorePreview() {
                                     className="h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                                   />
                                 </div>
-                                <div className="flex-1">
+                                <div className="text-lg flex-1">
                                   <div className="flex flex-wrap gap-2 mb-2">
-                                    <div className="flex items-center text-xs text-slate-600">
+                                    <div className="flex items-center text-sm text-slate-600">
                                       <div className={`p-1 px-2 rounded-full ${getTagColor(issue.impact)}`}>
-                                        {issue.impact} impact
+                                        <FontAwesomeIcon className="pr-1" icon={
+                                          getIcon(issue.impact)
+                                        }/>
+                                        {issue.impact} risk
                                       </div>
                                     </div>
                                   </div>
@@ -293,7 +310,7 @@ export default function ThriveScorePreview() {
                                   >
                                     {issue.title}
                                   </label>
-                                  <p className="text-sm text-slate-600 mt-1">
+                                  <p className="text-slate-600 mt-1">
                                     {issue.recommendation}
                                   </p>
                                 </div>
@@ -327,21 +344,24 @@ export default function ThriveScorePreview() {
                                     className="h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                                   />
                                 </div>
-                                <div className="flex-1">
+                                <div className="text-lg flex-1">
                                   <div className="flex flex-wrap gap-2 mb-2">
-                                    <div className="flex items-center text-xs text-slate-600">
+                                    <div className="flex items-center text-sm text-slate-600">
                                       <div className={`p-1 px-2 rounded-full ${getTagColor(barrier.impact)}`}>
+                                        <FontAwesomeIcon className="pr-1" icon={
+                                          getIcon(barrier.impact)
+                                        }/>
                                         {barrier.impact} impact
                                       </div>
                                     </div>
                                   </div>
                                   <label
-                                    htmlFor={`independence-${index}`}
+                                    htmlFor={`safety-${index}`}
                                     className="font-medium text-slate-800 cursor-pointer"
                                   >
                                     {barrier.title}
                                   </label>
-                                  <p className="text-sm text-slate-600 mt-1">
+                                  <p className="text-slate-600 mt-1">
                                     {barrier.recommendation}
                                   </p>
                                 </div>
@@ -375,11 +395,14 @@ export default function ThriveScorePreview() {
                                     className="h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                                   />
                                 </div>
-                                <div className="flex-1">
+                                <div className="text-lg flex-1">
                                   <div className="flex flex-wrap gap-2 mb-2">
-                                    <div className="flex items-center text-xs text-slate-600">
+                                    <div className="flex items-center text-sm text-slate-600">
                                       <div className={`p-1 px-2 rounded-full ${getTagColor(opportunity.impact)}`}>
-                                        {opportunity.impact} impact
+                                        <FontAwesomeIcon className="pr-1" icon={
+                                          faCircle
+                                        }/>
+                                        {opportunity.impact} effort
                                       </div>
                                     </div>
                                   </div>
@@ -389,7 +412,7 @@ export default function ThriveScorePreview() {
                                   >
                                     {opportunity.title}
                                   </label>
-                                  <p className="text-sm text-slate-600 mt-1">
+                                  <p className="text-slate-600 mt-1">
                                     {opportunity.recommendation}
                                   </p>
                                 </div>
@@ -411,7 +434,7 @@ export default function ThriveScorePreview() {
             </div>
           </div>
         </div>
-        <div className="pointer-events-none fixed flex pr-20 pt-10 items-end justify-end top-0 left-0 w-full h-full " >
+        <div className="pointer-events-none fixed flex pr-20 mt-10 items-end justify-end top-0 left-0 w-full h-full " >
           <div className="flex flex-col items-center justify-center max-w-2xl h-full w-full ">
             <h3 className="text-3xl font-bold text-center w-full">
               Your {roomId} scores:
