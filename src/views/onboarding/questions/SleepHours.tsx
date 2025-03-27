@@ -12,6 +12,7 @@ export default function SleepHours() {
   return (
     <QuestionsCard
       title="Sleep Hours"
+      subtitle="Good days start with good rest—let’s get a sense of your sleep pattern"
       items={[
         {
           question:
@@ -20,13 +21,14 @@ export default function SleepHours() {
           key: "sleepHours",
           icon: faClock,
           options: [
+            "10 hours or more",
             "7-9 hours",
             "6 hours",
             "5 hours",
             "4 hours or less",
           ],
           deductions: [
-            1,3,5,7,
+            0,1,3,5,7,
           ],
         },
       ]}

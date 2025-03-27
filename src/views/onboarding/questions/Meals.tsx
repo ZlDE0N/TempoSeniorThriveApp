@@ -12,6 +12,7 @@ export default function Meals() {
   return (
     <QuestionsCard
       title="Your Meals"
+      subtitle="Cooking, ordering, or keeping it simple—it’s all part of your story"
       items={[
         {
           question: "When it comes to meals, how comfortable are you with preparing or managing them?",

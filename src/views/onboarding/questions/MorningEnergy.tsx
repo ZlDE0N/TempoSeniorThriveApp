@@ -12,6 +12,7 @@ export default function MorningEnergy() {
   return (
     <QuestionsCard
       title="Morning Energy"
+      subtitle="Your morning energy sets the tone for your whole day—let’s understand it"
       items={[
         {
           question:

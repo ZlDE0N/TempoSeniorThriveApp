@@ -12,12 +12,10 @@ export default function Health() {
   return (
     <QuestionsCard
       title="Personal Profile"
-      subtitle="Let's get to know you better"
+      subtitle="This is your baseline. Let’s build from it"
       items={[
         {
           question: "How would you rate your general health?",
-          subtitle:
-            "Your overall health perception helps us customize our wellness recommendations",
           type: "radio",
           key: "health",
           icon: faHeartPulse,

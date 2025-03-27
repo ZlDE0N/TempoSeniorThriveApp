@@ -14,27 +14,41 @@ export default function TransitionScreen() {
   // Auto advance after 2.5 seconds
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setTimeout(() => {
-      navigate("/onboarding/home-movement");
-    }, 2500);
   }, []);
   return (
-    <OnboardingLayout showLoginLink={false}>
-      <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
-        <p className="text-2xl p-4 font-bold">
-          Daily Life
-          <FontAwesomeIcon className="pl-2" icon={faCircleCheck}/>
-        </p>
+    <OnboardingLayout showLoginLink={true}>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="container mx-auto px-4 py-12 max-w-2xl text-center"
+      >
+        <motion.p 
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-2xl p-4 font-bold"
+        >
+          Daily Living
+          <FontAwesomeIcon className="pl-2" icon={faCircleCheck} />
+        </motion.p>
+
         {/* Progress Bar */}
         <div className="w-full bg-green-100 rounded-full h-4 mb-12">
-          <motion.div className="bg-green-400 h-4 rounded-full"
+          <motion.div
+            className="bg-green-400 h-4 rounded-full"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           />
         </div>
 
-        <div className="bg-white rounded-xl flex flex-col gap-8 surrounding-shadow p-12">
+        <motion.div 
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="bg-white rounded-xl flex flex-col gap-8 surrounding-shadow p-12"
+        >
           <h1 className="text-xl md:text-3xl font-bold text-st_black">
             Let’s share how you move around.
           </h1>
@@ -42,8 +56,15 @@ export default function TransitionScreen() {
           <p className="text-sm md:text-xl text-slate-600">
             Remember, every step you take is a step towards a more vibrant and fulfilling life. This information helps us understand how to make your home environment as safe and accessible as possible
           </p>
-        </div>
-      </div>
+          <div className="flex justify-center">
+            <Button size="lg" 
+              className="shadow-md text-sm md:text-xl text-white hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto"
+              asChild>
+              <Link to="/onboarding/home-movement">Continue to Mobility & Stability</Link>
+            </Button>
+          </div>
+        </motion.div>
+      </motion.div>
     </OnboardingLayout>
   );
 }

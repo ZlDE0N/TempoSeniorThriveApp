@@ -12,12 +12,10 @@ export default function Age() {
   return (
     <QuestionsCard
       title="Personal Profile"
-      subtitle="Let's get to know you better"
+      subtitle="Your Wisdom Guides Your Path"
       items={[
         {
           question: "What is your age range?",
-          subtitle:
-            "This helps us tailor our recommendations to your life stage",
           type: "radio",
           key: "age",
           icon: faPerson,

@@ -126,7 +126,7 @@ export default function QuestionsCard( props: {
   const conditionalNextSection = props.conditionalNextSection || false;
   const segments = [
     { label: "Personal Profile", sectionTotal: 4 },
-    { label: "Daily Life", sectionTotal: 4 },
+    { label: "Daily \n Life", sectionTotal: 4 },
     { label: "Mobility & Stability", sectionTotal: 4 },
     { label: "Support & Connections", sectionTotal: 2 },
   ];
@@ -135,7 +135,7 @@ export default function QuestionsCard( props: {
     arr.slice(0, n).reduce((sum, item) => sum + item.sectionTotal, 0);
   return (
   <OnboardingLayout showBackButton={true} backPath={props.backPath}>
-    <div className="container mx-auto px-4 md:py-12 py-6 max-w-2xl">
+    <div className="container mx-auto px-4 md:py-12 max-w-2xl">
       {/* Progress Bar */}
       <div className="w-full h-auto flex flex-wrap flex-row items-end justify-center">
         {segments.map((segment, index) => (
@@ -143,8 +143,10 @@ export default function QuestionsCard( props: {
             key={index}
             className="w-[9.5vh] md:w-32 px-1 flex h-full flex-col pb-4 md:pb-8"
           > 
-            <div className="w-full text-center pb-2 flex items-center justify-center font-bold md:text-lg text-xs">
-              {segment.label}
+            <div className="w-full text-center flex pb-2 flex-col items-center justify-end font-bold md:text-lg text-xs min-h-[3.5rem]">
+              {segment.label.split('\n').map((line, i) => (
+                <span key={i}>{line}</span>
+              ))}
             </div>
             <div className="w-full bg-slate-100 rounded-full overflow-hidden h-2">
               {props.sectionIndex >= getSumUpToNth(segments, index + 1) ? (
@@ -167,7 +169,7 @@ export default function QuestionsCard( props: {
           {props.title}
         </h1>
         {props.subtitle && (
-          <p className="text-center text-base md:text-lg text-slate-600 mb-6 md:mb-8">
+          <p className="text-center text-lg md:text-xl text-st_black mb-6 md:mb-8">
             {props.subtitle}
           </p>
         )}
@@ -240,7 +242,7 @@ export default function QuestionsCard( props: {
                 )}
                 {item.type === "checkbox" && (
                   <div className="pt-4">
-                    <p className="text-slate-600 text-base">
+                    <p className="text-st_black text-base md:text-lg">
                       (Select none, one or many that apply)
                     </p>
                     <div className="flex flex-col gap-2">
@@ -284,10 +286,10 @@ export default function QuestionsCard( props: {
                 )}
                 {item.type === "radio" && (
                   <div className="pt-4">
-                    <p className="text-slate-600 text-sm md:text-base">
+                    <p className="text-st_black text-base md:text-lg">
                       (Select one)
                     </p>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col md:gap-4 gap-2">
                       {item.options.map((option) => (
                         <label
                           key={option}
@@ -335,7 +337,7 @@ export default function QuestionsCard( props: {
               {/* Back button as type="button" to prevent form submission */}
               <button 
                 type="button"
-                className="w-full text-sm md:text-xl p-5 shadow-md border-2 border-st_dark_blue bg-white hover:bg-gray-100 hover:gray-200 text-st_dark_blue rounded-md flex items-center justify-center gap-2"
+                className="w-full text-lg md:text-xl p-5 shadow-md border-2 border-st_dark_blue bg-white hover:bg-gray-100 hover:gray-200 text-st_dark_blue rounded-md flex items-center justify-center gap-2"
                 onClick={() => {
                   navigate(props.backPath);
                 }}
@@ -361,8 +363,8 @@ export default function QuestionsCard( props: {
                   size="lg" 
                   className={
                     allAnswersFilled ?
-                    `md:text-xl shadow-md w-full hover:shadow-xl border-2 border-st_dark_blue hover:border-white text-sm bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto` :
-                    `md:text-xl pointer-events-none w-full cursor-not-allowed opacity-50 shadow-md border-2 hover:bg-st_dark_blue border-st_dark_blue text-sm bg-st_dark_blue px-8 py-6 h-auto`
+                    `md:text-xl text-lg shadow-md w-full hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto` :
+                    `md:text-xl text-lg pointer-events-none w-full cursor-not-allowed opacity-50 shadow-md border-2 hover:bg-st_dark_blue border-st_dark_blue bg-st_dark_blue px-8 py-6 h-auto`
                   }
                 >
                   Next

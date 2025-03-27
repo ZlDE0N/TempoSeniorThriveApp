@@ -12,7 +12,7 @@ export default function LivingSituation() {
   return (
     <QuestionsCard
       title="Personal Profile"
-      subtitle="Let's get to know you better"
+      subtitle="Where You Live Matters: Help Us Understand Your World"
       items={[
         {
           question: "Which option best describes your living situation?",

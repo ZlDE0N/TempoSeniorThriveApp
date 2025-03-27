@@ -9,6 +9,8 @@ const easeOutQuad = (t) => t * (2 - t);
 export default function GradientGauge ( props: {
   value, 
   maxValue?,
+  sice?: number,
+  className?: string,
   children?: React.ReactNode;
 }){
   const [displayValue, setDisplayValue] = useState(0);
@@ -18,6 +20,8 @@ export default function GradientGauge ( props: {
   const startTime = useRef(null);
   const value = props.value;
   const maxValue = props.maxValue || 100;
+  const size = props.size || 100
+  const tailwindClassess = props.className || "";
 
   useEffect(() => {
     // When value changes, setup new animation
@@ -56,20 +60,23 @@ export default function GradientGauge ( props: {
   }, [value]);
 
   return (
-    <div style={{ width: 100, height: 100}}>
+    <div style={{ width: size+"px", height: size+"px"}} className={tailwindClassess + " rounded-full surrounding-shadow"}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         <CircularProgressbarWithChildren
-          strokeWidth={12}
+          strokeWidth={Math.round(size*12/100)}
+          background={true}
+          backgroundPadding={Math.round(size*8/100)}
           value={displayValue}
           maxValue={maxValue}
           styles={buildStyles({
             pathColor: `url(#gradient)`,
             textColor: '#000',
             trailColor: '#eee',
+            backgroundColor: '#fff',
             pathTransition: 'none',
           })}
         >
@@ -78,7 +85,7 @@ export default function GradientGauge ( props: {
             {props.children}
           </div>
           || 
-          <div className="text-4xl font-bold">
+          <div style={{ fontSize: `${Math.round(size)*32/100}px` }} className="font-bold">
           {Math.round(displayValue)}
           </div>
           }

@@ -12,7 +12,7 @@ export default function Vision() {
   return (
     <QuestionsCard
       title="Vision & Safety"
-      subtitle="Let's ensure our recommendations match your needs"
+      subtitle="Your vision plays a big role in how safe and confident you feel at home"
       items={[
         {
           question: "How would you rate your vision?",

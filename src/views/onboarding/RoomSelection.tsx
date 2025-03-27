@@ -97,10 +97,10 @@ export default function RoomSelection() {
               </h1>
 
               <div className="md:block hidden mt-6 mb-8">
-                <h3 className="text-sm md:text-lg font-medium text-slate-700 mb-3">
+                <h3 className="text-lg md:text-xl font-medium text-slate-700 mb-3">
                   Why This Matters:
                 </h3>
-                <ul className="space-y-2 text-slate-600">
+                <ul className="space-y-2 text-lg md:text-xl text-slate-600">
                   <li className="flex items-start gap-2">
                     <span className="text-st_light_blue">•</span>
                     <span>Small adjustments can make daily tasks easier</span>
@@ -138,7 +138,7 @@ export default function RoomSelection() {
                       />
                     </div>
                     <div className="flex-1">
-                      <div className="flex md:text-base text-sm items-center gap-2">
+                      <div className="flex md:text-xl text-lg items-center gap-2">
                         <FontAwesomeIcon
                           icon={room.icon}
                           className={cn(
@@ -147,7 +147,7 @@ export default function RoomSelection() {
                         />
                         <h3 className="font-medium text-slate-800">{room.name}</h3>
                       </div>
-                      <p className="text-sm text-slate-600 mt-1">
+                      <p className="text-lg md:text-xl text-slate-600 mt-1">
                         "{room.description}"
                       </p>
                     </div>
@@ -162,7 +162,7 @@ export default function RoomSelection() {
                 ))}
               </div>
 
-              <div className="text-center text-slate-500 text-sm mt-6">
+              <div className="text-center text-slate-500 md:text-lg text-base mt-6">
                 There's no right or wrong choice - each room tells its own story!
               </div>
           </motion.div>

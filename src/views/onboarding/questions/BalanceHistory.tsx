@@ -12,6 +12,7 @@ export default function BalanceHistory() {
   return (
     <QuestionsCard
       title="Balance History"
+      subtitle="Falls are more common than you think—let’s get a clear picture, no judgment"
       items={[
         {
           question:

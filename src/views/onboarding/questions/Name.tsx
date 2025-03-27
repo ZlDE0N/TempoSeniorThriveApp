@@ -12,7 +12,7 @@ export default function Name() {
   return (
     <QuestionsCard
       title="Personal Profile"
-      subtitle="Let's personalize your journey"
+      subtitle="Your Name, Your Journey: Let's Begin Personalizing"
       items={[
         {
           question: "What is your first name?",

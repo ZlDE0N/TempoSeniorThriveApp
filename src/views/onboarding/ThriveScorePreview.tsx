@@ -209,6 +209,7 @@ export default function ThriveScorePreview() {
 
   // Animate the ThriveScore on load
   useEffect(() => {
+    window.scrollTo({ top: 0 });
 
     // Show blur effect after 10 seconds
     const blurTimer = setTimeout(() => {

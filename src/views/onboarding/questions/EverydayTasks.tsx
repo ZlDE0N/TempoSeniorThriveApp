@@ -12,6 +12,7 @@ export default function EverydayTasks() {
   return (
     <QuestionsCard
       title="Everyday Tasks"
+      subtitle="Everyday tasks tell us a lot about how you’re doing—let’s start there"
       items={[
         {
           question:

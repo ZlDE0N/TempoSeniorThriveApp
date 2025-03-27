@@ -12,6 +12,7 @@ export default function SupportAccess() {
   return (
     <QuestionsCard
       title="Support Access"
+      subtitle="Whether you have a crew or go it alone, this helps us meet you where you are"
       items={[
         {
           question: "If you needed help with something, you would:",

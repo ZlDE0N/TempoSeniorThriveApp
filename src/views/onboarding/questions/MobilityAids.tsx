@@ -12,7 +12,7 @@ export default function MobilityAids() {
   return (
     <QuestionsCard
       title="Mobility Aids"
-      subtitle="Understanding how you move through your day helps us provide relevant insights"
+      subtitle="Mobility looks different for everyone—let’s understand what works for you"
       items={[
         {
           question: "Do you regularly use any mobility devices?",

@@ -77,7 +77,7 @@ const ImageWithBoundingBoxes = ({ imageUrl, feedbackData }) => {
 
 
 const ProgressStep = ({ stageIndex, analysisError }: { stageIndex: number; analysisError: string }) => (
-  <div className="relative h-12 overflow-hidden text-lg">
+  <div className="relative h-14 overflow-hidden md:text-xl text-lg">
     {analysisError ? (
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -425,7 +425,7 @@ export default function ImageAnalysis() {
             className="mt-6 text-white shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-lg px-8 py-6 h-auto" 
             asChild>
             <Link to={`/onboarding/room-assessment/${roomId}`}>
-              <FontAwesomeIcon icon={faArrowLeft} className="pr-2 text-lg" />
+              <FontAwesomeIcon icon={faArrowLeft} className="pr-2 md:text-xl text-lg" />
               Try a different image
             </Link>
           </Button>

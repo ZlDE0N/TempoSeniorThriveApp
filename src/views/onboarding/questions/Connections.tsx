@@ -12,6 +12,7 @@ export default function Connections() {
   return (
     <QuestionsCard
       title="Connections"
+      subtitle="Relationships can lift us up—let’s see how connected you feel right now"
       items={[
         {
           question:
