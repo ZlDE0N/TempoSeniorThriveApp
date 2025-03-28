@@ -296,6 +296,38 @@ export default function ProcessExplanation() {
             </motion.div>
           </motion.div>
         </motion.div>
+        {/* Benefits section with animation */}
+        <motion.div 
+          ref={benefitsRef}
+          initial="hidden"
+          animate={benefitsControls}
+          variants={fadeIn}
+          className="bg-blue-50 rounded-xl p-8 mb-12"
+        >
+          <motion.h2 
+            variants={fadeInUp}
+            className="md:text-2xl text-xl font-semibold text-st_black mb-6 text-center"
+          >
+            You'll Love How Easy This Is
+          </motion.h2>
+
+          <motion.div 
+            variants={staggerContainer}
+            className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto"
+          >
+            {["Just like chatting with a friend", "Answer at your own pace", "No medical knowledge needed", "Clear indications about every step"].map((text, index) => (
+              <motion.div 
+                variants={staggerItem}
+                className="flex md:text-xl text-lg items-start gap-3" 
+                key={index}
+              >
+                <div className="text-blue-600 text-xl">✦</div>
+                <p className="text-slate-700">{text}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+
 
         {/* Privacy section with animation */}
         <motion.div 
