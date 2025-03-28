@@ -1,4 +1,4 @@
-import { Activity, Calendar, Target, Award } from 'lucide-react';
+import { Activity, Calendar, Target, Award, Dumbbell } from 'lucide-react';
 import VideoLibrary from './VideoLibrary';
 
 export default function Fitness() {
@@ -8,7 +8,7 @@ export default function Fitness() {
       <div className="bg-white rounded-xl p-8 shadow-lg border border-primary/10">
         <div className="flex items-center gap-6">
           <div className="p-4 bg-primary/5 rounded-xl">
-            <Activity className="w-10 h-10 text-primary" />
+            <Dumbbell className="w-10 h-10 text-primary" />
           </div>
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Active Living</h1>

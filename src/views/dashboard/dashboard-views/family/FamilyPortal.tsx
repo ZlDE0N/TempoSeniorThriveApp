@@ -17,6 +17,7 @@ import FamilyUpdates from './FamilyUpdates';
 import PhotoGallery from './PhotoGallery';
 import DocumentCenter from './DocumentCenter';
 import ActivityList from '../activities/ActivityList';
+import Fitness from '../activities/FitnessActivity';
 
 interface FamilyPortalProps {
   section: string;
@@ -36,6 +37,10 @@ export default function FamilyPortal({ section }: FamilyPortalProps) {
       case 'medications':
         // return <MedicationList />;
         return <div>Medications coming soon</div>;
+      case 'Fitness Videos':
+        return <Fitness/>;
+        
+        // return <div>Medications coming soon</div>;
       case 'activities':
         return <ActivityList />;
       case 'social':

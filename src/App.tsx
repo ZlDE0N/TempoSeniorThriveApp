@@ -11,7 +11,7 @@ import ThriveScorePreview from "./backup_views/ThriveScorePreview";
 import HomePage from "./views/landing/HomePage";
 import ThriveScore from "./backup_views/components_backup/ThriveScore";
 import VisionAssessment from "./backup_views/components_backup/VisionAssessment";
-import Modal from "./components/Modal";
+import Modal from "./views/dashboard/dashboard_components/Modal";
 import MainLayout from "./backup_views/components_backup/Sidebar_Layout_Dashboard";
 import WelcomeHeader from "./views/dashboard/dashboard-views/family/WelcomeHeader";
 import Sidebar_Layout_Dashboard from "./backup_views/components_backup/Sidebar_Layout_Dashboard";

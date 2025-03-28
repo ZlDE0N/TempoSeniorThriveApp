@@ -21,6 +21,8 @@ import { useUserStore } from '../../../store/dashboard_store/userStore';// impor
 // import SelfPortal from './self/SelfPortal';
 import FamilyPortal from '../dashboard-views/family/FamilyPortal';
 import SelfPortal from '../dashboard-views/self/SelfPortal';
+import CaregiverDashboard from '../dashboard-views/caregivers/CaregiverDashboard';
+import CaregiverShiftView from '../dashboard-views/caregivers/CaregiverShiftView';
 
 export default function RoleRouter() {
   const { currentUser, activeSection } = useUserStore();
@@ -37,33 +39,63 @@ export default function RoleRouter() {
     return <SelfPortal section={activeSection} />;
   }
   
+
+  // Caregiver Manager role
+  if (currentUser.role === 'caregiver') {
+    switch (activeSection) {
+      // case 'dashboard':
+      //   return <CaregiverDashboard />;
+      // case 'caregivers':
+      //   // return <CaregiverList />;
+      // case 'certifications':
+      //   // return <CertificationTracker />;
+      // case 'performance':
+      //   // return <PerformanceMetrics />;
+      // case 'quality':
+      //   // return <QualityDashboard />;
+      // case 'reports':
+      //   // return <ReportingDashboard />;
+      // case 'documents':
+      //   // return <DocumentList />;
+      // default:
+      //   return <CaregiverDashboard />;
+
+
+      case 'dashboard':
+          return <CaregiverDashboard />;
+        case 'shift':
+          return <CaregiverShiftView />;
+        case 'vitals':
+          // return <VitalsView />;
+        case 'medications':
+          // return <MedicationList />;
+        case 'activities':
+          // return <ActivityList />;
+        case 'incidents':
+          // return <IncidentList />;
+        case 'contacts':
+          // return <ContactList />;
+        case 'social':
+          // return <SocialList />;
+        case 'notes':
+          // return <NoteList />;
+        case 'supplies':
+          // return <SupplyList />;
+        case 'documents':
+          // return <DocumentList />;
+        case 'daily':
+          // return <CareLog section={activeSection} />;
+        default:
+          return <CaregiverDashboard />;
+    }
+  }
+
   return (
     <div className="text-center text-gray-500 mt-10">
       No view available for this role.
     </div>
   );
   
-  // // Caregiver Manager role
-  // if (currentUser.role === 'caregiver_manager') {
-  //   switch (activeSection) {
-  //     case 'dashboard':
-  //       return <CaregiverDashboard />;
-  //     case 'caregivers':
-  //       return <CaregiverList />;
-  //     case 'certifications':
-  //       return <CertificationTracker />;
-  //     case 'performance':
-  //       return <PerformanceMetrics />;
-  //     case 'quality':
-  //       return <QualityDashboard />;
-  //     case 'reports':
-  //       return <ReportingDashboard />;
-  //     case 'documents':
-  //       return <DocumentList />;
-  //     default:
-  //       return <CaregiverDashboard />;
-  //   }
-  // }
 
   // // Regular Caregiver role
   // const currentShift = getCurrentShift();

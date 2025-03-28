@@ -4,11 +4,20 @@ import HomeLink from "../../components/home/HomeLink";
 import HeaderNavbar from "../../components/header_navbar/header_navbar"; // 📌 Importa el Header
 import RoleRouter from "./dashboard_components/RoleRouter";
 
-const navItems = [
+const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Dashboard", href: "/dashboard" },
   { label: "Profile", href: "/profile" },
+  {
+    label: "Role",
+    subItems: [
+      { label: "Family Member", role: "family" },
+      { label: "Older Adult", role: "self" },
+      { label: "Caregiver", role: "caregiver" }
+    ]
+  }
 ];
+
 
 const isAuthenticated = true;
 const userName = "John Doe";

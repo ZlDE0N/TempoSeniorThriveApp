@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Video, AlertTriangle } from 'lucide-react';
-import Modal from '../../../components/Modal';
+import Modal from '../dashboard_components/Modal';
 import VideoChat from './VideoChat';
 
 interface VideoRoomProps {

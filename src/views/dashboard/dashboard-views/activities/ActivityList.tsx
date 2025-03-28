@@ -254,8 +254,6 @@ export default function ActivityList() {
 
           </div>
 
-            <Fitness/>
-
 
           <ActivityModal
             isOpen={isModalOpen}
