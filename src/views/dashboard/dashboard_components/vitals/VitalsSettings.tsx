@@ -1,6 +1,6 @@
 import React from 'react';
 import { Settings } from 'lucide-react';
-import { useVitalsConfig } from '../../hooks/useVitalsConfig';
+import { useVitalsConfig } from '@/hooks/useVitalsConfig';
 
 interface VitalsSettingsProps {
   onClose?: () => void;

@@ -1,27 +1,25 @@
 import React from 'react';
 import VitalsView from '../../dashboard_components/vitals/VitalsView';
-import { useHealthStore } from '../../store/healthStore';
+import { useHealthStore } from '../../../../store/dashboard_store/healthStore';
 import SymptomTracker from './health/SymptomTracker';
 import SleepTracker from './health/SleepTracker';
 import MoodTracker from './health/MoodTracker';
 
-interface HealthDashboardProps {
-  section?: string;
-}
 
-export default function HealthDashboard({ section }: HealthDashboardProps) {
+export default function HealthDashboard() {
   // Render appropriate health section based on route
-  switch (section) {
-    case 'vitals':
-      return <VitalsView />;
-    case 'symptoms':
-      return <SymptomTracker />;
-    case 'sleep':
-      return <SleepTracker />;
-    case 'mood':
-      return <MoodTracker />;
-    default:
-      // Default health dashboard view
+  // switch (section) {
+  //   case 'vitals':
+  //     // return <VitalsView />;
+  //   case 'symptoms':
+  //     // return <SymptomTracker />;
+  //     return "hello"
+  //   case 'sleep':
+  //     return <SleepTracker />;
+  //   case 'mood':
+  //     return <MoodTracker />;
+  //   default:
+  //     // Default health dashboard view
       return (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
@@ -58,4 +56,4 @@ export default function HealthDashboard({ section }: HealthDashboardProps) {
         </div>
       );
   }
-}
+// }

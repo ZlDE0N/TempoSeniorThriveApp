@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useHealthStore, SleepEntry } from '../../../store/healthStore';
-import Modal from '../../Modal';
+import { useHealthStore, SleepEntry } from '../../../../../store/dashboard_store/healthStore';
+import Modal from '../../../dashboard_components/Modal';
 
 interface SleepModalProps {
   isOpen: boolean;

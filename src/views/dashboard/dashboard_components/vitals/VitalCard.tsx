@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Plus, AlertTriangle } from 'lucide-react';
-import { useVitalsStore } from '../../store/vitalsStore';
-import { useUserStore } from '../../store/userStore';
+import { useVitalsStore } from '@/store/dashboard_store/vitalsStore';
+import { useUserStore } from '@/store/dashboard_store/userStore';
+
 import VitalEntryModal from './VitalEntryModal';
-import { formatDateTime } from '../../utils/dateUtils';
+
+
+import { formatDateTime } from '@/utils/dateUtils';
 
 interface VitalCardProps {
   icon: React.ElementType;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Smile, Plus, TrendingUp, Calendar, Activity } from 'lucide-react';
-import { useHealthStore } from '../../../store/healthStore';
+import { useHealthStore } from '../../../../../store/dashboard_store/healthStore';
 import MoodModal from './MoodModal';
-import { formatDateTime } from '../../../utils/dateUtils';
+import { formatDateTime } from '../../../../../utils/dateUtils';
 
 export default function MoodTracker() {
   const [isModalOpen, setIsModalOpen] = useState(false);

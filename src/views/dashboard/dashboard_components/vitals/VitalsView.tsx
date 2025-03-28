@@ -6,9 +6,9 @@ import {
 import VitalCard from './VitalCard';
 import VitalsSettings from './VitalsSettings';
 import Modal from '../Modal';
-import { useVitalsConfig } from '../../hooks/useVitalsConfig';
+import { useVitalsConfig } from '../../../../hooks/useVitalsConfig';
 import { useUserStore } from '../../../../store/dashboard_store/userStore';
-import AddPatient from '../auth/AddPatient';
+import AddPatient from '@/views/auth/AddPatient';
 import ExportButton from '../reports/ExportButton';
 
 const vitalDefinitions = {

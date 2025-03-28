@@ -7,6 +7,12 @@ import React from 'react';
 import SelfDashboard from './SelfDashboard';
 import VitalsView from '../../dashboard_components/vitals/VitalsView';
 import Fitness from '../activities/FitnessActivity';
+import GoalsDashboard from './GoalsDashboard';
+import HealthDashboard from './HealthDashboard';
+import SymptomTracker from './health/SymptomTracker';
+import SleepTracker from './health/SleepTracker';
+import MoodTracker from './health/MoodTracker';
+import MedicationList from '../medications/MedicationList';
 // import GoalsDashboard from './GoalsDashboard';
 // import CognitiveList from '../cognitive/CognitiveList';
 // import CareCircle from '../family/CareCircle';
@@ -35,19 +41,21 @@ export default function SelfPortal({ section }: SelfPortalProps) {
       case 'dashboard':
         return <SelfDashboard />;
       case 'goals':
-        // return <GoalsDashboard />;
-        return <div>Goals coming soon</div>;
+        return <GoalsDashboard />;
       case 'health':
-        // return <HealthDashboard />;
-        return <div>Health coming soon</div>;
+        return <HealthDashboard />;
       case 'health/vitals':
-        // return <VitalsView />;
-        return <div>health/vitals coming soon</div>;
+        return <VitalsView />;
       case 'Fitness Videos':
-              return <Fitness/>;
+        return <Fitness/>;
+      case 'health/symptoms':
+        return <SymptomTracker />;
+      case 'health/sleep':
+        return <SleepTracker />;
+          case 'health/mood':
+        return <MoodTracker />;
       case 'medications':
-        // return <MedicationList />;
-        return <div>Medications coming soon</div>;
+        return <MedicationList />;
       case 'activities':
         // return <ActivityList />;
         return <div>Medications coming soon</div>;

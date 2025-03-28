@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useVitalsStore } from '../../store/vitalsStore';
+import { useVitalsStore } from '@/store/dashboard_store/vitalsStore';
 import Modal from '../Modal';
 
 interface VitalEntryModalProps {

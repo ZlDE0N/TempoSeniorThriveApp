@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Target, TrendingUp, Award, Plus, CheckCircle, Clock, AlertTriangle } from 'lucide-react';
-import { useQualityStore, CareGoal } from '../../store/qualityStore';
-import CareGoalModal from '../quality/CareGoalModal';
-import { formatDateTime } from '../../utils/dateUtils';
+import { useQualityStore, CareGoal } from '../../../../store/dashboard_store/qualityStore';
+import CareGoalModal from '../../dashboard_components/CareGoalModal';
+import { formatDateTime } from '../../../../utils/dateUtils';
 
 export default function GoalsDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);

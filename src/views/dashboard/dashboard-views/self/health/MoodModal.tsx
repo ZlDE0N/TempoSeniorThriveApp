@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useHealthStore, MoodEntry } from '../../../store/healthStore';
-import Modal from '../../Modal';
+import { useHealthStore, MoodEntry } from '../../../../../store/dashboard_store/healthStore';
+import Modal from '../../../dashboard_components/Modal';
 import { Smile, Meh, Frown } from 'lucide-react';
 
 interface MoodModalProps {

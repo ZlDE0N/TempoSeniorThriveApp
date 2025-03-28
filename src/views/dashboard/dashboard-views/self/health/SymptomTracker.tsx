@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Thermometer, Plus, TrendingUp, Activity, AlertCircle } from 'lucide-react';
-import { useHealthStore } from '../../../store/healthStore';
+import { useHealthStore } from '../../../../../store/dashboard_store/healthStore';
 import SymptomModal from './SymptomModal';
-import { formatDateTime } from '../../../utils/dateUtils';
+import { formatDateTime } from '../../../../../utils/dateUtils';
 
 export default function SymptomTracker() {
   const [isModalOpen, setIsModalOpen] = useState(false);
