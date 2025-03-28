@@ -1,4 +1,4 @@
-import { Calendar, Heart, Pill, Activity, Phone, AlertTriangle, Users, FileText, Briefcase, LayoutDashboard, FolderArchive, MessageCircle, Star, BarChart2, ShoppingCart, Brain, Target, Award, Camera, UtensilsCrossed, Car, PawPrint as Paw, Book, Palette, UserCog, ClipboardList, AlignCenterVertical as Certificate, TrendingUp, Bell, Clock, Lock } from 'lucide-react';
+import { Calendar, Heart, Pill, Activity, Phone, AlertTriangle, Users, FileText, Briefcase, LayoutDashboard, FolderArchive, MessageCircle, Star, BarChart2, ShoppingCart, Brain, Target, Award, Camera, UtensilsCrossed, Car, PawPrint as Paw, Book, Palette, UserCog, ClipboardList, AlignCenterVertical as Certificate, TrendingUp, Bell, Clock, Lock, Dumbbell  } from 'lucide-react';
 import { useUserStore } from '../../../store/dashboard_store/userStore';
 import { motion } from 'framer-motion';
 
@@ -20,6 +20,7 @@ const menuGroups = {
         label: 'Health',
         subItems: [
           { id: 'health/vitals', icon: Activity, label: 'Vitals' },
+          { id: 'Fitness Videos', icon: Dumbbell, label: 'Fitness Videos' },
           { id: 'health/symptoms', icon: AlertTriangle, label: 'Symptoms' },
           { id: 'health/sleep', icon: Calendar, label: 'Sleep' },
           { id: 'health/mood', icon: Star, label: 'Mood' }
@@ -90,6 +91,7 @@ const familyMenuItems = [
   { id: 'calendar', icon: Calendar, label: 'Calendar' },
   { id: 'vitals', icon: Heart, label: 'Vitals' },
   { id: 'medications', icon: Pill, label: 'Medications' },
+  { id: 'Fitness Videos', icon: Dumbbell, label: 'Fitness Videos' },
   { id: 'activities', icon: Activity, label: 'Activities' },
   { id: 'social', icon: Users, label: 'Social' },
   { id: 'photos', icon: Camera, label: 'Photo Gallery' },

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Activity as ActivityIcon, Brain, Users, Calendar, Clock } from 'lucide-react';
 import { useActivityStore, Activity, ActivityType } from '../../../../store/dashboard_store/activityStore';
-import Modal from '../../../../components/Modal';
+import Modal from '../../dashboard_components/Modal';
 import MoodSelector from './MoodSelector';
 import { getCurrentDateTime, timeToDateTime, getTimeFromDateTime } from '../../../../utils/dateUtils';
 

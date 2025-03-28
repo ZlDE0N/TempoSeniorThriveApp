@@ -1,5 +1,5 @@
 import React from 'react';
-import VitalsView from '../vitals/VitalsView';
+import VitalsView from '../../dashboard_components/vitals/VitalsView';
 import { useHealthStore } from '../../store/healthStore';
 import SymptomTracker from './health/SymptomTracker';
 import SleepTracker from './health/SleepTracker';

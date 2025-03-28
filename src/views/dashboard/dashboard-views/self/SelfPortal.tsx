@@ -5,6 +5,8 @@ import React from 'react';
 // import DocumentList from '../documents/DocumentList';
 // import SocialList from '../social/SocialList';
 import SelfDashboard from './SelfDashboard';
+import VitalsView from '../../dashboard_components/vitals/VitalsView';
+import Fitness from '../activities/FitnessActivity';
 // import GoalsDashboard from './GoalsDashboard';
 // import CognitiveList from '../cognitive/CognitiveList';
 // import CareCircle from '../family/CareCircle';
@@ -41,6 +43,8 @@ export default function SelfPortal({ section }: SelfPortalProps) {
       case 'health/vitals':
         // return <VitalsView />;
         return <div>health/vitals coming soon</div>;
+      case 'Fitness Videos':
+              return <Fitness/>;
       case 'medications':
         // return <MedicationList />;
         return <div>Medications coming soon</div>;

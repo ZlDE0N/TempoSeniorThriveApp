@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Camera, Upload, X } from 'lucide-react';
-import Modal from '../../../../components/Modal';
+import Modal from '../../dashboard_components/Modal';
 
 interface SeniorPhotoModalProps {
   isOpen: boolean;
