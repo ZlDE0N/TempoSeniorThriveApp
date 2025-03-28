@@ -21,10 +21,10 @@ export default function HomeMovement() {
           key: "homeMovement",
           icon: faHouseUser,
           options: [
-            "Completely confident and at ease.",
-            "Mostly comfortable, I move without much worry.",
-            "I move carefully and take my time.",
-            "I need to be very careful and feel unsteady.",
+            "Completely confident and at ease",
+            "Mostly comfortable, I move without much worry",
+            "I move carefully and take my time",
+            "I need to be very careful and feel unsteady",
           ],
           deductions: [
             1,4,7,10,

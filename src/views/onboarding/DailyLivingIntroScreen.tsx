@@ -59,7 +59,7 @@ export default function DailyLivingIntroScreen() {
             <Button size="lg" 
               className="shadow-md text-sm md:text-xl text-white hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue px-8 py-6 h-auto"
               asChild>
-              <Link to="/onboarding/morning-energy">Continue to Daily & Living</Link>
+              <Link to="/onboarding/morning-energy">Continue to Daily Life</Link>
             </Button>
           </div>
         </motion.div>

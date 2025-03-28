@@ -260,7 +260,7 @@ export default function RoomAssessment() {
                 <img
                   src={capturedImage || selectedImage}
                   alt={`${roomId} image`}
-                  className="max-w-full w-full rounded-lg"
+                  className="max-w-full max-h-96 rounded-lg"
                 />
               </div>
               <motion.div
@@ -305,23 +305,29 @@ export default function RoomAssessment() {
                   </li>
                 </ul>
               </motion.div>
-              <div className="grid gap-3 grid-rows-1 md:grid-cols-2">
+              <div className="grid gap-3 grid-rows-1 w-full md:grid-cols-2">
+                {/* Back Button */}
                 <button 
-                  className="w-full text-lg md:text-xl p-5 shadow-md border-2 border-st_dark_blue bg-white hover:bg-gray-100 hover:gray-200 text-st_dark_blue rounded-md flex items-center justify-center gap-2"
-                  onClick={()=>{setSelectedImage(null); setCapturedImage(null);}}
+                  className="w-full text-base md:text-lg p-4 shadow-md border-2 border-st_dark_blue bg-white hover:bg-gray-100 text-st_dark_blue rounded-md flex items-center justify-center gap-2"
+                  onClick={() => { setSelectedImage(null); setCapturedImage(null); }}
                 >
                   <FontAwesomeIcon icon={faXmark} className="text-lg" />
-                  No, go back
+                  <span className="text-center">No, go back</span>
                 </button>
+
+                {/* Analyze Button */}
                 <div className="w-full flex justify-center">
                   <Button 
-                    onClick={() => {setRoomImage(roomId, convertedImage)}}
+                    onClick={() => { setRoomImage(roomId, convertedImage) }}
                     size="lg" 
-                    className="w-full text-white shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-lg md:text-xl px-8 py-6 h-auto" 
-                    asChild>
-                    <Link to={`/onboarding/image-analysis/${roomId}`}>
-                      Yes, analyze with AI 
-                    <FontAwesomeIcon icon={faWandMagicSparkles} className="pl-2 text-lg" />
+                    className="w-full text-white shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-lg md:text-lg p-4 h-auto flex items-center justify-center gap-2" 
+                    asChild
+                  >
+                    <Link to={`/onboarding/image-analysis/${roomId}`} className="flex items-center justify-center">
+                      <span className="text-center">
+                        Yes, analyze with<br className="" /> ThriveVision
+                      </span>
+                      <FontAwesomeIcon icon={faWandMagicSparkles} className="text-lg ml-2" />
                     </Link>
                   </Button>
                 </div>
@@ -396,49 +402,64 @@ export default function RoomAssessment() {
             </ul>
           </motion.div>
 
-          {/* Error Message Display */}
-          {error && (
-            <div className="text-center text-lg md:text-xl my-4 bg-red-500 text-white p-4 rounded-md flex items-center justify-center gap-2">
-              <div>
-              <FontAwesomeIcon className="pr-2" icon={faExclamationTriangle} />
-              {error}
+            {/* Error Message Display */}
+            {error && (
+              <div className="text-center text-lg md:text-xl my-4 bg-red-500 text-white p-4 rounded-md flex items-center justify-center gap-2">
+                <div>
+                  <FontAwesomeIcon className="pr-2" icon={faExclamationTriangle} />
+                  {error}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col md:flex-row gap-4 justify-center"
-          >
-            <button 
-              className="w-full md:w-56 text-lg md:text-xl p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
-              onClick={handleTakePhoto}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="grid w-full gap-3 grid-cols-1 md:grid-cols-2"
             >
-              <FontAwesomeIcon icon={faCamera} className="text-base md:text-lg" />
-              Take Photo
-            </button>
-            {/* Upload Button */}
-            <label
-              htmlFor="upload-input"
-              className="w-full md:w-56 cursor-pointer"
-            >
-              <div
+              {/* Photo Button - now matches others */}
+              <button 
                 className="w-full text-lg md:text-xl p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
+                onClick={handleTakePhoto}
               >
-                <FontAwesomeIcon icon={faUpload} className="text-base md:text-lg" />
-                Upload Image
-              </div>
-              <input
-                id="upload-input"
-                type="file"
-                accept="image/*"
-                onChange={handleImageSelection}
-                className="hidden"
-              />
-            </label>
-          </motion.div>
+                <FontAwesomeIcon icon={faCamera} className="text-base md:text-lg" />
+                Take Photo
+              </button>
+
+              {/* Upload Button - wrapped in motion.div for consistency */}
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <label
+                  htmlFor="upload-input"
+                  className="w-full cursor-pointer"
+                >
+                  <div
+                    className="w-full text-lg md:text-xl p-5 shadow-md hover:shadow-xl border-2 border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue text-white rounded-md flex items-center justify-center gap-2"
+                  >
+                    <FontAwesomeIcon icon={faUpload} className="text-base md:text-lg" />
+                    Upload Image
+                  </div>
+                  <input
+                    id="upload-input"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageSelection}
+                    className="hidden"
+                  />
+                </label>
+              </motion.div>
+
+              {/* Back button - now properly spans columns */}
+              <motion.button 
+                type="button"
+                className="w-full col-span-1 md:col-span-2 text-lg md:text-xl p-5 shadow-md border-2 border-st_dark_blue bg-white hover:bg-gray-100 text-st_dark_blue rounded-md flex items-center justify-center gap-2"
+                onClick={() => navigate("/onboarding/room-selection")}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Back
+              </motion.button>
+            </motion.div>
             {/* Camera Preview Modal */}
             {showCamera && (
               <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">

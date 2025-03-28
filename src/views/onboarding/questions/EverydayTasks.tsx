@@ -21,10 +21,10 @@ export default function EverydayTasks() {
           key: "everydayTasks",
           icon: faHome,
           options: [
-            "I manage all tasks independently and comfortably.",
-            "I handle most tasks with ease.",
-            "I can manage, but sometimes need to pace myself.",
-            "I find it difficult to manage many tasks.",
+            "I manage all tasks independently and comfortably",
+            "I handle most tasks with ease",
+            "I can manage, but sometimes need to pace myself",
+            "I find it difficult to manage many tasks",
           ],
           deductions: [
             1,4,7,10

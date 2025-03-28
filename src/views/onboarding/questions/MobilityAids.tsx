@@ -20,10 +20,10 @@ export default function MobilityAids() {
           key: "mobilityAids",
           icon: faWheelchair,
           options: [
-            "No, I don't use any mobility devices.",
-            "Yes, I use a cane.",
-            "Yes, I use a walker.",
-            "Yes, I use a wheelchair.",
+            "No, I don't use any mobility devices",
+            "Yes, I use a cane",
+            "Yes, I use a walker",
+            "Yes, I use a wheelchair",
             "Other support",
           ],
           deductions: [

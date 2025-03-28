@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import { Button } from "@/views/dashboard/ui/button";
 import Gauge from "@/views/dashboard/ui/gauge";
+import ThriveScoreText from "@/views/dashboard/ui/thrivescore-text";
 import { motion } from "framer-motion";
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 import useGuestStore from '../../store/onboarding_store/guestStore';
@@ -126,7 +127,6 @@ const ImageWithBoundingBox = ({ imageUrl, item }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    console.log(imageUrl, item);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const img = new Image();
@@ -226,7 +226,7 @@ export default function ThriveScorePreview() {
         <div className="pl-10 py-12 max-w-5xl">
           <div className="bg-white rounded-xl surrounding-shadow p-8 md:p-12">
             <h1 className="text-3xl font-bold text-st_black mb-8 text-center">
-              Your Personalized ThriveScore™
+              Your Personalized <ThriveScoreText/>
             </h1>
 
             <div className="flex flex-col gap-10 items-center">
@@ -244,12 +244,9 @@ export default function ThriveScorePreview() {
                   ThriveScore™. This score will improve as you implement our
                   recommendations.
                 </p>
-                <div className="mt-4 text-center">
-                  <span className="text-2xl font-bold text-st_light_blue">
-                    {thriveScore}
-                  </span>
-                  <span className="text-slate-500 text-lg"> / 100</span>
-                </div>
+                <p className="text-center text-blue-600 hover:underline cursor-pointer mt-6 max-w-sm">
+                  What is ThriveScore™?
+                </p>
               </motion.div>
 
               <motion.div
@@ -435,26 +432,15 @@ export default function ThriveScorePreview() {
             </div>
           </div>
         </div>
-        <div className="pointer-events-none fixed flex pr-20 mt-10 items-end justify-end top-0 left-0 w-full h-full " >
+        <div className="pointer-events-none fixed flex pr-20 mt-4 items-end justify-end top-0 left-0 w-full h-full " >
           <div className="flex flex-col items-center justify-center max-w-2xl h-full w-full ">
-            <h3 className="text-3xl font-bold text-center w-full">
-              Your {roomId} scores:
+            <h3 className="text-3xl font-bold text-center w-full pb-4">
+              Your {roomId} score:
             </h3>
-            <div className="text-base grid py-4 grid-cols-3 gap-4 ">
-              <div className="flex p-3 shadow-md border-b-4 border-purple-600 rounded-xl text-purple-600 items-center justify-center flex-col">
-                <p>Safety</p>
-                <p className="">{roomData.safety_score}</p>
-              </div>
-              <div className="flex p-3 shadow-md border-b-4 border-blue-600 rounded-xl text-blue-600 items-center justify-center flex-col">
-                <p>Independence</p>
-                <p className="">{roomData.independence_score}</p>
-              </div>
-              <div className="flex p-3 shadow-md border-b-4 border-green-600 rounded-xl text-green-600 items-center justify-center flex-col">
-                <p>Engagement</p>
-                <p className="">{roomData.engagement_score}</p>
-              </div>
+            <div className="relative flex">
+              <Gauge colors={["#31a82f", "#69ff66"]} size={80} className="absolute surrounding-shadow bottom-4 right-4" value={roomData.room_score}/>
+              <ImageWithBoundingBox className="absolute surrounding-shadow" imageUrl={imageUrl} item={currentAnnotation}/>
             </div>
-            <ImageWithBoundingBox className="surrounding-shadow" imageUrl={imageUrl} item={currentAnnotation}/>
           </div>
         </div>
         {false && (

@@ -5,10 +5,10 @@ export default function ThriveScoreText ( props: {
 
   return (
     <div className={tailwindClasses+" inline"}>
-      <span className="text-st_light_orange">
+      <span className="text-st_light_blue">
         Thrive
       </span>
-      <span className="text-st_light_blue">
+      <span className="text-st_light_orange">
         Score™
       </span>
     </div>

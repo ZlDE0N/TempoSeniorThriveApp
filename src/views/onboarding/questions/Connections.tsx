@@ -31,7 +31,7 @@ export default function Connections() {
           ],
         },
       ]}
-      nextSection="/onboarding/room-assessment"
+      nextSection="/onboarding/celebration"
       backPath="/onboarding/support-access"
       allowSkip={true}
       sectionIndex={13}

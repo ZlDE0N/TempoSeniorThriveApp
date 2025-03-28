@@ -26,6 +26,7 @@ import SleepHours from "./questions/SleepHours";
 import EverydayTasks from "./questions/EverydayTasks";
 import PersonalCare from "./questions/PersonalCare";
 import DailyRoutines from "./questions/DailyRoutines";
+import Celebration from "./Celebration";
 
 import MovementConsiderations from "./questions/MovementConsiderations";
 import Vision from "./questions/Vision";
@@ -99,6 +100,7 @@ export default function OnboardingRoutes() {
       />
 
       { /* Transition to room assessment*/ }
+      <Route path="/celebration" element={<Celebration />} />
       <Route path="/room-assessment" element={<RoomAssessmentIntroScreen />} />
 
       { /* Room assessment */ }

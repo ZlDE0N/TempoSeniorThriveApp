@@ -148,7 +148,7 @@ export default function RoomSelection() {
                         <h3 className="font-medium text-slate-800">{room.name}</h3>
                       </div>
                       <p className="text-lg md:text-xl text-slate-600 mt-1">
-                        "{room.description}"
+                        {room.description}
                       </p>
                     </div>
                     <div className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0 hidden md:block">
@@ -173,7 +173,7 @@ export default function RoomSelection() {
                 size="lg"
                 onClick={handleContinue}
                 className={cn(
-                  "shadow-md border-2 text-sm md:text-xl text-white px-8 py-6 h-auto",
+                  "shadow-md w-full border-2 text-sm md:text-xl text-white px-8 py-6 h-auto",
                   selectedRoom
                     ? "hover:shadow-xl border-st_dark_blue hover:border-white bg-st_dark_blue hover:bg-st_light_blue"
                     : "pointer-events-none cursor-not-allowed opacity-50 border-st_dark_blue bg-st_dark_blue",

@@ -12,103 +12,59 @@ import { createClient } from '@supabase/supabase-js';
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const statusTexts = [
-  "Uploading image to our servers",
-  "Verifying image",
-  "Performing safety scan",
+  "Your photo is on its way to ThriveVision for a quick safety scan!",
+  "Just making sure everything’s clear. ThriveVision is prepping your photo for a closer look",
+  "Scanning your space now, looking for ways to help you thrive safely at home",
   "Results are ready!"
 ];
 
-const ImageWithBoundingBoxes = ({ imageUrl, feedbackData }) => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const img = new Image();
-
-    // Load the image
-    img.src = imageUrl;
-    img.onload = () => {
-      // Set canvas dimensions based on the image
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      // Draw the image on the canvas
-      ctx.drawImage(img, 0, 0);
-
-      // Draw bounding boxes for issues, independence barriers, and engagement opportunities
-      const drawBoundingBoxes = (items) => {
-        try {
-          items.forEach((item) => {
-            const [y1, x1, y2, x2] = item.area;
-            const width = ((x2 - x1)/1000) * canvas.width;
-            const height = ((y2 - y1)/1000) * canvas.height;
-            const x = x1 * canvas.width/1000;
-            const y = y1 * canvas.height/1000;
-
-            // Set the color from the item
-            const boxColor = item.color + "50" || "#FFFFFF50"; // Use the color from the item, default to white if not provided
-
-            // Fill the bounding box with transparent color
-            ctx.fillStyle = boxColor; // The "80" adds transparency (50% opacity)
-            ctx.fillRect(x, y, width, height);
-
-            // Draw the border of the bounding box
-            ctx.strokeStyle = boxColor;
-            ctx.lineWidth = 3;
-            ctx.strokeRect(x, y, width, height);
-          });
-        } catch (error) {
-          return;
-        }
-      };
-
-      // Draw bounding boxes for all categories
-      drawBoundingBoxes(feedbackData.issues);
-      drawBoundingBoxes(feedbackData.engagement_opportunities);
-      drawBoundingBoxes(feedbackData.independence_barriers);
-    };
-  }, [imageUrl, feedbackData]);
-
-  return (
-    <canvas ref={canvasRef} className="w-full rounded-lg border-2 border-black shadow-xl"></canvas>
-  );
-};
-
-
 const ProgressStep = ({ stageIndex, analysisError }: { stageIndex: number; analysisError: string }) => (
-  <div className="relative h-14 overflow-hidden md:text-xl text-lg">
+  <div className="relative min-h-14 md:min-h-16 w-full overflow-hidden md:text-xl text-lg">
     {analysisError ? (
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="absolute w-full h-20 flex justify-center items-center space-x-2 text-red-500"
+        className="absolute w-full flex flex-row justify-center items-start gap-2 p-2 text-red-500"
       >
-        <FontAwesomeIcon icon={faTimes} className="text-red-500" />
-        <span>{analysisError}</span>
+        <span className="text-center md:text-left break-words max-w-full">
+          <FontAwesomeIcon icon={faTimes} className="mt-1 inline mr-2" />
+          {analysisError}
+        </span>
       </motion.div>
     ) : (
       statusTexts.map((text, index) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: index === stageIndex ? 1 : 0, y: index === stageIndex ? 0 : 10 }}
+          animate={{ 
+            opacity: index === stageIndex ? 1 : 0, 
+            y: index === stageIndex ? 0 : 10,
+            height: index === stageIndex ? 'auto' : 0
+          }}
           transition={{ duration: 0.5 }}
-          className={`absolute w-full h-8 flex justify-center items-center space-x-2 ${index === stageIndex ? 'text-black' : 'text-gray-400'}`}
+          className={`absolute w-full flex justify-center items-start gap-2 p-1 ${
+            index === stageIndex ? 'text-black' : 'text-gray-400'
+          }`}
         >
-          {stageIndex !== 3 &&
+          <span className="text-center break-words max-w-full">
+          {stageIndex !== 3 ? (
             <FontAwesomeIcon
               icon={index === stageIndex ? faSpinner : faCheck}
-              className={index === stageIndex ? "animate-spin text-blue-500" : "text-green-500"}
+              className={
+                index === stageIndex 
+                  ? "animate-spin text-blue-500 flex-shrink-0 mr-2 inline mt-1" 
+                  : "text-green-500 flex-shrink-0 mt-1 mr-2"
+              }
             />
-            ||
+          ) : (
             <FontAwesomeIcon
               icon={faCheck}
-              className={"text-green-500"}
+              className="text-green-500 inline flex-shrink-0 mt-1 mr-2"
             />
-          }
-          <span>{text}</span>
+          )}
+          {text}
+          </span>
         </motion.div>
       ))
     )}
@@ -342,7 +298,7 @@ export default function ImageAnalysis() {
           verificationResult = JSON.parse(result.candidates[0]?.content?.parts[0]?.text.replaceAll("json", "").replaceAll("```",""));
           if (verificationResult.check_status !== "passed")
           {
-            setAnalysisError(`Image did not pass. Reason: ${verificationResult.reason}`);
+            setAnalysisError(`Image not accepted. Reason: ${verificationResult.reason}`);
             return;
           }
         } catch (error) {
@@ -384,10 +340,13 @@ export default function ImageAnalysis() {
 
   useEffect(() => {
     if (stageIndex !== 3) return;
-    setIsExiting(true)
     setTimeout(() => {
-      navigate(`/onboarding/analysis-results/${roomId}`);
+      setIsExiting(true)
     }, 500) 
+    setTimeout(() => {
+      setIsExiting(true)
+      navigate(`/onboarding/analysis-results/${roomId}`);
+    }, 1250) 
   }, [stageIndex])
 
   return (
@@ -401,7 +360,7 @@ export default function ImageAnalysis() {
         <h1 className="text-2xl font-bold">Image Analysis</h1>
         <div className="w-full rounded-lg flex items-center justify-center py-8">
             <img 
-              className="w-full rounded-lg shadow-xl"
+              className="max-w-full max-h-96 rounded-lg shadow-xl"
             src={imageUrl} 
             />
         </div>

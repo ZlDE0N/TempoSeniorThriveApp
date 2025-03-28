@@ -21,10 +21,10 @@ export default function Meals() {
           icon: faUtensils,
           options: [
             "I enjoy preparing varied and complex meals", 
-            "I am comfortable preparing most meals.", 
-            "I prepare only very simple meals.",
-            "I order meals or eat out regularly.",
-            "Meal preparation is difficult for me.",
+            "I am comfortable preparing most meals", 
+            "I prepare only very simple meals",
+            "I order meals or eat out regularly",
+            "Meal preparation is difficult for me",
           ],
           deductions: [
             3,5,6,9,12,
