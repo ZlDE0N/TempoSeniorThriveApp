@@ -22,6 +22,7 @@ import useGuestStore from '../../store/onboarding_store/guestStore';
 export default function RoomAssessment() {
 
   const { roomId } = useParams<{ roomId: string }>();
+  const { encodedAnswers } = useParams<{ encodedAnswers: string }>();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 

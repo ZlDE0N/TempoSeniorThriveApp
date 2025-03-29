@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { RadioGroup, RadioGroupItem } from "@/views/dashboard/ui/radio-group";
 import { cn } from "@/lib/utils";
-import { Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCircleDot } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -28,9 +28,20 @@ export default function RoomSelection() {
   const navigate = useNavigate();
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
   const [isExiting, setIsExiting] = useState(false);
+  const { encodedAnswers } = useParams<{ encodedAnswers: string }>();
+  let answers;
 
-  // Scroll to top on mount
   useEffect(() => {
+    // Check if we can decode answers from the link, if not
+    // go back to questionnaire
+    try {
+      const answersString = atob(encodedAnswers);
+      answers = JSON.parse(answersString);
+    } catch {
+      console.log("Couldn't parse encoded answers, going back to questionnaire");
+      // \/ Deactuvated for now
+      // navigate("/onboarding/name");
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 

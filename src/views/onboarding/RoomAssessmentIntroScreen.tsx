@@ -8,8 +8,55 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 
 export default function RoomAssessmentIntroScreen() {
+  // Construct a questionnaire json with all the obtained answers
+  const keysToCheck = [
+    "name",
+    "age",
+    "livingSituation",
+    "health",
+    "morningEnergy",
+    "meals",
+    "everydayTasks",
+    "sleepHours",
+    "homeMovement",
+    "mobilityAids",
+    "vision",
+    "balanceHistory",
+    "supportAccess",
+    "connections",
+  ];
+  
+  const questions = [
+    "What is your first name?",
+    "What is your age range?",
+    "What is your curent lliving situation?",
+    "How would you rate your general health?",
+    "How would you describe your energy levels when you wake up in the morning?",
+    "When it comes to meals, how comfortable are you with preparing or managing them?",
+    "How would you describe your ability to handle everyday tasks around your home, like chores or personal care?",
+    "How many hours of sleep do you typically get each night?",
+    "How confident do you feel moving around your home?",
+    "Do you regularly use any mobility devices?",
+    "How would you rate your vision?",
+    "In the past three months, how often have you experienced a slip, stumble, or fall?",
+    "If you needed help with something, you would:",
+    "How often do you feel connected to friends, family, or your community?",
+  ];
+  
+  const questionnaire = keysToCheck.reduce((result, key, index) => {
+  const answer = localStorage.getItem(`st_onboarding_${key}`) || "Not answered";
+  result[key] = {
+    question: questions[index],
+    answer
+  };
+  return result;
+  }, {} as Record<string, { question: string; answer: string }>);
+
+  const questionnaireString = JSON.stringify(questionnaire, null, 2);
+
   // Scroll to top on mount
   useEffect(() => {
+    
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
@@ -88,7 +135,6 @@ export default function RoomAssessmentIntroScreen() {
                   scale: 1.05,
                   transition: { type: "spring", stiffness: 300 }
                 }}
-                whileTap={{ scale: 0.98 }}
               >
                 <Link to="/onboarding/room-selection">
                   Start Room Safety Check

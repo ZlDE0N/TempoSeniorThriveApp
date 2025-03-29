@@ -11,6 +11,8 @@ import { faCircleDot } from "@fortawesome/free-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import OnboardingLayout from "./OnboardingLayout";
+import { clearAnswers, checkPreviousQuestions, getFirstUnansweredQuestion } from '@/utils/onboardingUtils';
+import useGuestStore from '@/store/onboarding_store/guestStore';
 
 export default function QuestionsCard( props: {
   title: string,
@@ -34,51 +36,21 @@ export default function QuestionsCard( props: {
 }){
 
   const navigate = useNavigate();
-  const keysToCheck = [
-    "name",
-    "age",
-    "livingSituation",
-    "health",
-    "morningEnergy",
-    "meals",
-    "everydayTasks",
-    "sleepHours",
-    "homeMovement",
-    "mobilityAids",
-    "vision",
-    "balanceHistory",
-    "supportAccess",
-    "connections",
-  ];
-
-  const navPaths = [
-    "/onboarding/name",
-    "/onboarding/age",
-    "/onboarding/living-situation",
-    "/onboarding/health",
-    "/onboarding/morning-energy",
-    "/onboarding/meals",
-    "/onboarding/everyday-tasks",
-    "/onboarding/sleep-hours",
-    "/onboarding/home-movement",
-    "/onboarding/mobility-aids",
-    "/onboarding/vision",
-    "/onboarding/balance-history",
-    "/onboarding/support-access",
-    "/onboarding/connections",
-  ];
+  const { beenHereBefore, setBeenHereBefore } = useGuestStore();
+  const [ showBeenHereBefore, setShowBeenHereBefore ] = useState(false);
 
   useEffect(() => {
-    // Check if previous questions have been anwered
-    // navigate to the corresponding navPath if an
-    // answer is not found
-    const checkUntil = props.sectionIndex;
-    for (let i = 0; i < checkUntil; i++) {
-      if (!localStorage.getItem(`st_onboarding_${keysToCheck[i]}`)) {
-        console.log("Answer: " + keysToCheck[i] + " is not found in localStorage");
-        navigate(navPaths[i]);
-        break;
-      }
+    if (beenHereBefore !== true) return;
+    // Show a message if session was restored
+    setShowBeenHereBefore(true);
+    setBeenHereBefore(false);
+  }, [beenHereBefore]);
+
+  useEffect(() => {
+    // Navigate to FUQ if any previous question is
+    // missing
+    if (!checkPreviousQuestions(props.sectionIndex)) {
+      navigate(getFirstUnansweredQuestion());
     }
 
     // Scroll to top on mount
@@ -136,6 +108,32 @@ export default function QuestionsCard( props: {
   return (
   <OnboardingLayout showBackButton={true} backPath={props.backPath}>
     <div className="container mx-auto px-4 md:py-12 max-w-2xl">
+      {showBeenHereBefore && (
+        <div className="mb-8 p-8 rounded-xl bg-blue-50 border border-blue-200 shadow-md">
+          <div className="flex flex-col items-center text-center">
+            <h2 className="text-3xl mb-4 font-bold text-blue-900">
+              Pick up where you left off
+            </h2>
+            <p className="text-xl text-st_black mb-8">
+              We've restored your progress from your last visit
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <p className="text-xl text-st_black">
+                Prefer a fresh start?
+              </p>
+              <button
+                className="px-4 py-2 text-lg font-medium rounded-lg hover:bg-green-700 bg-green-600 text-white shadow-md border-green-600 hover:border-white border-2 transition-all hover:shadow-lg"
+                onClick={()=>{
+                  clearAnswers();
+                  navigate("/onboarding/name")
+                }}
+              >
+                Start From Scratch
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Progress Bar */}
       <div className="w-full h-auto flex flex-wrap flex-row items-end justify-center">
         {segments.map((segment, index) => (
@@ -355,9 +353,6 @@ export default function QuestionsCard( props: {
                         localStorage.setItem(`st_onboarding_${item.key}`, answers[item.key] ?? '');
                       });
                       setIsExiting(true);
-                      setTimeout(() => {
-                        navigate(nextSection);
-                      }, 500);
                     }
                   }}
                   size="lg" 

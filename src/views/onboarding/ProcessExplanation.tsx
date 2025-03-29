@@ -1,6 +1,6 @@
 import { Button } from "@/views/dashboard/ui/button";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Gauge from "@/views/dashboard/ui/gauge";
 import ThriveScoreText from "@/views/dashboard/ui/thrivescore-text";
 import { useEffect, useState } from "react";
@@ -9,11 +9,15 @@ import { faSmile, faSun, faCheck, faCheckCircle, faUserCircle, faSpinner, faHome
 import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useRef } from "react";
+import { getFirstUnansweredQuestion } from '@/utils/onboardingUtils';
 import thrivingSeniors from "@/assets/images/thriving-seniors.jpeg"
+import useGuestStore from '@/store/onboarding_store/guestStore';
 
 export default function ProcessExplanation() {
   const [thriveScore, setThriveScore] = useState(75);
   const [isLoading, setIsLoading] = useState(true);
+  const { beenHereBefore, setBeenHereBefore } = useGuestStore();
+  const navigate = useNavigate();
   
   // Refs for scroll-triggered animations
   const titleRef = useRef(null);
@@ -379,13 +383,20 @@ export default function ProcessExplanation() {
         className="fixed bottom-0 left-0 right-0 bg-white/0 py-4 px-8 pb-0 shadow-md"
       >
         <div className="p-4 bg-white/100 backdrop-blur-sm border-0 border-b-0 rounded-b-none border-green-200 surrounding-shadow mx-auto max-w-2xl rounded-lg flex justify-center">
-          <Button
-            size="lg"
-            className="text-lg md:text-xl text-white px-8 py-6 h-auto bg-green-600 hover:shadow-md border-2 border-green-600 hover:border-white hover:bg-green-700 w-full"
-            asChild
+          <button
+            className="text-lg rounded-md md:text-xl text-white px-8 py-6 h-auto bg-green-600 hover:shadow-md border-2 border-green-600 hover:border-white hover:bg-green-700 w-full"
+            onClick={()=>{
+              const targetRoute = getFirstUnansweredQuestion();
+              // Global state to keep track of whether we 
+              // are recovering a previous session or not
+              if (targetRoute !== "/onboarding/name"){
+                setBeenHereBefore(true);
+              }
+              navigate(targetRoute);
+            }}
           >
-            <Link to="/onboarding/name">Let's begin</Link>
-          </Button>
+            Let's begin
+          </button>
         </div>
       </motion.div>
     </OnboardingLayout>

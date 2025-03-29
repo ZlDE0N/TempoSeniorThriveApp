@@ -104,10 +104,10 @@ export default function OnboardingRoutes() {
       <Route path="/room-assessment" element={<RoomAssessmentIntroScreen />} />
 
       { /* Room assessment */ }
-      <Route path="/room-selection" element={<RoomSelection />} />
-      <Route path="/room-assessment/:roomId" element={<RoomAssessment />} />
+      <Route path="/room-selection/:encodedAnswers" element={<RoomSelection />} />
+      <Route path="/room-assessment/:roomId/:encodedAnswers" element={<RoomAssessment />} />
 
-      <Route path="/image-analysis/:roomId" element={
+      <Route path="/image-analysis/:roomId/:encodedAnswers" element={
       <GoogleReCaptchaProvider reCaptchaKey={reCaptchaKey}>
         <ImageAnalysis />
       </GoogleReCaptchaProvider>
